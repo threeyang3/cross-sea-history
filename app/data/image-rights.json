@@ -1,0 +1,623 @@
+{
+  "verifiedAt": "2026-11-09",
+  "assets": [
+    {
+      "id": "qinglong-temple",
+      "title": "青龙寺：今日庭院",
+      "titleJa": "青龍寺：現在の境内",
+      "dateTaken": "2016-04-23",
+      "kind": "modern-photograph",
+      "depicts": "西安青龙寺庭院及殿宇",
+      "filename": "qinglong-temple.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Xian_Qinglong_Temple_01.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Xian_Qinglong_Temple_01.jpg",
+      "originalTitle": "File:Xian Qinglong Temple 01.jpg",
+      "author": "KQuhen",
+      "license": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribution": "Xian Qinglong Temple 01.jpg — KQuhen; CC BY-SA 4.0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2016年拍摄的西安青龙寺庭院。可观察今天的纪念与参访空间；这张现代照片不能作为唐代建筑原貌的记录。",
+        "ja": "2016年に撮影された西安・青龍寺の境内。現在の参拝空間を観察する写真であり、唐代の建築の原状を記録したものではない。"
+      },
+      "alt": {
+        "zh": "树木与红色祈愿带之间的青龙寺院落和殿堂",
+        "ja": "木々と赤い祈願の帯に囲まれた青龍寺の境内と堂宇"
+      },
+      "width": 1600,
+      "height": 1067,
+      "bytes": 689332,
+      "sourceDate": "2016-04-23 16:03:21",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Xian_Qinglong_Temple_01.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "5d95a7c80ec27dbe7b678664742d1084c559df1a47c8ce281ca1781a3b08f575"
+    },
+    {
+      "id": "dayanta",
+      "title": "大雁塔：仰望层塔",
+      "titleJa": "大雁塔：層塔を見上げる",
+      "dateTaken": "2018-05-22",
+      "kind": "modern-photograph",
+      "depicts": "西安大雁塔外观",
+      "filename": "dayanta.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/9/91/Giant_Wild_Goose_Pagoda%2C_Xi%27an%2C_May%2C_2018-1.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Giant_Wild_Goose_Pagoda,_Xi%27an,_May,_2018-1.jpg",
+      "originalTitle": "File:Giant Wild Goose Pagoda, Xi'an, May, 2018-1.jpg",
+      "author": "Alexey Komarov",
+      "license": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribution": "Giant Wild Goose Pagoda, Xi'an, May, 2018-1.jpg — Alexey Komarov; CC BY-SA 4.0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2018年拍摄的大雁塔外观。逐层收分的塔身、开口与檐线可用于形态观察；拍摄年代、创建年代与历次修缮年代应分别理解。",
+        "ja": "2018年に撮影された大雁塔。上へ行くほど細くなる塔身、開口部、軒の線を観察できる。撮影年、創建年、修理の年代は区別して考えたい。"
+      },
+      "alt": {
+        "zh": "蓝天下仰视大雁塔逐层收分的砖塔立面",
+        "ja": "青空を背景に見上げる大雁塔の煉瓦造の塔身"
+      },
+      "width": 1600,
+      "height": 1096,
+      "bytes": 424808,
+      "sourceDate": "Taken on 22 May 2018, 18:02:00",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Giant_Wild_Goose_Pagoda,_Xi%27an,_May,_2018-1.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "920d6dd70a102a2abadbf28dd76fa06e1d73fec4b5de585c0cdd086275c5e6f2"
+    },
+    {
+      "id": "daming-palace",
+      "title": "大明宫：含元殿遗址现状",
+      "titleJa": "大明宮：含元殿遺跡の現在",
+      "dateTaken": "2024-06-08",
+      "kind": "modern-photograph",
+      "depicts": "西安大明宫国家遗址公园含元殿遗址与现代展示设施",
+      "filename": "daming-palace.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Daming_Palace_National_Heritage_Park_-_Hanyuan_Hall_01.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Daming_Palace_National_Heritage_Park_-_Hanyuan_Hall_01.jpg",
+      "originalTitle": "File:Daming Palace National Heritage Park - Hanyuan Hall 01.jpg",
+      "author": "xiquinhosilva",
+      "license": "CC BY 2.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/2.0",
+      "attribution": "Daming Palace National Heritage Park - Hanyuan Hall 01.jpg — xiquinhosilva; CC BY 2.0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2024年拍摄的大明宫国家遗址公园含元殿遗址。图中可见遗址展示设施与现代城市背景，应将它作为遗址现状照片阅读，而非唐代宫殿复原图。",
+        "ja": "2024年に撮影された大明宮国家遺跡公園の含元殿遺跡。遺跡の展示施設と現代都市が見える。唐代宮殿の復元図ではなく、現在の遺跡の写真として読む。"
+      },
+      "alt": {
+        "zh": "含元殿遗址平台、展示步道与远处现代楼群",
+        "ja": "含元殿遺跡の基壇、見学用通路、背後の現代建築"
+      },
+      "width": 1600,
+      "height": 1028,
+      "bytes": 536626,
+      "sourceDate": "2024-06-08 15:05:23",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Daming_Palace_National_Heritage_Park_-_Hanyuan_Hall_01.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "1ab9811d28cd254ac4368f30e10b31b4eb82d652625fc0efeca8bd7d79f649a4"
+    },
+    {
+      "id": "toji-pagoda",
+      "title": "东寺：五重塔与树影",
+      "titleJa": "東寺：五重塔と木々",
+      "dateTaken": "2018-04-10",
+      "kind": "modern-photograph",
+      "depicts": "京都东寺五重塔",
+      "filename": "toji-pagoda.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/1/19/Kyoto_To-ji_Pagode_01.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Kyoto_To-ji_Pagode_01.jpg",
+      "originalTitle": "File:Kyoto To-ji Pagode 01.jpg",
+      "author": "Zairon",
+      "license": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribution": "Kyoto To-ji Pagode 01.jpg — Zairon; CC BY-SA 4.0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2018年拍摄的京都东寺五重塔。可以与大雁塔对照屋檐、塔身和周边空间；形态相似本身不能证明两座建筑之间存在直接模仿关系。",
+        "ja": "2018年に撮影された京都・東寺の五重塔。大雁塔と軒、塔身、周囲の空間を比べられる。ただし、形の類似だけで直接の模倣関係が証明されるわけではない。"
+      },
+      "alt": {
+        "zh": "树木围绕的东寺五重塔，塔刹伸向蓝天",
+        "ja": "木々に囲まれ、相輪が青空へ伸びる東寺の五重塔"
+      },
+      "width": 1600,
+      "height": 1138,
+      "bytes": 437086,
+      "sourceDate": "10 April 2018 11:04:51",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Kyoto_To-ji_Pagode_01.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "c8e2d783546082a8d44db0639bd131871568cfdf2dc05d27b736a9bc204b7b21"
+    },
+    {
+      "id": "kiyomizu",
+      "title": "清水寺：秋日全景",
+      "titleJa": "清水寺：秋の眺め",
+      "dateTaken": null,
+      "dateNote": "原文件记为2026年3月4日之前，未给出确切拍摄日。",
+      "kind": "modern-photograph",
+      "depicts": "京都清水寺与秋季红叶",
+      "filename": "kiyomizu.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Kiyomizu-dera_panorama.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Kiyomizu-dera_panorama.jpg",
+      "originalTitle": "File:Kiyomizu-dera panorama.jpg",
+      "author": "lumoplank",
+      "license": "CC0",
+      "licenseURL": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribution": "Kiyomizu-dera panorama.jpg — lumoplank; CC0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "清水寺及周围红叶的现代全景照片。适合观察建筑与山坡、林木的关系；这里展示的是今天可见的景观，不是某一古代时期的完整面貌。",
+        "ja": "清水寺と紅葉を写した現代のパノラマ写真。建物と斜面、樹木との関係を観察できる。特定の古代の時期をそのまま示す景観ではない。"
+      },
+      "alt": {
+        "zh": "秋日红叶中的清水寺本堂与山坡全景",
+        "ja": "秋の紅葉に囲まれた清水寺本堂と斜面の全景"
+      },
+      "width": 1600,
+      "height": 722,
+      "bytes": 337642,
+      "sourceDate": "before 4 March 2026date QS:P,+2026-03-04T00:00:00Z/7,P1326,+2026-03-04T00:00:00Z/11",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Kiyomizu-dera_panorama.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "146ffac823aca279e4513b53268fb8506ee42478b8b55a8f7b84eca2deb065ac"
+    },
+    {
+      "id": "toshodaiji",
+      "title": "唐招提寺：金堂",
+      "titleJa": "唐招提寺：金堂",
+      "dateTaken": "2016-06-11",
+      "kind": "modern-photograph",
+      "depicts": "奈良唐招提寺金堂正面",
+      "filename": "toshodaiji.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/6/67/Toshodai-ji%2C_kondou.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Toshodai-ji,_kondou.jpg",
+      "originalTitle": "File:Toshodai-ji, kondou.jpg",
+      "author": "Saigen Jiro",
+      "license": "CC0",
+      "licenseURL": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribution": "Toshodai-ji, kondou.jpg — Saigen Jiro; CC0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2016年拍摄的唐招提寺金堂正面。柱列、深檐和前庭提供了可观察的建筑细节；结合鉴真相关文献阅读，能够把人物故事与具体场所联系起来。",
+        "ja": "2016年に撮影された唐招提寺金堂の正面。列柱、深い軒、前庭を観察できる。鑑真に関する文献と合わせると、人物の物語と場所を結び付けられる。"
+      },
+      "alt": {
+        "zh": "庭院后方唐招提寺金堂宽阔的屋顶与柱列",
+        "ja": "前庭の奥に立つ唐招提寺金堂の大きな屋根と列柱"
+      },
+      "width": 1600,
+      "height": 1063,
+      "bytes": 439186,
+      "sourceDate": "2016-06-11 09:35:05",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Toshodai-ji,_kondou.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "7a6d5c4466faeb7220d5e1b059fcf66898ed13b51b785a06836533dc2843a6c6"
+    },
+    {
+      "id": "jianzhen",
+      "title": "鉴真坐像：历史照片",
+      "titleJa": "鑑真和上坐像：歴史写真",
+      "dateTaken": null,
+      "dateNote": "来源《国宝图录 第1集》标示日期1952-03-30；并非已核定的快门拍摄日。",
+      "kind": "historical-photograph",
+      "depicts": "唐招提寺鉴真和上坐像的黑白图录照片",
+      "author": "文化財協会（来源《国宝図録 第1集》）",
+      "license": "Public domain (PD-Japan-oldphoto; PD-1996)",
+      "filename": "jianzhen.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Ganjin_Toshodai-ji.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Ganjin_Toshodai-ji.jpg",
+      "originalTitle": "File:Ganjin Toshodai-ji.jpg",
+      "licenseURL": "https://commons.wikimedia.org/wiki/File:Ganjin_Toshodai-ji.jpg#Licensing",
+      "attribution": "Ganjin Toshodai-ji.jpg — 文化財協会（来源《国宝図録 第1集》）; Public domain (PD-Japan-oldphoto; PD-1996); via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "唐招提寺鉴真坐像的黑白图录照片，来源为1952年《国宝图录》第1集。它记录的是一件造像，应与鉴真本人生活时代的文字史料区别使用。",
+        "ja": "1952年刊『国宝図録 第1集』に由来する、唐招提寺の鑑真和上坐像の白黒写真。人物そのものの写真ではなく、造像を記録した資料として扱う。"
+      },
+      "alt": {
+        "zh": "闭目端坐、披着僧衣的鉴真坐像黑白照片",
+        "ja": "目を閉じ、僧衣をまとって座る鑑真像の白黒写真"
+      },
+      "width": 1280,
+      "height": 1600,
+      "bytes": 795812,
+      "sourceDate": "1952-03-30",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Ganjin_Toshodai-ji.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "2ca11e5fe0930e09ff423fb1135115248bc54dfd9fb97a5917b750fb11238b2c"
+    },
+    {
+      "id": "kukai",
+      "title": "空海像：十四世纪的后世形象",
+      "titleJa": "弘法大師像：14世紀の肖像",
+      "dateTaken": null,
+      "objectDate": "14世纪（1301—1400）",
+      "kind": "artwork-reproduction",
+      "depicts": "芝加哥艺术博物馆藏《弘法大师空海像》",
+      "author": "作者不详；Art Institute of Chicago 藏",
+      "objectPage": "https://www.artic.edu/artworks/11548",
+      "filename": "kukai.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Anonymous_-_Portrait_of_Kobo_Daishi_%28Kukai%29_-_1960.40_-_Art_Institute_of_Chicago.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Anonymous_-_Portrait_of_Kobo_Daishi_(Kukai)_-_1960.40_-_Art_Institute_of_Chicago.jpg",
+      "originalTitle": "File:Anonymous - Portrait of Kobo Daishi (Kukai) - 1960.40 - Art Institute of Chicago.jpg",
+      "license": "Public domain",
+      "licenseURL": "https://commons.wikimedia.org/wiki/File:Anonymous_-_Portrait_of_Kobo_Daishi_(Kukai)_-_1960.40_-_Art_Institute_of_Chicago.jpg#Licensing",
+      "attribution": "Anonymous - Portrait of Kobo Daishi (Kukai) - 1960.40 - Art Institute of Chicago.jpg — 作者不详；Art Institute of Chicago 藏; Public domain; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "十四世纪绘画中的空海，作者不详，现藏芝加哥艺术博物馆。这是一幅后世绘制的宗教人物肖像，可讨论人物如何被纪念，不能当作空海在世时的写生记录。",
+        "ja": "作者不詳の14世紀の弘法大師像。シカゴ美術館所蔵。後世に制作された宗教的人物の肖像であり、空海の生前の写生記録ではない。人物がどのように記憶されたかを考えられる。"
+      },
+      "alt": {
+        "zh": "挂轴中持法器端坐的空海及其座椅",
+        "ja": "掛軸に描かれた、法具を手にして椅子に座る空海"
+      },
+      "width": 1066,
+      "height": 1600,
+      "bytes": 381972,
+      "sourceDate": "between 1301 and 1400date QS:P,+1500-00-00T00:00:00Z/6,P1319,+1301-00-00T00:00:00Z/9,P1326,+1400-00-00T00:00:00Z/9",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Anonymous_-_Portrait_of_Kobo_Daishi_(Kukai)_-_1960.40_-_Art_Institute_of_Chicago.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "77395e843c6d4e67ba547c962ff15d0830e5940c0e297d8d9213bbb04ee1413a"
+    },
+    {
+      "id": "forbidden-city",
+      "title": "紫禁城：从景山俯瞰",
+      "titleJa": "紫禁城：景山からの眺め",
+      "dateTaken": "2015-08-04",
+      "kind": "modern-photograph",
+      "depicts": "从北京景山向南俯瞰紫禁城",
+      "filename": "forbidden-city.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/5/56/%E6%99%AF%E5%B1%B1%E5%85%AC%E5%9B%AD_%2819687188164%29_-_panorama.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:%E6%99%AF%E5%B1%B1%E5%85%AC%E5%9B%AD_(19687188164)_-_panorama.jpg",
+      "originalTitle": "File:景山公园 (19687188164) - panorama.jpg",
+      "author": "Han Zheng",
+      "license": "CC BY-SA 2.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/2.0",
+      "attribution": "景山公园 (19687188164) - panorama.jpg — Han Zheng; CC BY-SA 2.0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2015年从景山拍摄的紫禁城全景。连续屋顶、院落与中轴提供了空间观察线索；理解制度仍需结合具体建筑功能及文字记载。",
+        "ja": "2015年に景山から撮影された紫禁城の全景。連なる屋根、中庭、中軸線を観察できる。制度を理解するには、建物の機能や文献も合わせて読む必要がある。"
+      },
+      "alt": {
+        "zh": "从景山俯瞰紫禁城层层院落与金色屋顶",
+        "ja": "景山から見下ろす紫禁城の連続した中庭と金色の屋根"
+      },
+      "width": 1600,
+      "height": 505,
+      "bytes": 313976,
+      "sourceDate": "2015-08-04",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:%E6%99%AF%E5%B1%B1%E5%85%AC%E5%9B%AD_(19687188164)_-_panorama.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "330c274be18aeb4bfea5a6795533ab1580ee3115c744a985e602365d570c503d"
+    },
+    {
+      "id": "grand-council",
+      "title": "军机处：建筑外观",
+      "titleJa": "軍機処：建物の外観",
+      "dateTaken": "2007-10",
+      "kind": "modern-photograph",
+      "depicts": "北京故宫军机处建筑外观",
+      "filename": "grand-council.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/7/70/Jun_Ji_Chu.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Jun_Ji_Chu.jpg",
+      "originalTitle": "File:Jun Ji Chu.jpg",
+      "author": "Gisling",
+      "license": "CC BY 3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/3.0",
+      "attribution": "Jun Ji Chu.jpg — Gisling; CC BY 3.0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "2007年拍摄的故宫军机处建筑外观。照片可以提示机构所处的物理空间，但不能单凭建筑规模判断其政治作用；制度问题需要回到档案与史料。",
+        "ja": "2007年に撮影された故宮の軍機処の外観。機関が置かれた空間は分かるが、建物の大きさだけで政治的役割は判断できない。制度の理解には档案や史料が必要となる。"
+      },
+      "alt": {
+        "zh": "军机处的黄色琉璃瓦、彩绘檐部与红色门窗",
+        "ja": "軍機処の黄色い瑠璃瓦、彩色された軒、赤い建具"
+      },
+      "width": 1420,
+      "height": 995,
+      "bytes": 283252,
+      "sourceDate": "2007-10",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Jun_Ji_Chu.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "d83e5c0a07ddc16dd0d0182eff6f922a4aa9e821777e59c95fa956a75df4bfa3"
+    },
+    {
+      "id": "kraak-dish",
+      "title": "明代克拉克瓷：武士纹大盘",
+      "titleJa": "明代の芙蓉手磁器：武人文大皿",
+      "dateTaken": null,
+      "objectDate": "明代崇祯时期（馆方标注1627—1644）",
+      "kind": "object-photograph",
+      "depicts": "The Met藏景德镇青花武士纹克拉克瓷大盘，2016.487",
+      "author": "The Metropolitan Museum of Art；器物作者不详",
+      "objectPage": "https://www.metmuseum.org/art/collection/search/714952",
+      "filename": "kraak-dish.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/a/a8/MET_DP-12231-014_%28cropped%29.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:MET_DP-12231-014_(cropped).jpg",
+      "originalTitle": "File:MET DP-12231-014 (cropped).jpg",
+      "license": "CC0",
+      "licenseURL": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribution": "MET DP-12231-014 (cropped).jpg — The Metropolitan Museum of Art；器物作者不详; CC0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "大都会艺术博物馆藏明代武士纹克拉克瓷大盘。可观察中央人物与边缘分格纹饰，并与日本出口瓷比较。馆方未确定中央武士的具体身份，不宜仅凭图案替他命名。",
+        "ja": "メトロポリタン美術館所蔵、明代の武人文の芙蓉手大皿。中央人物と周縁の区画文様を、日本の輸出磁器と比べられる。中央の武人は特定されておらず、図柄だけで名前を断定しない。"
+      },
+      "alt": {
+        "zh": "中央绘武士、边缘绘人物花卉分格纹的青花大盘",
+        "ja": "中央に武人、周縁の区画に人物や草花を描いた染付の大皿"
+      },
+      "width": 1600,
+      "height": 1559,
+      "bytes": 511990,
+      "sourceDate": "",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:MET_DP-12231-014_(cropped).jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "acb7d50d0f19e48aa8af43f2690fbf8a0eb351d6d888af868d4e5f370d69878e"
+    },
+    {
+      "id": "japanese-export-dish",
+      "title": "日本出口瓷：约1670年的大盘",
+      "titleJa": "日本の輸出磁器：1670年頃の大皿",
+      "dateTaken": null,
+      "objectDate": "约1670年",
+      "kind": "object-photograph",
+      "depicts": "The Met藏面向欧洲市场的日本瓷盘，1995.268.2",
+      "author": "The Metropolitan Museum of Art；器物作者不详",
+      "objectPage": "https://www.metmuseum.org/art/collection/search/208219",
+      "filename": "japanese-export-dish.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/6/65/Dish_MET_ES5523.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Dish_MET_ES5523.jpg",
+      "originalTitle": "File:Dish MET ES5523.jpg",
+      "license": "CC0",
+      "licenseURL": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribution": "Dish MET ES5523.jpg — The Metropolitan Museum of Art；器物作者不详; CC0; via Wikimedia Commons. Resized and converted to WebP.",
+      "educationalCaption": {
+        "zh": "约1670年、面向欧洲市场的日本瓷盘。与中国克拉克瓷并列时，可观察中心图案和周边分格的异同；器物的产地、消费市场与纹样来源不应混成同一个问题。",
+        "ja": "1670年頃、ヨーロッパ市場向けに作られた日本の磁器皿。中国の芙蓉手磁器と中心図柄や周縁の区画を比較できる。生産地、消費市場、文様の由来は別々の問題として考える。"
+      },
+      "alt": {
+        "zh": "中心为草木与昆虫、边缘分格装饰的日本青花瓷盘",
+        "ja": "中央に草木と昆虫を描き、周縁を区画文様で飾った日本の染付皿"
+      },
+      "width": 1600,
+      "height": 1597,
+      "bytes": 297840,
+      "sourceDate": "circa 1670date QS:P571,+1670-00-00T00:00:00Z/9,P1480,Q5727902",
+      "modifications": {
+        "zh": "等比缩放并转换为WebP；未进一步裁剪，未作生成式修改。",
+        "ja": "縦横比を保って縮小しWebPに変換。追加のトリミングや生成AIによる改変は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Dish_MET_ES5523.jpg#Licensing",
+      "verifiedAt": "2026-11-10",
+      "sha256": "097f5e9f41081603fb9862da6c9b92062ffa64cc1f309c8df37f464a77bedf29"
+    },
+    {
+      "id": "qingming-scroll-a",
+      "filename": "qingming-scroll-a.webp",
+      "originalFileURL": "https://iiifod.npm.gov.tw/iiif/2/K2A%2FK2A001110N000000000SDAAA/full/9900,/0/default.jpg",
+      "sourcePage": "https://digitalarchive.npm.gov.tw/opendata/Pub/Detail?dep=P&id=3782",
+      "title": "清院本清明上河图：乡野、虹桥与城门段",
+      "titleJa": "清院本清明上河図：郊外・虹橋・城門の部分",
+      "originalTitle": "清院本清明上河圖　卷",
+      "author": "陳枚、孫祜、金昆、戴洪、程志道；數位影像：國立故宮博物院",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "清院本清明上河圖　卷。國立故宮博物院，台北，CC BY 4.0 @ www.npm.gov.tw。圖像等比縮放並轉為WebP，未裁剪。",
+      "depicts": "国立故宫博物院藏1736年清院本《清明上河图》的官方分段或局部图",
+      "dateTaken": null,
+      "objectDate": "1736（清乾隆元年）",
+      "kind": "artwork-reproduction",
+      "educationalCaption": {
+        "zh": "故宫官方提供的长卷分段，包含乡野、虹桥、船只与城门。作品绘于1736年，是清宫画院的重绘本；不要将其中场景直接当作北宋城市的现场记录。",
+        "ja": "故宮が公開する画巻の一部分。郊外、虹橋、船、城門が描かれる。1736年に清の宮廷画院で制作された作品であり、北宋都市の現場記録としてそのまま扱うことはできない。"
+      },
+      "alt": {
+        "zh": "长卷中由乡野延伸到虹桥、河船与城门的连续场景",
+        "ja": "郊外から虹橋、川船、城門へと続く画巻の風景"
+      },
+      "width": 9900,
+      "height": 595,
+      "bytes": 1313422,
+      "readingDirection": "right-to-left",
+      "officialCanvas": "K2A001110N000000000SDAAA",
+      "licenseEvidence": "https://digitalarchive.npm.gov.tw/opendata/Pub/Detail?dep=P&id=3782",
+      "licenseNote": "官方页面明确说明600万像素中阶图像适用CC BY 4.0；本交付图像均低于600万像素。100万像素图像的CC0条款未冒用到这些中阶图像。",
+      "modifications": {
+        "zh": "通过官方公开IIIF获取中阶分辨率并转换为WebP；完整保留该官方分段/局部，不作拼接或额外裁剪。",
+        "ja": "公式の公開IIIFから中解像度で取得しWebPに変換。公式の部分画像をそのまま残し、結合や追加の切り抜きはしていない。"
+      },
+      "verifiedAt": "2026-11-10",
+      "sha256": "addabf7cade9881441e16baacda95ce247f403d9ec387a569ed394bb2947819f"
+    },
+    {
+      "id": "qingming-scroll-b",
+      "filename": "qingming-scroll-b.webp",
+      "originalFileURL": "https://iiifod.npm.gov.tw/iiif/2/K2A%2FK2A001110N000000000SDAAB/full/9900,/0/default.jpg",
+      "sourcePage": "https://digitalarchive.npm.gov.tw/opendata/Pub/Detail?dep=P&id=3782",
+      "title": "清院本清明上河图：街市与苑囿段",
+      "titleJa": "清院本清明上河図：町並みと庭園の部分",
+      "originalTitle": "清院本清明上河圖　卷",
+      "author": "陳枚、孫祜、金昆、戴洪、程志道；數位影像：國立故宮博物院",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "清院本清明上河圖　卷。國立故宮博物院，台北，CC BY 4.0 @ www.npm.gov.tw。圖像等比縮放並轉為WebP，未裁剪。",
+      "depicts": "国立故宫博物院藏1736年清院本《清明上河图》的官方分段或局部图",
+      "dateTaken": null,
+      "objectDate": "1736（清乾隆元年）",
+      "kind": "artwork-reproduction",
+      "educationalCaption": {
+        "zh": "故宫官方提供的另一长卷分段，可观察街市、沿河生活及苑囿。与前一段共同阅读时，应从右向左展开，区分画家安排的画面秩序与可由其他史料核对的城市信息。",
+        "ja": "故宮が公開する別の部分で、町並み、川沿いの暮らし、庭園を観察できる。前の部分と合わせて右から左へ読み、画家による構成と、他の史料で確かめられる情報を区別したい。"
+      },
+      "alt": {
+        "zh": "清院本画卷中的城市街巷、河道与宫苑楼阁",
+        "ja": "清院本の画巻に描かれた街路、川、庭園と楼閣"
+      },
+      "width": 9900,
+      "height": 595,
+      "bytes": 1451830,
+      "readingDirection": "right-to-left",
+      "officialCanvas": "K2A001110N000000000SDAAB",
+      "licenseEvidence": "https://digitalarchive.npm.gov.tw/opendata/Pub/Detail?dep=P&id=3782",
+      "licenseNote": "官方页面明确说明600万像素中阶图像适用CC BY 4.0；本交付图像均低于600万像素。100万像素图像的CC0条款未冒用到这些中阶图像。",
+      "modifications": {
+        "zh": "通过官方公开IIIF获取中阶分辨率并转换为WebP；完整保留该官方分段/局部，不作拼接或额外裁剪。",
+        "ja": "公式の公開IIIFから中解像度で取得しWebPに変換。公式の部分画像をそのまま残し、結合や追加の切り抜きはしていない。"
+      },
+      "verifiedAt": "2026-11-10",
+      "sha256": "16dd6ed73283097ccc72677ac6ff6cd8d9d687973ef50b2ba43b665757963c27"
+    },
+    {
+      "id": "qingming-detail",
+      "filename": "qingming-detail.webp",
+      "originalFileURL": "https://iiifod.npm.gov.tw/iiif/2/K2A%2FK2A001110N000000000PAI/full/1600,/0/default.jpg",
+      "sourcePage": "https://digitalarchive.npm.gov.tw/opendata/Pub/Detail?dep=P&id=3782",
+      "title": "清院本清明上河图：虹桥与船只局部",
+      "titleJa": "清院本清明上河図：虹橋と船の細部",
+      "originalTitle": "清院本清明上河圖　卷",
+      "author": "陳枚、孫祜、金昆、戴洪、程志道；數位影像：國立故宮博物院",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "清院本清明上河圖　卷。國立故宮博物院，台北，CC BY 4.0 @ www.npm.gov.tw。圖像等比縮放並轉為WebP，未裁剪。",
+      "depicts": "国立故宫博物院藏1736年清院本《清明上河图》的官方分段或局部图",
+      "dateTaken": null,
+      "objectDate": "1736（清乾隆元年）",
+      "kind": "artwork-reproduction",
+      "educationalCaption": {
+        "zh": "故宫官方局部图，完整保留原图的色标与标识。试着分别指出桥、船和岸边人群，再区分直接看见的形象与关于职业、货物、社会关系的推断。",
+        "ja": "故宮が公開する部分図。原画像のカラーチャートと識別表示も残している。橋、船、岸辺の人々を見分け、目に見える形と、職業・荷物・社会関係についての推測を区別してみよう。"
+      },
+      "alt": {
+        "zh": "虹桥、帆船、岸边人群，底部保留博物馆色标",
+        "ja": "虹橋、帆船、岸辺の人々。下部に博物館のカラーチャートを残す"
+      },
+      "width": 1600,
+      "height": 1198,
+      "bytes": 583550,
+      "readingDirection": "right-to-left",
+      "officialCanvas": "K2A001110N000000000PAI",
+      "licenseEvidence": "https://digitalarchive.npm.gov.tw/opendata/Pub/Detail?dep=P&id=3782",
+      "licenseNote": "官方页面明确说明600万像素中阶图像适用CC BY 4.0；本交付图像均低于600万像素。100万像素图像的CC0条款未冒用到这些中阶图像。",
+      "modifications": {
+        "zh": "通过官方公开IIIF获取中阶分辨率并转换为WebP；完整保留该官方分段/局部，不作拼接或额外裁剪。",
+        "ja": "公式の公開IIIFから中解像度で取得しWebPに変換。公式の部分画像をそのまま残し、結合や追加の切り抜きはしていない。"
+      },
+      "verifiedAt": "2026-11-10",
+      "sha256": "1f06fb1b4be43e8bae6e19b619e446c4aa5a0770cbb85568cd0d41239f666c4e"
+    },
+    {
+      "id": "wangbo-manuscript",
+      "title": "《王勃集》卷29、30：写本局部",
+      "titleJa": "『王勃集』巻29・30：写本の一部",
+      "author": "王勃（文集作者）；抄写者不详；原图出处：东京国立博物馆",
+      "objectDate": "7—8世纪（来源图像说明）",
+      "depicts": "《王勃集》卷29、30写本的文字局部；不是后世刻本的替代图",
+      "note": "原始可用图像为909×485，保持原生尺寸，不做虚假放大。",
+      "filename": "wangbo-manuscript.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/9/98/Obotsu-shu_29-30.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Obotsu-shu_29-30.jpg",
+      "originalTitle": "File:Obotsu-shu 29-30.jpg",
+      "license": "Public domain",
+      "licenseURL": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution": "王勃（文集作者）；抄写者不详；原图出处：东京国立博物馆；《王勃集》卷29、30：写本局部；Wikimedia Commons：Public domain。转换为WebP；未进一步裁剪。",
+      "dateTaken": null,
+      "kind": "document-reproduction",
+      "educationalCaption": {
+        "zh": "《王勃集》卷29、30写本的局部。可观察手写文字、行列与篇题布局；关于抄写年代和纸张再利用，请结合本课馆藏记录阅读。",
+        "ja": "『王勃集』巻29・30の写本の一部。筆写された文字、行、篇題の配置を観察できます。書写年代や紙の再利用については、このレッスンの所蔵品記録と合わせて読みましょう。"
+      },
+      "alt": {
+        "zh": "发黄的纸张上竖排手写汉文，右侧可见篇题和卷次文字",
+        "ja": "黄ばんだ紙に縦書きされた漢文。右側には篇題と巻次の文字が見える。"
+      },
+      "width": 909,
+      "height": 485,
+      "bytes": 194524,
+      "sourceDate": "",
+      "modifications": {
+        "zh": "原始可用图像为909×485，保持原生尺寸，不做虚假放大。",
+        "ja": "原資料の画像を縦横比を保ってWebPに変換。新たな切り抜きや生成AIによる補完は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Obotsu-shu_29-30.jpg",
+      "verifiedAt": "2026-11-10",
+      "sha256": "37b95cfa8e5bffa89afee2a909d7841b1a2889169d5216b0dc3386cee88686ba"
+    },
+    {
+      "id": "toban-cargo-ledger",
+      "title": "《唐蛮货物帐》所属账册：货物检查记录",
+      "titleJa": "『唐蛮貨物帳』所収：荷物改帳の記録",
+      "author": "原账册编写者不详；数字图像：日本国立公文書館",
+      "objectDate": "宝永—正德期（来源目录所标范围）",
+      "depicts": "日本国立公文书馆特114-0001《阿蘭陀船荷物改帳2番ジャガタラ出シ》，PDF第3页完整展开页",
+      "note": "由公版扫描PDF第3页渲染为图像；保留整页与原有馆藏标识。",
+      "pageNumber": 3,
+      "objectPage": "https://www.digital.archives.go.jp/DAS/contents/pdf/2018/pdf/S1140001000100/0022.pdf",
+      "filename": "toban-cargo-ledger.webp",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/a/aa/NAJDA-%E7%89%B9114-0001_%E9%98%BF%E8%98%AD%E9%99%80%E8%88%B9%E8%8D%B7%E7%89%A9%E6%94%B9%E5%B8%B32%E7%95%AA%E3%82%B8%E3%83%A3%E3%82%AC%E3%82%BF%E3%83%A9%E5%87%BA%E3%82%B7.pdf",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:NAJDA-%E7%89%B9114-0001_%E9%98%BF%E8%98%AD%E9%99%80%E8%88%B9%E8%8D%B7%E7%89%A9%E6%94%B9%E5%B8%B32%E7%95%AA%E3%82%B8%E3%83%A3%E3%82%AC%E3%82%BF%E3%83%A9%E5%87%BA%E3%82%B7.pdf",
+      "originalTitle": "File:NAJDA-特114-0001 阿蘭陀船荷物改帳2番ジャガタラ出シ.pdf",
+      "license": "Public domain",
+      "licenseURL": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "attribution": "原账册编写者不详；数字图像：日本国立公文書館；《唐蛮货物帐》所属账册：货物检查记录；Wikimedia Commons：Public domain。转换为WebP；未进一步裁剪。",
+      "dateTaken": null,
+      "kind": "document-reproduction",
+      "educationalCaption": {
+        "zh": "《唐蛮货物帐》所属《阿蘭陀船荷物改帳2番ジャガタラ出シ》的完整展开页（PDF第3页）。它展示一般货物的列项记录方式，可用于理解贸易账册；不能把本页直接称为汉籍清单或《天学初函》的入港记录。",
+        "ja": "『唐蛮貨物帳』所収「阿蘭陀船荷物改帳2番ジャガタラ出シ」の見開き（PDF第3頁）。一般貨物を項目ごとに記録する形式が分かる。漢籍の一覧や『天学初函』の入港記録と呼ぶことはできない。"
+      },
+      "alt": {
+        "zh": "展开的旧账册，两页竖排草书列记货物及数目，右下保留国立公文书馆标识",
+        "ja": "見開きの古い帳簿に、貨物と数量を縦書きで列記。右下に国立公文書館の表示が残る。"
+      },
+      "width": 1600,
+      "height": 845,
+      "bytes": 157282,
+      "sourceDate": "",
+      "modifications": {
+        "zh": "由公版扫描PDF第3页渲染为图像；保留整页与原有馆藏标识。",
+        "ja": "原資料の画像を縦横比を保ってWebPに変換。新たな切り抜きや生成AIによる補完は行っていない。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:NAJDA-%E7%89%B9114-0001_%E9%98%BF%E8%98%AD%E9%99%80%E8%88%B9%E8%8D%B7%E7%89%A9%E6%94%B9%E5%B8%B32%E7%95%AA%E3%82%B8%E3%83%A3%E3%82%AC%E3%82%BF%E3%83%A9%E5%87%BA%E3%82%B7.pdf",
+      "verifiedAt": "2026-11-10",
+      "sha256": "1c9844d65f2d7a5ad0ab0ef31206ddaaa2135efc3d42279a3679e9f4667a0e63"
+    }
+  ]
+}

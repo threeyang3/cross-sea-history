@@ -1,0 +1,9 @@
+import catalog from './data/catalog.json';
+import type { Asset, Lesson, Source, Term } from './content-types';
+const data = catalog as unknown as { lessons: Lesson[]; sources: Source[]; assets: Asset[]; terms: Term[] };
+export const lessons = data.lessons;
+export const sources = data.sources;
+export const assets = data.assets;
+export const terms = data.terms;
+export const getAsset = (id: string) => assets.find(image => image.id === id);
+export const getLesson = (id: string) => lessons.find(lesson => lesson.id === id);
