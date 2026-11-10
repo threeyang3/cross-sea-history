@@ -618,6 +618,76 @@
       "licenseEvidence": "https://commons.wikimedia.org/wiki/File:NAJDA-%E7%89%B9114-0001_%E9%98%BF%E8%98%AD%E9%99%80%E8%88%B9%E8%8D%B7%E7%89%A9%E6%94%B9%E5%B8%B32%E7%95%AA%E3%82%B8%E3%83%A3%E3%82%AC%E3%82%BF%E3%83%A9%E5%87%BA%E3%82%B7.pdf",
       "verifiedAt": "2026-11-10",
       "sha256": "1c9844d65f2d7a5ad0ab0ef31206ddaaa2135efc3d42279a3679e9f4667a0e63"
+    },
+    {
+      "id": "tang-attire-figurine",
+      "title": "唐代三彩女俑｜陕西历史博物馆",
+      "titleJa": "唐代の三彩女性俑｜陝西歴史博物館",
+      "dateTaken": "2010-12-18",
+      "kind": "modern-photograph",
+      "depicts": "博物馆展柜中一件唐代三彩女性俑，衣袖、长裙和肩上披搭的织物形象可见。",
+      "filename": "tang-attire-figurine.jpg",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Sancai_woman_statue%2C_shaanxi_history_museum.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Sancai_woman_statue,_shaanxi_history_museum.jpg",
+      "originalTitle": "Sancai_woman_statue,_shaanxi_history_museum.jpg",
+      "author": "Deadkid dk",
+      "license": "CC BY-SA 3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "attribution": "Deadkid dk, Sancai woman statue, shaanxi history museum, CC BY-SA 3.0, via Wikimedia Commons.",
+      "educationalCaption": {
+        "zh": "陕西历史博物馆展陈中的唐代三彩女俑，2010年12月18日摄影。公开照片页未注明具体墓葬与窄年代；不据其釉色直接推定衣料染法。本图不是正文所引国博女俑。",
+        "ja": "陝西歴史博物館で展示された唐代三彩女性俑。2010年12月18日撮影。写真の公開ページでは具体的な墓と細かな年代は確認できない。釉色から実際の布の染色法は断定しない。本文で参照する国博の俑とは別の作品。"
+      },
+      "alt": {
+        "zh": "博物馆展柜中一件唐代三彩女性俑，衣袖、长裙和肩上披搭的织物形象可见。",
+        "ja": "博物館の展示ケース内の唐代三彩女性俑。袖、長い裙、肩に掛けた布の表現が見える。"
+      },
+      "width": 2448,
+      "height": 3264,
+      "bytes": 1692904,
+      "sourceDate": "2010-12-18",
+      "modifications": {
+        "zh": "保留原始JPEG；卡片可能按版面裁切显示，正文可展开观察完整照片。",
+        "ja": "元のJPEGを保持。カードでは表示枠に合わせて切り取り、本文では写真全体を表示できる。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Sancai_woman_statue,_shaanxi_history_museum.jpg#Licensing",
+      "verifiedAt": "2026-11-11",
+      "sha256": "8d11f8ad84ac9ae72ab43f2966756864231d4c239537dfaf76b05784d71c204f"
+    },
+    {
+      "id": "tang-attire-brocade",
+      "title": "唐代织锦残片｜国博展陈照片",
+      "titleJa": "唐代の錦の断片｜国博での展示写真",
+      "dateTaken": "2011-09-02",
+      "kind": "modern-photograph",
+      "depicts": "展台上两块有花卉与几何纹样的织物残片，边缘可见损缺。",
+      "filename": "tang-attire-brocade.jpg",
+      "originalFileURL": "https://upload.wikimedia.org/wikipedia/commons/2/26/Tang_Silk_Brocade_Cuff_%289833725894%29.jpg",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Tang_Silk_Brocade_Cuff_(9833725894).jpg",
+      "originalTitle": "Tang_Silk_Brocade_Cuff_(9833725894).jpg",
+      "author": "Gary Todd",
+      "license": "CC0 1.0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "attribution": "Gary Todd, Tang Silk Brocade Cuff, CC0 1.0, via Wikimedia Commons (Flickr).",
+      "educationalCaption": {
+        "zh": "Gary Todd 2011年9月2日摄于中国国家博物馆，公开照片题为“唐代锦袖缘”。可用来观察织物残片与纹样；照片页未给出确切出土地点，不能据图补全整件袍服。本图不是正仓院半臂。",
+        "ja": "Gary Toddが2011年9月2日に中国国家博物館で撮影。公開写真の題名は「唐代の錦の袖口布」。布の断片と文様を観察できるが、写真ページには正確な出土地がなく、一着全体の形は補えない。正倉院の半臂の写真ではない。"
+      },
+      "alt": {
+        "zh": "展台上两块有花卉与几何纹样的织物残片，边缘可见损缺。",
+        "ja": "展示台に置かれた、花文様と幾何学文様のある二枚の布の断片。縁に欠損が見える。"
+      },
+      "width": 5184,
+      "height": 3456,
+      "bytes": 2942815,
+      "sourceDate": "2011-09-02",
+      "modifications": {
+        "zh": "保留原始JPEG；卡片可能按版面裁切显示，正文可展开观察完整照片。",
+        "ja": "元のJPEGを保持。カードでは表示枠に合わせて切り取り、本文では写真全体を表示できる。"
+      },
+      "licenseEvidence": "https://commons.wikimedia.org/wiki/File:Tang_Silk_Brocade_Cuff_(9833725894).jpg#Licensing",
+      "verifiedAt": "2026-11-11",
+      "sha256": "d0ad90204e6f720d5a98db0754e77d9cac997fd57626079b63559039b0bbab1b"
     }
   ]
 }

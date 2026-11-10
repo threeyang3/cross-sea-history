@@ -7,12 +7,12 @@ export const historicalEvents = [...timelineData.events].sort((a,b)=>a.start-b.s
 export const timelineSources = timelineData.sources;
 export const categoryOrder: TimelineCategory[] = ['politics','religion','culture','economy','technology','conflict'];
 export const categoryInfo = {
-  politics: { title:p('政治与外交','政治・外交'), color:'#91b9b0', dark:'#356d61' },
-  religion: { title:p('宗教与求学','宗教・学び'), color:'#c5b1db', dark:'#76528d' },
-  culture: { title:p('文化与书籍','文化・書物'), color:'#e6bd79', dark:'#96702e' },
-  economy: { title:p('贸易与社会','交易・社会'), color:'#9fcb8c', dark:'#547b40' },
-  technology: { title:p('技术与知识','技術・知識'), color:'#8bbfda', dark:'#337394' },
-  conflict: { title:p('战争与冲突','戦争・紛争'), color:'#e6a091', dark:'#a45140' },
+  politics: { title:p('政治与外交','政治・外交'), color:'#88a5c2', dark:'#365f83' },
+  religion: { title:p('宗教与求学','宗教・学び'), color:'#bca0c9', dark:'#795382' },
+  culture: { title:p('文化与书籍','文化・書物'), color:'#deb75f', dark:'#946827' },
+  economy: { title:p('贸易与社会','交易・社会'), color:'#8cb89e', dark:'#39775b' },
+  technology: { title:p('技术与知识','技術・知識'), color:'#78b6bd', dark:'#377a82' },
+  conflict: { title:p('战争与冲突','戦争・紛争'), color:'#d88d7b', dark:'#ac533f' },
 };
 export const timelinePeriods: Record<TimelineTrack,TimelinePeriod[]> = {
  exchange: [

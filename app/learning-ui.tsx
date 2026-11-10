@@ -12,7 +12,7 @@ export function SourceLinks({ ids, lang }: { ids: string[]; lang: Lang }) {
   return <div className="ref-links">{[...new Set(ids)].map(id => { const source=sources.find(s=>s.id===id); return source ? <a key={id} href={source.url} target="_blank" rel="noreferrer">{choose(source.title,lang)}<ArrowUpRight size={13}/></a> : null; })}</div>;
 }
 export function Credit({ asset, lang, full = false }: { asset: Asset; lang: Lang; full?: boolean }) {
-  return <div className={'photo-credit ' + (full ? 'full-credit' : '')}><a href={asset.sourcePage} target="_blank" rel="noreferrer">{asset.author || (lang==='ja'?'所蔵機関':'收藏机构')}</a><span> · </span><a href={asset.licenseURL || asset.sourcePage} target="_blank" rel="noreferrer">{asset.license}</a>{full && <><span> · </span><span>{lang==='ja'?'表示用に縮小':'为网页显示压缩'}{asset.dateTaken ? ' · '+asset.dateTaken : ''}</span></>}</div>;
+  return <div className={'photo-credit ' + (full ? 'full-credit' : '')}><a href={asset.sourcePage} target="_blank" rel="noreferrer">{asset.author || (lang==='ja'?'所蔵機関':'收藏机构')}</a><span> · </span><a href={asset.licenseURL || asset.sourcePage} target="_blank" rel="noreferrer">{asset.license}</a>{full && <><span> · </span><span>{lang==='ja'?'撮影・資料情報':'摄影与资料信息'}{asset.dateTaken ? ' · '+asset.dateTaken : ''}</span></>}</div>;
 }
 export function Photo({ asset, lang, onOpen, priority = false, className = '', caption = true }: { asset?: Asset; lang: Lang; onOpen: (id:string)=>void; priority?: boolean; className?: string; caption?: boolean }) {
   if (!asset) return null;

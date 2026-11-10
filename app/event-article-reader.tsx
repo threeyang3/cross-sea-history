@@ -10,6 +10,8 @@ import { categoryInfo, timelineSources } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 import { articleManifest, articleSources, loadEventArticle } from './article-data';
 import type { EventArticle } from './article-types';
+import { EventLearningVisual, hasLearningVisual } from './learning-visuals';
+import { EventEraContext } from './event-era-context';
 
 const sourceIndex = new Map<string, Source>([...sources, ...timelineSources, ...articleSources].map(source => [source.id, source]));
 
@@ -61,10 +63,12 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   })}</span>;
   const sections = article ? [
     { id: 'overview', title: p('问题与背景', '問いと見取り図') },
+    ...(hasLearningVisual(event.id) ? [{ id: 'visual', title: p('看图理解', '図から理解する') }] : []),
     ...article.sections.map(section => ({ id: section.id, title: section.title })),
     { id: 'evidence', title: p('读材料，辨证据', '史料と証拠を読む') },
     { id: 'discussion', title: p('解释与边界', '解釈とその限界') },
     { id: 'terms', title: p('概念与术语', '概念と用語') },
+    { id: 'era-context', title: p('放回时代坐标', '時代の中に置く') },
     { id: 'references', title: p('参考资料', '参考資料') },
     { id: 'practice', title: p('带着问题继续', '問いを次の学びへ') }
   ] : [];
@@ -100,10 +104,11 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
         {!article && <div className="reading-load" role="status">{error ? <><h2>{tx('正文暂时未能载入', '本文を読み込めませんでした')}</h2><p>{tx('请重试，或通过下面的资料入口继续阅读。', 'もう一度お試しください。出典から読み進めることもできます。')}</p><button className="button primary" onClick={() => setAttempt(value => value + 1)}>{tx('重新载入正文', '本文を再読み込み')}</button>{bibliography.map(source => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{t(source.title)}<ArrowUpRight size={13} /></a>)}</> : <><span className="reading-load-dot" />{tx('正在展开这段历史…', '歴史の背景を開いています…')}</>}</div>}
         {article && <>
           <div className="reading-thesis"><span>{tx('这一篇要理解', 'この記事で考えること')}</span><p><Bilingual value={article.thesis} lang={lang} /></p></div>
-          {asset && <figure className={'reading-figure ' + (imageExpanded ? 'expanded' : '')}>
+          {asset && <figure className={'reading-figure ' + (asset.width < asset.height ? 'reading-portrait ' : '') + (imageExpanded ? 'expanded' : '')}>
             <button className="reading-image" onClick={() => setImageExpanded(value => !value)} aria-expanded={imageExpanded} aria-label={tx('切换图片观察尺寸', '画像の表示サイズを切り替える')}><img src={asset.src} width={asset.width} height={asset.height} alt={t(asset.alt)} /><span>{imageExpanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}{imageExpanded ? tx('收起图像', '小さく表示') : tx('展开观察', '大きく見る')}</span></button>
             <figcaption><span className="reading-image-type">{tx('相关实物与地点', '関連する資料と場所')}</span><Bilingual value={asset.caption} lang={lang} /><Credit asset={asset} lang={lang} /></figcaption>
           </figure>}
+          <EventLearningVisual eventId={event.id} lang={lang}/>
           {article.sections.map((section, index) => <section className="reading-section" key={section.id} data-reading-section={section.id}>
             <div className="reading-section-number">{String(index + 1).padStart(2, '0')}</div>
             <h2 tabIndex={-1}><Bilingual value={section.title} lang={lang} /></h2>
@@ -128,6 +133,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
             <h2 tabIndex={-1}>{tx('概念与术语', '概念と用語')}</h2>
             <dl>{article.terms.map((term, index) => <div key={index}><dt><Bilingual value={term.term} lang={lang} /></dt><dd><Bilingual value={term.definition} lang={lang} /></dd></div>)}</dl>
           </section>
+          <EventEraContext event={event} lang={lang} onNavigate={onNavigate}/>
           <section className="reading-section reading-bibliography" data-reading-section="references">
             <span className="eyebrow">FOLLOW THE SOURCES</span>
             <h2 tabIndex={-1}>{tx('回到参考资料', '参考資料に戻る')}</h2>
@@ -142,7 +148,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
             <div className="reading-practice-steps"><span>01 {tx('指出一份材料', '資料を一つ選ぶ')}</span><span>02 {tx('说明它支持什么', '何を示すか考える')}</span><span>03 {tx('写出判断的边界', '判断の限界を書く')}</span></div>
             <button className="button primary" onClick={takeQuestion}><NotebookPen size={16} />{tx('把问题与资料带到摘记', '問いと資料をノートへ')}</button>
           </section>
-          {(lesson || related.length > 0) && <section className="reading-connections"><h2>{tx('把这一篇，放进更大的图景', '学びを広い背景につなぐ')}</h2>{lesson && <button onClick={() => onOpenLesson(lesson.id)}><BookOpen size={18} /><span><small>{tx('相关短课与图像观察', '関連レッスンと画像観察')}</small><strong>{t(lesson.title)}</strong></span><ArrowRight size={17} /></button>}{related.map(item => <button key={item.id} onClick={() => onNavigate(item)}><FileText size={18} /><span><small>{t(item.date)} · {tx('另一条时间线的时代参照', 'もう一つの年表の同時代')}</small><strong>{t(item.title)}</strong></span><ArrowRight size={17} /></button>)}</section>}
+          {(lesson || related.length > 0) && <section className="reading-connections"><h2>{tx('把这一篇，放进更大的图景', '学びを広い背景につなぐ')}</h2>{lesson && <button onClick={() => onOpenLesson(lesson.id)}><BookOpen size={18} /><span><small>{tx('相关短课与图像观察', '関連レッスンと画像観察')}</small><strong>{t(lesson.title)}</strong></span><ArrowRight size={17} /></button>}{related.map(item => <button key={item.id} onClick={() => onNavigate(item)}><FileText size={18} /><span><small>{t(item.date)} · {tx('另一条时间线的时代参照', 'もう一つの年表の時代参照')}</small><strong>{t(item.title)}</strong></span><ArrowRight size={17} /></button>)}</section>}
           <nav className="reading-pagination" aria-label={tx('相邻年代的专题', '近い年代の記事')}>{previous ? <button onClick={() => onNavigate(previous)}><small><ArrowLeft size={13} />{tx('前一个节点', '前の出来事')}</small><strong>{t(previous.date)} · {t(previous.title)}</strong></button> : <span />}{next && <button onClick={() => onNavigate(next)}><small>{tx('后一个节点', '次の出来事')}<ArrowRight size={13} /></small><strong>{t(next.date)} · {t(next.title)}</strong></button>}</nav>
         </>}
       </div>

@@ -742,5 +742,29 @@
     "jaCharacters": 955,
     "minutes": 4,
     "reviewedAt": "2026-11-10"
+  },
+  "cn-tang-attire": {
+    "zhCharacters": 772,
+    "jaCharacters": 1128,
+    "minutes": 4,
+    "reviewedAt": "2026-11-11"
+  },
+  "cj-tang-robes": {
+    "zhCharacters": 760,
+    "jaCharacters": 1121,
+    "minutes": 4,
+    "reviewedAt": "2026-11-11"
+  },
+  "cn-tang-poetry-farewell": {
+    "zhCharacters": 864,
+    "jaCharacters": 1146,
+    "minutes": 4,
+    "reviewedAt": "2026-11-11"
+  },
+  "cj-bai-manuscript1107": {
+    "zhCharacters": 904,
+    "jaCharacters": 1131,
+    "minutes": 4,
+    "reviewedAt": "2026-11-11"
   }
 }
