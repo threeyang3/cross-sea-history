@@ -8,6 +8,7 @@ import { pair as p } from './content-types';
 import { getAsset, getLesson } from './content';
 import { Bilingual, choose, Credit, Dialog, Photo } from './learning-ui';
 import { categoryInfo, categoryOrder, coordinateYear, formatYear, historicalEvents, timelinePeriods, timelineSources, yearCoordinate } from './timeline-data';
+import { EventArticleReader } from './event-article-reader';
 import type { HistoricalEvent, TimelineCategory, TimelineTrack } from './timeline-types';
 
 type WindowRange = [number,number];
@@ -38,11 +39,11 @@ function EventReferences({event,lang}:{event:HistoricalEvent;lang:Lang}){
  })}</div>;
 }
 
-export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onSelectEvent,onOpenLesson,onQuestion,onImageOpen}:{
+export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onSelectEvent,onOpenLesson,onQuestion,onImageOpen,onLanguageChange}:{
  lang:Lang;track:TimelineTrack;initialEventId?:string;
  onTrackChange:(track:TimelineTrack,eventId?:string)=>void;
  onSelectEvent:(eventId:string)=>void;
- onOpenLesson:(id:string)=>void;onQuestion:(question:Pair)=>void;onImageOpen:(id:string)=>void;
+ onOpenLesson:(id:string)=>void;onQuestion:(question:Pair)=>void;onImageOpen:(id:string)=>void;onLanguageChange:(lang:Lang)=>void;
 }){
  const t=(v:Pair)=>choose(v,lang);const tx=(zh:string,ja:string)=>lang==='ja'?ja:zh;
  const periods=timelinePeriods[track];
@@ -67,9 +68,9 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
   setSelectedId(initialEventId||historicalEvents.find(e=>e.track===track&&e.featured)?.id||'');
  },[track]);
  useEffect(()=>{
-  if(!initialEventId)return;
+  if(!initialEventId){setDetailOpen(false);return;}
   const event=historicalEvents.find(e=>e.id===initialEventId&&e.track===track);if(!event)return;
-  setSelectedId(event.id);
+  setSelectedId(event.id);setDetailOpen(true);
   setRange(previous=>{
    if(intersects(event,previous))return previous;
    const target=timelinePeriods[track].slice(1).find(period=>event.start>=period.start&&event.start<=period.end);
@@ -86,6 +87,8 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  const filtered=useMemo(()=>events.filter(e=>(category==='all'||e.category===category)&&(!featuredOnly||e.featured)&&(!query.trim()||eventSearchText(e).includes(query.trim().toLocaleLowerCase()))),[events,category,featuredOnly,query]);
  const visible=useMemo(()=>filtered.filter(e=>intersects(e,range)),[filtered,range]);
  const selected=visible.find(e=>e.id===selectedId)||visible.find(e=>e.featured)||visible[0];
+ const readingEvent=events.find(e=>e.id===selectedId)||selected;
+ const readingIndex=readingEvent?events.findIndex(e=>e.id===readingEvent.id):-1;
  useEffect(()=>{if(inspector.current)inspector.current.scrollTop=0;},[selected?.id]);
  const rows=category==='all'?categoryOrder.filter(row=>visible.some(event=>event.category===row)):[category];
  const span=range[1]-range[0];const fullSpan=bounds[1]-bounds[0];const center=(range[0]+range[1])/2;
@@ -94,7 +97,8 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  const rangeLabel=`${formatYear(coordinateYear(range[0]),lang==='ja')} — ${formatYear(coordinateYear(range[1]),lang==='ja')}`;
  const activePeriod=periods.find(period=>period.id===periodId);
  const otherTrack:TimelineTrack=track==='china'?'exchange':'china';
- const related=selected?historicalEvents.filter(e=>e.track===otherTrack&&Math.abs(e.start-selected.start)<=(selected.start>=1840?15:60)).sort((a,b)=>Math.abs(a.start-selected.start)-Math.abs(b.start-selected.start)).slice(0,3):[];
+ const contextEvent=detailOpen?readingEvent:selected;
+ const related=contextEvent?historicalEvents.filter(e=>e.track===otherTrack&&Math.abs(e.start-contextEvent.start)<=(contextEvent.start>=1840?15:60)).sort((a,b)=>Math.abs(a.start-contextEvent.start)-Math.abs(b.start-contextEvent.start)).slice(0,3):[];
  const clusters:EventCluster[]=[];
  for(const row of rows){
   const laneEvents=visible.filter(e=>e.category===row);
@@ -115,9 +119,8 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
   setPeriodId('custom');setRange(fitRange(anchor,span*factor,bounds));
  }
  function pan(direction:number){setPeriodId('custom');setRange(fitRange(center+span*.6*direction,span,bounds));}
- function openEvent(event:HistoricalEvent,modal=false){
-  setSelectedId(event.id);onSelectEvent(event.id);
-  if(modal||window.matchMedia('(max-width:1040px)').matches)setDetailOpen(true);
+ function openEvent(event:HistoricalEvent){
+  setSelectedId(event.id);onSelectEvent(event.id);setDetailOpen(true);
  }
  function expandCluster(cluster:EventCluster){
   if(cluster.events.length===1){openEvent(cluster.events[0]);return;}
@@ -146,6 +149,7 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
    <h2><Bilingual value={event.title} lang={lang}/></h2>
    <p className="event-location"><MapPin size={14}/>{t(event.location)}</p>
    <p className="event-summary"><Bilingual value={event.summary} lang={lang}/></p>
+   <button className="reader-open-button" onClick={()=>openEvent(event)}><BookOpen size={16}/>{tx('展开专题正文','詳しい記事を読む')}<ArrowRight size={15}/></button><p className="reader-open-hint">{tx('背景与过程 · 史料辨析 · 解释边界 · 注释与术语','背景と展開・史料の検討・解釈の限界・出典と用語')}</p>
    {asset&&<div className="event-illustration"><span className="eyebrow">{tx('相关实物与地点','関連する資料と場所')}</span><Photo asset={asset} lang={lang} onOpen={id=>{setDetailOpen(false);onImageOpen(id);}}/></div>}
    <section className="event-meaning"><h3>{tx('为什么值得记住','なぜ覚えておきたい？')}</h3><p><Bilingual value={event.significance} lang={lang}/></p></section>
    <section className="event-question"><span className="eyebrow">{tx('带着问题继续读','問いを持って読み進める')}</span><p><Bilingual value={event.question} lang={lang}/></p><button className="text-button" onClick={()=>onQuestion(questionWithContext(event))}><NotebookPen size={15}/>{tx('带到我的摘记','ノートへ')}</button></section>
@@ -157,6 +161,7 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
 
  return <section className="timeline-page content-width">
   <header className="atlas-heading"><div><span className="eyebrow">HISTORY, IN CONTEXT</span><h1>{tx('把一件事，放回它的时代。','出来事を、その時代の中へ。')}</h1><p><Bilingual value={p('两条时间线，把熟悉的名字连成历史。先看时代，再看事件，最后追问它改变了什么。','二つの年表で、知っている名前を歴史につなぐ。時代を見渡し、出来事を読み、何が変わったのかを問う。')} lang={lang}/></p></div><div className="atlas-total"><strong>{historicalEvents.length}</strong><span>{tx('个有出处的历史节点','の出典付き歴史トピック')}</span></div></header>
+  <div className="reader-method-note"><BookOpen size={17}/><p><strong>{tx('从事件，读到解释。','出来事から、解釈へ。')}</strong>{tx(' 点击任一节点，展开双语专题：追踪发生机制，辨析材料能证明什么，再带着参考资料写下自己的判断。',' 項目を開くと、背景・過程・史料の読み方を詳しく読めます。資料の示す範囲を確かめ、自分の判断をノートに残しましょう。')}</p></div>
   <div className="atlas-track-tabs" aria-label={tx('选择历史时间线','年表を選ぶ')}>
    <button aria-pressed={track==='exchange'} onClick={()=>onTrackChange('exchange')}><Compass size={21}/><span><strong>{tx('中日交流史','日中交流史')}</strong><small>{tx('使节 · 求学 · 贸易 · 战争 · 外交','使節・学問・交易・戦争・外交')}</small></span><b>{historicalEvents.filter(e=>e.track==='exchange').length}</b></button>
    <button aria-pressed={track==='china'} onClick={()=>onTrackChange('china')}><History size={21}/><span><strong>{tx('中国历史','中国史')}</strong><small>{tx('制度 · 社会 · 思想 · 技术 · 文化','制度・社会・思想・技術・文化')}</small></span><b>{historicalEvents.filter(e=>e.track==='china').length}</b></button>
@@ -185,10 +190,10 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
    </div>
    <aside ref={inspector} className="event-inspector" aria-label={tx('选中事件详情','選んだ出来事の詳細')}>{selected?detail(selected):<div className="inspector-empty"><Compass size={28}/><p>{tx('选择一个事件，查看它的故事与出处。','出来事を選ぶと、内容と出典を表示します。')}</p></div>}</aside>
   </div>:<div className="chronicle-card-grid">{visible.length?visible.map(event=>{
-   const asset=getAsset(event.imageId||'');return <article key={event.id} className="chronicle-card"><div className="chronicle-card-top"><span style={{color:categoryInfo[event.category].dark}}>{t(event.date)}</span>{event.featured&&<Star size={14}/>}</div>{asset&&<div className="chronicle-image"><Photo asset={asset} lang={lang} onOpen={onImageOpen} caption={false}/><small>{tx('相关图像：','関連画像：')}{t(asset.title)}</small><Credit asset={asset} lang={lang}/></div>}<h2><Bilingual value={event.title} lang={lang}/></h2><span className="chronicle-category">{t(categoryInfo[event.category].title)}</span><p><Bilingual value={event.summary} lang={lang}/></p><button className="text-button" onClick={()=>openEvent(event,true)}>{tx('读影响、问题与出处','意味・問い・出典を読む')}<ArrowUpRight size={15}/></button></article>;
+   const asset=getAsset(event.imageId||'');return <article key={event.id} className="chronicle-card"><div className="chronicle-card-top"><span style={{color:categoryInfo[event.category].dark}}>{t(event.date)}</span>{event.featured&&<Star size={14}/>}</div>{asset&&<div className="chronicle-image"><Photo asset={asset} lang={lang} onOpen={onImageOpen} caption={false}/><small>{tx('相关图像：','関連画像：')}{t(asset.title)}</small><Credit asset={asset} lang={lang}/></div>}<h2><Bilingual value={event.title} lang={lang}/></h2><span className="chronicle-category">{t(categoryInfo[event.category].title)}</span><p><Bilingual value={event.summary} lang={lang}/></p><button className="text-button" onClick={()=>openEvent(event)}>{tx('展开专题正文','詳しい記事を読む')}<ArrowUpRight size={15}/></button></article>;
   }):<div className="atlas-empty"><h3>{tx('没有匹配的事件','該当する出来事がありません')}</h3><button className="button secondary" onClick={()=>{resetFilters();applyPeriod('all');}}>{tx('显示全部事件','すべて表示')}</button></div>}</div>}
   <section className="timeline-reading-guide"><div><span className="eyebrow">READ A TIMELINE WELL</span><h2>{tx('年代，是理解的起点。','年代は、理解の出発点。')}</h2></div><div><p>{tx('本版收录精选节点，最晚至2008年。它提供继续学习的线索；可以按主题或关键词寻找事件。','この版は2008年までの出来事を選んで収録しています。学びを広げる手がかりとして、テーマや言葉から探してみましょう。')}</p><p>{tx('朝代与时期是导航分段，存在重叠，也不等于固定疆域。图上事件按年份比例定位；相近节点会合并，放大即可展开。','時代区分は移動のための目安です。重なりがあり、固定した領域を示しません。時間軸は年数に比例し、近い項目はまとめて表示します。')}</p><p>{tx('“约”和时间范围保留材料的精度。条目之间的先后、接近，不直接代表因果。每一项都可以回到资料继续核对。','「頃」や期間の表示は資料の精度を保つためです。前後関係や時間的な近さだけで因果は決まりません。各項目の出典で確かめられます。')}</p><a href="https://www.allhistory.com/" target="_blank" rel="noreferrer">{tx('界面参考：全历史的时代导航与事件卡片','表示の参考：全歴史の時代ナビゲーションと出来事カード')}<ArrowUpRight size={13}/></a></div></section>
-  {clusterChoice.length>0&&<Dialog title={tx('同一时段的事件','同じ時期の出来事')} onClose={()=>setClusterChoice([])} className="timeline-cluster-dialog"><p>{tx('选择一件事，读它的背景、影响与出处。','出来事を選んで、背景・意味・出典を読みましょう。')}</p><div className="cluster-choices">{clusterChoice.map(event=><button key={event.id} onClick={()=>{setClusterChoice([]);openEvent(event,true);}}><span>{t(event.date)}</span><strong>{t(event.title)}</strong><ArrowRight size={17}/></button>)}</div></Dialog>}
-  {detailOpen&&selected&&<Dialog title={tx('历史事件','歴史の出来事')} onClose={()=>setDetailOpen(false)} className="timeline-detail-dialog">{detail(selected)}</Dialog>}
+  {clusterChoice.length>0&&<Dialog title={tx('同一时段的事件','同じ時期の出来事')} onClose={()=>setClusterChoice([])} className="timeline-cluster-dialog"><p>{tx('选择一件事，读它的背景、影响与出处。','出来事を選んで、背景・意味・出典を読みましょう。')}</p><div className="cluster-choices">{clusterChoice.map(event=><button key={event.id} onClick={()=>{setClusterChoice([]);openEvent(event);}}><span>{t(event.date)}</span><strong>{t(event.title)}</strong><ArrowRight size={17}/></button>)}</div></Dialog>}
+  {detailOpen&&readingEvent&&<Dialog title={t(readingEvent.title)} onClose={()=>setDetailOpen(false)} className="history-reader-dialog"><EventArticleReader key={readingEvent.id} event={readingEvent} lang={lang} related={related} previous={events[readingIndex-1]} next={events[readingIndex+1]} onClose={()=>setDetailOpen(false)} onLanguageChange={onLanguageChange} onNavigate={event=>event.track===track?openEvent(event):onTrackChange(event.track,event.id)} onOpenLesson={onOpenLesson} onQuestion={onQuestion}/></Dialog>}
  </section>;
 }

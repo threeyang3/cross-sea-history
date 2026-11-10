@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./timeline.css";
+import "./article-reader.css";
 
 export const metadata: Metadata = {
   title: "跨海的历史｜海をわたる歴史",

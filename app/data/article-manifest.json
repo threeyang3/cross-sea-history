@@ -1,0 +1,746 @@
+{
+  "cn-liangzhu": {
+    "zhCharacters": 764,
+    "jaCharacters": 947,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-erlitou": {
+    "zhCharacters": 751,
+    "jaCharacters": 925,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-oracle-writing": {
+    "zhCharacters": 721,
+    "jaCharacters": 871,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-yinxu": {
+    "zhCharacters": 734,
+    "jaCharacters": 897,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zhou-conquest": {
+    "zhCharacters": 714,
+    "jaCharacters": 865,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-eastern-zhou": {
+    "zhCharacters": 745,
+    "jaCharacters": 869,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-confucius": {
+    "zhCharacters": 723,
+    "jaCharacters": 868,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zeng-bells": {
+    "zhCharacters": 699,
+    "jaCharacters": 867,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-shangyang": {
+    "zhCharacters": 723,
+    "jaCharacters": 858,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-dujiangyan": {
+    "zhCharacters": 725,
+    "jaCharacters": 858,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-northern-wei-luoyang": {
+    "zhCharacters": 734,
+    "jaCharacters": 866,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-sui-examinations": {
+    "zhCharacters": 769,
+    "jaCharacters": 865,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-sui-unification": {
+    "zhCharacters": 727,
+    "jaCharacters": 847,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-sui-grand-canal": {
+    "zhCharacters": 706,
+    "jaCharacters": 838,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-tang-foundation": {
+    "zhCharacters": 733,
+    "jaCharacters": 846,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-xuanzang-return": {
+    "zhCharacters": 702,
+    "jaCharacters": 968,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-wuzhou": {
+    "zhCharacters": 735,
+    "jaCharacters": 996,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-an-lushan-rebellion": {
+    "zhCharacters": 766,
+    "jaCharacters": 1050,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-two-tax-law": {
+    "zhCharacters": 773,
+    "jaCharacters": 1040,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-diamond-sutra-print": {
+    "zhCharacters": 736,
+    "jaCharacters": 1043,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-yellow-turban": {
+    "zhCharacters": 749,
+    "jaCharacters": 1005,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-three-kingdoms": {
+    "zhCharacters": 748,
+    "jaCharacters": 1040,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-western-jin-unification": {
+    "zhCharacters": 745,
+    "jaCharacters": 1070,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-lanting": {
+    "zhCharacters": 755,
+    "jaCharacters": 1039,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-mogao": {
+    "zhCharacters": 759,
+    "jaCharacters": 1009,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-faxian": {
+    "zhCharacters": 775,
+    "jaCharacters": 1030,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zuchongzhi": {
+    "zhCharacters": 760,
+    "jaCharacters": 1068,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-yungang": {
+    "zhCharacters": 779,
+    "jaCharacters": 1030,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-han-gold-seal": {
+    "zhCharacters": 775,
+    "jaCharacters": 1038,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-himiko-wei": {
+    "zhCharacters": 773,
+    "jaCharacters": 1040,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-sui-600": {
+    "zhCharacters": 763,
+    "jaCharacters": 1033,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-ono-sui": {
+    "zhCharacters": 773,
+    "jaCharacters": 1057,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-pei-shiqing": {
+    "zhCharacters": 769,
+    "jaCharacters": 1031,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-first-tang-mission": {
+    "zhCharacters": 695,
+    "jaCharacters": 823,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-dosho-xuanzang": {
+    "zhCharacters": 681,
+    "jaCharacters": 793,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-baekgang": {
+    "zhCharacters": 689,
+    "jaCharacters": 769,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-taiho-mission": {
+    "zhCharacters": 715,
+    "jaCharacters": 799,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-landmark-heijokyo": {
+    "zhCharacters": 711,
+    "jaCharacters": 791,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-nakamaro-kibi-genbo": {
+    "zhCharacters": 723,
+    "jaCharacters": 812,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-eiei-fusho": {
+    "zhCharacters": 727,
+    "jaCharacters": 790,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-ganjin-invitation": {
+    "zhCharacters": 736,
+    "jaCharacters": 842,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-ganjin-arrival": {
+    "zhCharacters": 724,
+    "jaCharacters": 796,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-todaiji-ordination": {
+    "zhCharacters": 713,
+    "jaCharacters": 815,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-toshodaiji-foundation": {
+    "zhCharacters": 733,
+    "jaCharacters": 789,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-landmark-heiankyo": {
+    "zhCharacters": 743,
+    "jaCharacters": 799,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-kukai-saicho-tang": {
+    "zhCharacters": 718,
+    "jaCharacters": 822,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-landmark-qinglong-kukai": {
+    "zhCharacters": 733,
+    "jaCharacters": 835,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-tendai-recognition": {
+    "zhCharacters": 721,
+    "jaCharacters": 807,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-landmark-toji-kukai": {
+    "zhCharacters": 706,
+    "jaCharacters": 786,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-last-tang-voyage": {
+    "zhCharacters": 697,
+    "jaCharacters": 799,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-894-suspension": {
+    "zhCharacters": 721,
+    "jaCharacters": 802,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-chonen-song": {
+    "zhCharacters": 698,
+    "jaCharacters": 774,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-eisai-return": {
+    "zhCharacters": 678,
+    "jaCharacters": 803,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-lanxi-arrival": {
+    "zhCharacters": 724,
+    "jaCharacters": 792,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-mongol-invasion-1274": {
+    "zhCharacters": 702,
+    "jaCharacters": 782,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-mugaku-arrival": {
+    "zhCharacters": 729,
+    "jaCharacters": 811,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-mongol-invasion-1281": {
+    "zhCharacters": 718,
+    "jaCharacters": 828,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-sinan-shipwreck": {
+    "zhCharacters": 724,
+    "jaCharacters": 819,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-treaty-1871": {
+    "zhCharacters": 721,
+    "jaCharacters": 794,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-sino-japanese-war": {
+    "zhCharacters": 710,
+    "jaCharacters": 811,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-shimonoseki-treaty": {
+    "zhCharacters": 697,
+    "jaCharacters": 790,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-qing-students": {
+    "zhCharacters": 743,
+    "jaCharacters": 811,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-tongmenghui": {
+    "zhCharacters": 736,
+    "jaCharacters": 823,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-twenty-one-demands": {
+    "zhCharacters": 729,
+    "jaCharacters": 812,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-mukden-incident": {
+    "zhCharacters": 739,
+    "jaCharacters": 835,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-marco-polo-bridge": {
+    "zhCharacters": 732,
+    "jaCharacters": 821,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-nanjing-massacre": {
+    "zhCharacters": 768,
+    "jaCharacters": 867,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-japan-surrender": {
+    "zhCharacters": 744,
+    "jaCharacters": 833,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-normalization-1972": {
+    "zhCharacters": 745,
+    "jaCharacters": 842,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-peace-treaty-1978": {
+    "zhCharacters": 747,
+    "jaCharacters": 818,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-declaration-1998": {
+    "zhCharacters": 748,
+    "jaCharacters": 828,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-statement-2008": {
+    "zhCharacters": 779,
+    "jaCharacters": 880,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-five-dynasties": {
+    "zhCharacters": 632,
+    "jaCharacters": 777,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-khitan-state": {
+    "zhCharacters": 657,
+    "jaCharacters": 752,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-northern-song": {
+    "zhCharacters": 651,
+    "jaCharacters": 753,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-chanyuan-treaty": {
+    "zhCharacters": 652,
+    "jaCharacters": 777,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-official-jiaozi": {
+    "zhCharacters": 654,
+    "jaCharacters": 750,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-bisheng-type": {
+    "zhCharacters": 623,
+    "jaCharacters": 757,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-jin-song-transition": {
+    "zhCharacters": 654,
+    "jaCharacters": 748,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-mongol-polity": {
+    "zhCharacters": 661,
+    "jaCharacters": 763,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-yuan-southern-song": {
+    "zhCharacters": 652,
+    "jaCharacters": 741,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-ming-founded": {
+    "zhCharacters": 651,
+    "jaCharacters": 750,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-tally-trade": {
+    "zhCharacters": 656,
+    "jaCharacters": 708,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zhenghe-voyages": {
+    "zhCharacters": 672,
+    "jaCharacters": 698,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-forbidden-city": {
+    "zhCharacters": 635,
+    "jaCharacters": 668,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-ningbo-incident": {
+    "zhCharacters": 650,
+    "jaCharacters": 645,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-late-wokou": {
+    "zhCharacters": 659,
+    "jaCharacters": 671,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-yuegang-opening": {
+    "zhCharacters": 645,
+    "jaCharacters": 699,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zhang-juzheng": {
+    "zhCharacters": 649,
+    "jaCharacters": 657,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-hideyoshi-korea": {
+    "zhCharacters": 652,
+    "jaCharacters": 672,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-bencao-publication": {
+    "zhCharacters": 649,
+    "jaCharacters": 629,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-ricci-worldmap": {
+    "zhCharacters": 656,
+    "jaCharacters": 634,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-tianxue-collection": {
+    "zhCharacters": 644,
+    "jaCharacters": 697,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-nagasaki-restrictions": {
+    "zhCharacters": 639,
+    "jaCharacters": 649,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-ming-qing-transition": {
+    "zhCharacters": 639,
+    "jaCharacters": 666,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-yinyuan-arrival": {
+    "zhCharacters": 629,
+    "jaCharacters": 659,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-qing-sea-opening": {
+    "zhCharacters": 644,
+    "jaCharacters": 663,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-tojin-yashiki": {
+    "zhCharacters": 627,
+    "jaCharacters": 662,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cj-books-1720": {
+    "zhCharacters": 624,
+    "jaCharacters": 678,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-grand-council": {
+    "zhCharacters": 637,
+    "jaCharacters": 622,
+    "minutes": 3,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-qingming-scroll1736": {
+    "zhCharacters": 642,
+    "jaCharacters": 646,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-canton-trade1757": {
+    "zhCharacters": 641,
+    "jaCharacters": 650,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-siku-compilation": {
+    "zhCharacters": 760,
+    "jaCharacters": 1079,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-first-opium-war": {
+    "zhCharacters": 761,
+    "jaCharacters": 1053,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-taiping-war": {
+    "zhCharacters": 803,
+    "jaCharacters": 1122,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-jiangnan-arsenal": {
+    "zhCharacters": 797,
+    "jaCharacters": 1129,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-qin-measures": {
+    "zhCharacters": 671,
+    "jaCharacters": 834,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-qin-unification": {
+    "zhCharacters": 690,
+    "jaCharacters": 841,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-western-han": {
+    "zhCharacters": 685,
+    "jaCharacters": 859,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zhangqian-first": {
+    "zhCharacters": 671,
+    "jaCharacters": 866,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-shiji": {
+    "zhCharacters": 711,
+    "jaCharacters": 870,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-eastern-han": {
+    "zhCharacters": 729,
+    "jaCharacters": 883,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-cailun-paper": {
+    "zhCharacters": 725,
+    "jaCharacters": 875,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-zhangheng-seismometer": {
+    "zhCharacters": 713,
+    "jaCharacters": 890,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-xinhai-republic": {
+    "zhCharacters": 696,
+    "jaCharacters": 852,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-may-fourth": {
+    "zhCharacters": 738,
+    "jaCharacters": 866,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-war-resistance1931": {
+    "zhCharacters": 739,
+    "jaCharacters": 970,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-prc-established": {
+    "zhCharacters": 728,
+    "jaCharacters": 891,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-cultural-revolution": {
+    "zhCharacters": 746,
+    "jaCharacters": 921,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-reform-opening": {
+    "zhCharacters": 744,
+    "jaCharacters": 909,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-wto-accession": {
+    "zhCharacters": 730,
+    "jaCharacters": 905,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-beijing-olympics": {
+    "zhCharacters": 721,
+    "jaCharacters": 882,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-sino-japanese-war1894": {
+    "zhCharacters": 818,
+    "jaCharacters": 1051,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  },
+  "cn-hundred-days": {
+    "zhCharacters": 758,
+    "jaCharacters": 955,
+    "minutes": 4,
+    "reviewedAt": "2026-11-10"
+  }
+}

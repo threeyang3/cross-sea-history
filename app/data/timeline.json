@@ -781,8 +781,8 @@
       },
       "featured": false,
       "sourceIds": [
-        "cj-s-himiko",
-        "cj-s-kyuhaku-mirrors"
+        "cj-s-kyuhaku-mirrors",
+        "cj-s-himiko"
       ],
       "precision": "year"
     },
@@ -1142,7 +1142,6 @@
       },
       "featured": false,
       "sourceIds": [
-        "cj-s-sui-otani",
         "cj-s-sui-senshu"
       ],
       "precision": "year"
@@ -6066,23 +6065,6 @@
         "ja": "遣使の年に238年と239年の異同があり、賜与された鏡と出土品の対応にも未解決の問題がある。"
       },
       "language": "zh"
-    },
-    {
-      "id": "cj-s-sui-otani",
-      "title": {
-        "zh": "大谷大学：中国史料所见遣隋使",
-        "ja": "大谷大学：中国の史料から見た遣隋使"
-      },
-      "url": "https://www.otani.ac.jp/admission/opencampus/2022/0605.html",
-      "kind": {
-        "zh": "大学历史学课程说明",
-        "ja": "大学の歴史学講義案内"
-      },
-      "claim": {
-        "zh": "明确指出600年遣隋使见于《隋书》而不见于《日本书纪》，并讨论607年小野妹子使团。",
-        "ja": "600年の記事が『隋書』にあり『日本書紀』にないことと、607年の小野妹子の遣使を扱う。"
-      },
-      "language": "ja"
     },
     {
       "id": "cj-s-sui-senshu",
