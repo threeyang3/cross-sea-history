@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Search } from "lucide-react";
 import type { Lang } from "../content-types";
 import { Bilingual, choose } from "../learning-ui";
-import { periods, poemById, poems, searchPoems, textOf } from "./data";
-import type { Period, Poem, Token } from "./types";
+import { formGroups, periods, poemById, poems, searchPoems, textOf, themes } from "./data";
+import type { FormGroup, Period, Poem, Theme, Token } from "./types";
 
 type ReadableToken = Token & { line: number; index: number; note: string };
 
@@ -19,6 +19,7 @@ function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
   const tx = (zh: string, ja: string) => lang === "ja" ? ja : zh;
   const [selected, setSelected] = useState<ReadableToken>();
   const activeGloss = useRef<HTMLDivElement>(null);
+  const inlineGloss = poem.lines.length >= 10;
   const current = selected ?? glosses(poem.lines[0], 0)[0];
   const stanzas = poem.breakAt
     ? [poem.lines.slice(0, poem.breakAt), poem.lines.slice(poem.breakAt)]
@@ -30,14 +31,19 @@ function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
   const next = otherPoems[index + 1];
 
   useEffect(() => {
-    if (selected && window.matchMedia("(max-width: 760px)").matches) {
+    if (selected && (inlineGloss || window.matchMedia("(max-width: 760px)").matches)) {
       activeGloss.current?.scrollIntoView({ block: "nearest" });
     }
-  }, [selected]);
+  }, [inlineGloss, selected]);
+
+  const glossPanel = <div className="poem-active-gloss" id="poem-active-gloss" ref={activeGloss} role="status">
+    <div className="poem-gloss-key"><span lang="ja">語注</span><strong lang="zh-CN">{current.text}</strong></div>
+    <p lang="ja">{current.note}</p>
+  </div>;
 
   return <article className="poem-reader" aria-labelledby="poem-title">
     <header className="poem-title">
-      <p>{choose(period.name, lang)} <span aria-hidden="true">·</span> {choose(poem.form, lang)}</p>
+      <p>{choose(period.name, lang)} <span aria-hidden="true">·</span> {choose(poem.form, lang)} <span aria-hidden="true">·</span> {choose(themes[poem.theme], lang)}</p>
       <h2 id="poem-title" tabIndex={-1} lang="zh-CN">{poem.title}</h2>
       <p lang={lang === "ja" ? "ja" : "zh-CN"}>{lang === "ja" ? poem.authorJa : poem.author}</p>
     </header>
@@ -48,24 +54,25 @@ function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
       </details>}
       <div className="poem-stanzas">
         {stanzas.map((stanza, stanzaIndex) => <section key={stanzaIndex} className="poem-stanza" lang="zh-CN"
-          aria-label={stanzas.length === 1 ? tx("诗词原文", "詩詞の原文") : stanzaIndex === 0 ? tx("上片", "上片") : tx("下片", "下片")}>
+          aria-label={stanzas.length === 1 ? tx("诗词原文", "詩詞の原文") : stanzaIndex === 0 ? "上片" : "下片"}>
           {stanzas.length > 1 && <h3 lang={lang === "ja" ? "ja" : "zh-CN"}>{stanzaIndex === 0 ? "上片" : "下片"}</h3>}
           {stanza.map((line, lineIndex) => {
             const fullLine = lineIndex + (stanzaIndex === 0 ? 0 : (poem.breakAt ?? 0));
-            return <div className="poem-line" key={fullLine}>
-              {line.map((token, tokenIndex) => token.note
-                ? <button key={tokenIndex} type="button" aria-controls="poem-active-gloss"
-                    aria-pressed={current.line === fullLine && current.index === tokenIndex}
-                    onClick={() => setSelected({ ...token, note: token.note!, line: fullLine, index: tokenIndex })}>{token.text}</button>
-                : <span key={tokenIndex}>{token.text}</span>)}
+            const lineActive = current.line === fullLine;
+            return <div key={fullLine} className={inlineGloss ? "poem-inline-gloss" : undefined}>
+              <div className="poem-line">
+                {line.map((token, tokenIndex) => token.note
+                  ? <button key={tokenIndex} type="button" aria-controls={inlineGloss && !lineActive ? undefined : "poem-active-gloss"}
+                      aria-pressed={lineActive && current.index === tokenIndex}
+                      onClick={() => setSelected({ ...token, note: token.note!, line: fullLine, index: tokenIndex })}>{token.text}</button>
+                  : <span key={tokenIndex}>{token.text}</span>)}
+              </div>
+              {inlineGloss && lineActive && glossPanel}
             </div>;
           })}
         </section>)}
       </div>
-      <div className="poem-active-gloss" id="poem-active-gloss" ref={activeGloss} role="status">
-        <div className="poem-gloss-key"><span lang="ja">語注</span><strong lang="zh-CN">{current.text}</strong></div>
-        <p lang="ja">{current.note}</p>
-      </div>
+      {!inlineGloss && glossPanel}
       <details className="poem-all-glosses">
         <summary>{tx("查看全部日文逐词注", "すべての語注を読む")}</summary>
         <div className="poem-gloss-lines">
@@ -103,6 +110,8 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
   const poem = poemById.get(poemId) ?? poems[0];
   const [period, setPeriod] = useState<Period | "all">(poemId ? poem.period : "all");
   const [query, setQuery] = useState("");
+  const [form, setForm] = useState<FormGroup | "all">("all");
+  const [theme, setTheme] = useState<Theme | "all">("all");
   const reader = useRef<HTMLDivElement>(null);
   const previousId = useRef(poemId);
   useEffect(() => {
@@ -111,6 +120,8 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
       if (selectedPoem) {
         setPeriod(current => current === "all" || current === selectedPoem.period ? current : selectedPoem.period);
         setQuery(current => searchPoems(current).some(item => item.id === poemId) ? current : "");
+        setForm(current => current === selectedPoem.form.group ? current : "all");
+        setTheme(current => current === selectedPoem.theme ? current : "all");
       }
       const title = reader.current?.querySelector<HTMLElement>("#poem-title");
       title?.focus({ preventScroll: true });
@@ -120,14 +131,18 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
     }
     previousId.current = poemId;
   }, [poemId]);
-  const results = searchPoems(query, period);
+  const results = searchPoems(query, { period, form, theme });
   const visiblePeriods = periods.filter(group => period === "all" || group.id === period);
 
   return <section className="poetry-shelf content-width">
     <header className="poetry-heading">
       <BookOpen size={28} strokeWidth={1.4} aria-hidden="true"/>
       <h1>{tx("古诗词选读", "中国の詩詞を読む")}</h1>
-      <p>{tx("唐诗、宋词与明清诗词。点选原文中的字词，即可查看日文注释。", "唐詩・宋詞から明清の詩詞まで。原文の語句を選ぶと日本語の注が開きます。")}</p>
+      <p>{tx("点选原文中的字词，即可查看日文注释。", "原文の語句を選ぶと日本語の注が開きます。")}</p>
+      {poem.id !== "jiang-jin-jiu" && <a className="poetry-feature" href="#poetry/jiang-jin-jiu">
+        <span>{tx("本次选读", "今回の選読")}</span><strong lang="zh-CN">将进酒</strong>
+        <ArrowRight size={15} aria-hidden="true"/>
+      </a>}
       <button className="poetry-jump" type="button" onClick={() => {
         const catalog = document.getElementById("poetry-catalog-title");
         catalog?.focus({ preventScroll: true });
@@ -148,6 +163,17 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
           {periods.map(group => <button type="button" key={group.id} aria-pressed={period === group.id}
             onClick={() => setPeriod(group.id)}>{choose(group.name, lang)}</button>)}
         </div>
+        <div className="poetry-selects">
+          <label>{tx("体裁", "形式")}<select value={form} onChange={event => setForm(event.target.value as FormGroup | "all")}>
+            <option value="all">{tx("所有体裁", "すべての形式")}</option>
+            {Object.entries(formGroups).map(([id, label]) => <option value={id} key={id}>{choose(label, lang)}</option>)}
+          </select></label>
+          <label>{tx("题材", "題材")}<select value={theme} onChange={event => setTheme(event.target.value as Theme | "all")}>
+            <option value="all">{tx("所有题材", "すべての題材")}</option>
+            {Object.entries(themes).map(([id, label]) => <option value={id} key={id}>{choose(label, lang)}</option>)}
+          </select></label>
+        </div>
+        <div className="poetry-catalog-results">
         {visiblePeriods.map(group => {
           const matches = results.filter(item => item.period === group.id);
           return matches.length > 0 && <section className="poetry-catalog-group" key={group.id}>
@@ -167,6 +193,7 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
           </section>;
         })}
         {results.length === 0 && <p className="poetry-empty">{tx("没有找到匹配的作品。", "該当する作品がありません。")}</p>}
+        </div>
       </aside>
       <div className="poetry-reader-column" ref={reader}><PoemReader key={poem.id} poem={poem} lang={lang}/></div>
     </div>

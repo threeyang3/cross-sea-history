@@ -3,7 +3,7 @@ import { forms, type Poem, verse as v, wikisource as ws } from "./types";
 
 export const tang: Poem[] = [
   {
-    id: "jing-ye-si", period: "tang", title: "静夜思", author: "李白", authorJa: "李白（りはく）", form: forms.five,
+    id: "jing-ye-si", theme: "journey", period: "tang", title: "静夜思", author: "李白", authorJa: "李白（りはく）", form: forms.five,
     lines: [
       v("床前|明月光，", "寝台の前。床はここでは寝台。", "明るい月の光。光は月明かりのこと。"),
       v("疑|是|地上|霜。", "〜ではないかと思う。", "〜である。直前の「疑」が判断を保留する。", "地面の上。", "しも。月明かりの白さから連想する。"),
@@ -15,7 +15,7 @@ export const tang: Poem[] = [
     source: ws("靜夜思"),
   },
   {
-    id: "chun-xiao", period: "tang", title: "春晓", author: "孟浩然", authorJa: "孟浩然（もうこうねん）", form: forms.five,
+    id: "chun-xiao", theme: "landscape", period: "tang", title: "春晓", author: "孟浩然", authorJa: "孟浩然（もうこうねん）", form: forms.five,
     lines: [
       v("春眠|不觉|晓，", "春の眠り。", "気づかない。", "夜明け。"),
       v("处处|闻|啼鸟。", "あちらこちら。", "耳にする。", "鳴いている鳥。啼は鳥の鳴き声にも使う。"),
@@ -26,7 +26,7 @@ export const tang: Poem[] = [
     source: ws("春曉_(孟浩然)", "《全唐诗》卷160等 / ウィキソース"),
   },
   {
-    id: "deng-guan-que-lou", period: "tang", title: "登鹳雀楼", author: "王之涣", authorJa: "王之渙（おうしかん）", form: forms.five,
+    id: "deng-guan-que-lou", theme: "landscape", period: "tang", title: "登鹳雀楼", author: "王之涣", authorJa: "王之渙（おうしかん）", form: forms.five,
     lines: [
       v("白日|依|山|尽，", "太陽。白は明るさを表す。", "〜に沿う。", "山。", "見えなくなる。ここでは日が山際に沈むこと。"),
       v("黄河|入|海|流。", "中国の大河、黄河。", "入る。河口へ向かう流れを示す。", "海。", "流れる。"),
@@ -38,7 +38,7 @@ export const tang: Poem[] = [
     source: ws("登鸛雀樓", "《御定全唐诗》卷253等 / ウィキソース"),
   },
   {
-    id: "xiang-si", period: "tang", title: "相思", author: "王维", authorJa: "王維（おうい）", form: forms.five,
+    id: "xiang-si", theme: "relationships", period: "tang", title: "相思", author: "王维", authorJa: "王維（おうい）", form: forms.five,
     lines: [
       v("红豆|生|南国，", "赤い種をつける植物、あるいはその実。", "生える。", "南の地方。"),
       v("春来|发|几枝。", "春が来ると。", "芽を出す、枝を伸ばす。", "何本の枝。"),
@@ -50,7 +50,7 @@ export const tang: Poem[] = [
     source: ws("相思", "《全唐诗》卷128 / ウィキソース"),
   },
   {
-    id: "jiang-xue", period: "tang", title: "江雪", author: "柳宗元", authorJa: "柳宗元（りゅうそうげん）", form: forms.five,
+    id: "jiang-xue", theme: "landscape", period: "tang", title: "江雪", author: "柳宗元", authorJa: "柳宗元（りゅうそうげん）", form: forms.five,
     lines: [
       v("千山|鸟飞|绝，", "数多くの山。千は多さを強調する。", "鳥が飛ぶこと、その姿。", "途絶える。"),
       v("万径|人踪|灭。", "あらゆる小道。径は小道。", "人の足跡、行き来の痕跡。", "消える。"),
@@ -61,7 +61,7 @@ export const tang: Poem[] = [
     source: ws("江雪"),
   },
   {
-    id: "feng-qiao-ye-bo", period: "tang", title: "枫桥夜泊", author: "张继", authorJa: "張継（ちょうけい）", form: forms.seven,
+    id: "feng-qiao-ye-bo", theme: "journey", period: "tang", title: "枫桥夜泊", author: "张继", authorJa: "張継（ちょうけい）", form: forms.seven,
     lines: [
       v("月落|乌啼|霜满天，", "月が沈む。", "カラスが鳴く。", "霜の気配が空いっぱいに感じられる。"),
       v("江枫|渔火|对|愁眠。", "川辺のカエデ。", "漁船などの灯火。", "〜と向き合う。", "憂いを抱えた眠り、または眠ろうとして憂うこと。"),
@@ -73,7 +73,7 @@ export const tang: Poem[] = [
     related: { title: p("国立国会图书馆的日文书目线索", "国立国会図書館の文献案内"), href: "https://crd.ndl.go.jp/reference/entry/index.php?id=1000066957&page=ref_view" },
   },
   {
-    id: "huang-he-lou", period: "tang", title: "黄鹤楼送孟浩然之广陵", author: "李白", authorJa: "李白（りはく）", form: forms.seven,
+    id: "huang-he-lou", theme: "relationships", period: "tang", title: "黄鹤楼送孟浩然之广陵", author: "李白", authorJa: "李白（りはく）", form: forms.seven,
     lines: [
       v("故人|西辞|黄鹤楼，", "旧友。ここでは孟浩然。", "西にある出発地に別れを告げる。行き先の広陵は下流にある。", "現在の武漢に関わる楼の名。"),
       v("烟花|三月|下|扬州。", "霞がかかったように花の咲く春景色。", "旧暦の三月。", "川の下流へ向かう。", "ここでは広陵のこと。現在の揚州。"),
@@ -86,7 +86,7 @@ export const tang: Poem[] = [
     related: { title: p("原站专题｜在四句诗里远行", "サイト内の特集｜四句の詩を旅する"), href: "/#timeline/china/cn-tang-poetry-farewell" },
   },
   {
-    id: "chun-wang", period: "tang", title: "春望", author: "杜甫", authorJa: "杜甫（とほ）", form: forms.regulated,
+    id: "chun-wang", theme: "history", period: "tang", title: "春望", author: "杜甫", authorJa: "杜甫（とほ）", form: forms.regulated,
     lines: [
       v("国破|山河|在，", "国都が破れる。ここでは安史の乱のさなかの長安。", "山と川、自然の地形。", "残っている。"),
       v("城春|草木|深。", "都に春が来る。", "草と木。", "生い茂っている。"),
@@ -102,7 +102,7 @@ export const tang: Poem[] = [
     related: { title: p("中国史时间线｜安史之乱", "中国史年表｜安史の乱"), href: "/#timeline/china/cn-an-lushan-rebellion" },
   },
   {
-    id: "wen-liu-shi-jiu", period: "tang", title: "问刘十九", author: "白居易", authorJa: "白居易（はくきょい）", form: forms.five,
+    id: "wen-liu-shi-jiu", theme: "wine", period: "tang", title: "问刘十九", author: "白居易", authorJa: "白居易（はくきょい）", form: forms.five,
     lines: [
       v("绿蚁|新醅酒，", "新酒の表面に浮く細かな泡。色と形を小さなアリにたとえる。", "新しく醸した、まだ漉していない酒。醅は濾過前の酒。"),
       v("红泥|小火炉。", "赤い土。", "小さな火鉢、暖を取る炉。"),

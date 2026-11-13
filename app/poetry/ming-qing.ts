@@ -3,7 +3,7 @@ import { forms, type Poem, verse as v, wikisource as ws } from "./types";
 
 export const mingQing: Poem[] = [
   {
-    id: "shi-hui-yin", period: "ming", title: "石灰吟", author: "于谦", authorJa: "于謙（うけん）", form: forms.seven,
+    id: "shi-hui-yin", theme: "integrity", period: "ming", title: "石灰吟", author: "于谦", authorJa: "于謙（うけん）", form: forms.seven,
     lines: [
       v("千锤|万凿|出|深山，", "数えきれないほど槌で打つ。", "何度もノミでうがつ。", "取り出される。", "山の奥。"),
       v("烈火|焚烧|若|等闲。", "激しい炎。", "火で焼く。", "〜のようだ。", "ありふれたこと。ここでは意に介さないさま。"),
@@ -15,7 +15,7 @@ export const mingQing: Poem[] = [
     source: ws("詠石灰"),
   },
   {
-    id: "hua-ji", period: "ming", title: "画鸡", author: "唐寅", authorJa: "唐寅（とういん）", form: forms.seven,
+    id: "hua-ji", theme: "daily", period: "ming", title: "画鸡", author: "唐寅", authorJa: "唐寅（とういん）", form: forms.seven,
     lines: [
       v("头上|红冠|不用|裁，", "頭の上。", "赤いトサカ。冠は形のたとえ。", "〜する必要がない。", "布などを裁つ。ここでは人工の飾りを作ること。"),
       v("满身|雪白|走将来。", "体じゅう。", "雪のように白い。", "歩いてこちらへやって来る。ここでの「将来」は、こちらへ向かう動きを表す。"),
@@ -27,7 +27,7 @@ export const mingQing: Poem[] = [
     source: { name: "古文岛 / 古文島", url: "https://www.guwendao.net/shiwenv_0f6ad3fb3d95.aspx" },
   },
   {
-    id: "jing-shi-jia-shu", period: "ming", title: "京师得家书", author: "袁凯", authorJa: "袁凱（えんがい）", form: forms.five,
+    id: "jing-shi-jia-shu", theme: "relationships", period: "ming", title: "京师得家书", author: "袁凯", authorJa: "袁凱（えんがい）", form: forms.five,
     lines: [
       v("江水|三千里，", "川の流れ。", "三千里。都と故郷の隔たりの大きさを表す。"),
       v("家书|十五|行。", "家族から届いた手紙。", "十五。", "文字の一行。ここでは行数を数える。"),
@@ -38,7 +38,7 @@ export const mingQing: Poem[] = [
     source: { name: "Web汉文大系 / Web漢文大系", url: "https://kanbun.info/syubu/keishinite.html" },
   },
   {
-    id: "ma-shang-zuo", period: "ming", title: "马上作", author: "戚继光", authorJa: "戚継光（せきけいこう）", form: forms.seven,
+    id: "ma-shang-zuo", theme: "frontier", period: "ming", title: "马上作", author: "戚继光", authorJa: "戚継光（せきけいこう）", form: forms.seven,
     lines: [
       v("南北|驱驰|报|主情，", "南へ北へ。各地を指す。", "馬を走らせて各地に赴く。", "報いる。", "主君から受けた恩情。"),
       v("江花|边草|笑|平生。", "川辺の花。", "辺境の草。", "笑う。花と草を人のように描く。", "これまでの生涯。"),
@@ -49,7 +49,7 @@ export const mingQing: Poem[] = [
     source: { name: "百度汉语 / 百度漢語", url: "https://hanyu.baidu.com/shici/detail?pid=96a2be320c834bc78febd3e89820afda" },
   },
   {
-    id: "lin-jiang-xian", period: "ming", title: "临江仙·滚滚长江东逝水", author: "杨慎", authorJa: "楊慎（ようしん）", form: forms.ci, breakAt: 5,
+    id: "lin-jiang-xian", theme: "history", period: "ming", title: "临江仙·滚滚长江东逝水", author: "杨慎", authorJa: "楊慎（ようしん）", form: forms.ci, breakAt: 5,
     lines: [
       v("滚滚|长江|东逝|水，", "水が勢いよく流れるさま。", "長江。", "東へ流れ去る。", "川の水。"),
       v("浪花|淘尽|英雄。", "波しぶき。", "洗い流し尽くす。", "名を残した人物たち。"),
@@ -67,7 +67,7 @@ export const mingQing: Poem[] = [
     source: ws("臨江仙_(楊慎)", "《二十一史弹词》 / ウィキソース"),
   },
   {
-    id: "chang-xiang-si", period: "qing", title: "长相思·山一程", author: "纳兰性德", authorJa: "納蘭性徳（ならんせいとく）", form: forms.ci, breakAt: 4,
+    id: "chang-xiang-si", theme: "journey", period: "qing", title: "长相思·山一程", author: "纳兰性德", authorJa: "納蘭性徳（ならんせいとく）", form: forms.ci, breakAt: 4,
     lines: [
       v("山|一程，", "山。通り過ぎる地形。", "道のひと区切り。旅の距離を刻む。"),
       v("水|一程，", "川や水辺。", "道のひと区切り。山に続いて水の区間を進む。"),
@@ -82,7 +82,7 @@ export const mingQing: Poem[] = [
     source: ws("長相思_(納蘭性德)"),
   },
   {
-    id: "huan-xi-sha-nalan", period: "qing", title: "浣溪沙·谁念西风独自凉", author: "纳兰性德", authorJa: "納蘭性徳（ならんせいとく）", form: forms.ci, breakAt: 3,
+    id: "huan-xi-sha-nalan", theme: "relationships", period: "qing", title: "浣溪沙·谁念西风独自凉", author: "纳兰性德", authorJa: "納蘭性徳（ならんせいとく）", form: forms.ci, breakAt: 3,
     lines: [
       v("谁|念|西风|独自|凉，", "だれが。", "気にかける、思いやる。", "西から吹く風。秋風を指すことが多い。", "ひとりで。", "肌寒い。心の寂しさも感じさせる。"),
       v("萧萧|黄叶|闭|疏窗，", "風や葉がもの寂しく音を立てるさま。", "黄色くなった葉。", "閉じる。", "格子の間隔が広い窓。"),
@@ -96,7 +96,7 @@ export const mingQing: Poem[] = [
     source: ws("浣溪沙_(誰念西風獨自涼)", "《饮水词》 / ウィキソース"),
   },
   {
-    id: "zhu-shi", period: "qing", title: "竹石", author: "郑燮", authorJa: "鄭燮（ていしょう）", form: forms.seven,
+    id: "zhu-shi", theme: "integrity", period: "qing", title: "竹石", author: "郑燮", authorJa: "鄭燮（ていしょう）", form: forms.seven,
     lines: [
       v("咬定|青山|不放松，", "かみついて離さない。根を張る竹を擬人化する。", "青く見える山。", "ゆるめない、手放さない。"),
       v("立根|原|在|破岩中。", "根を下ろす。", "もともと。", "〜にある。", "ひび割れた岩の中。"),
@@ -107,7 +107,7 @@ export const mingQing: Poem[] = [
     source: ws("竹石"),
   },
   {
-    id: "ji-hai-za-shi-five", period: "qing", title: "己亥杂诗·其五", author: "龚自珍", authorJa: "龔自珍（きょうじちん）", form: forms.seven,
+    id: "ji-hai-za-shi-five", theme: "integrity", period: "qing", title: "己亥杂诗·其五", author: "龚自珍", authorJa: "龔自珍（きょうじちん）", form: forms.seven,
     lines: [
       v("浩荡|离愁|白日|斜，", "広々として尽きないさま。ここでは感情の大きさ。", "別れの悲しみ。", "太陽。", "西に傾く。"),
       v("吟鞭|东指|即|天涯。", "詩を吟じる人の乗馬のむち。", "東を指す。出発する方向を示す。", "すなわち、もう。", "空の果て。はるか遠い地。"),
@@ -118,7 +118,7 @@ export const mingQing: Poem[] = [
     source: { name: "《己亥杂诗》其五 / 中华文库", url: "https://www.zhonghuashu.com/wiki/%E5%B7%B1%E4%BA%A5%E9%9B%9C%E8%A9%A9" },
   },
   {
-    id: "tai", period: "qing", title: "苔", author: "袁枚", authorJa: "袁枚（えんばい）", form: forms.five,
+    id: "tai", theme: "integrity", period: "qing", title: "苔", author: "袁枚", authorJa: "袁枚（えんばい）", form: forms.five,
     lines: [
       v("白日|不|到|处，", "太陽の光。", "〜ない。", "届く。", "ところ。"),
       v("青春|恰|自来。", "春の生気。若さの響きもある。", "ちょうど、まさに。", "自然にやって来る。"),

@@ -15,7 +15,7 @@ type HubProps = { lang:Lang; onNavigate:(view:Destination,id?:string)=>void; onO
 const eventById = new Map(historicalEvents.map(event => [event.id,event]));
 const topics = [
   { id:'attire', title:p('衣冠与日常','装いと日常'), sub:p('读懂一件唐代衣装','唐代の衣装を読む'), icon:Shirt, tone:'cinnabar', image:'tang-attire-figurine', event:'cn-tang-attire' },
-  { id:'poetry', title:p('古诗词选读','中国の詩詞を読む'), sub:p('唐诗、宋词、明清诗词','唐詩・宋詞・明清の詩詞'), icon:Brush, tone:'ochre', image:'wangbo-manuscript', view:'poetry' as Destination },
+  { id:'poetry', title:p('古诗词选读','中国の詩詞を読む'), sub:p('唐宋诗词、元曲、明清诗词','唐宋の詩詞・元曲・明清の詩詞'), icon:Brush, tone:'ochre', image:'wangbo-manuscript', view:'poetry' as Destination },
   { id:'voyages', title:p('渡海与求学','渡海と学び'), sub:p('使节、僧侣与书籍','使節・僧侶・書物'), icon:Ship, tone:'indigo', image:'toshodaiji', event:'cj-first-tang-mission' },
   { id:'cities', title:p('城市与寺院','都市と寺院'), sub:p('长安 · 青龙寺 · 京都','長安・青龍寺・京都'), icon:Landmark, tone:'jade', image:'qinglong', view:'places' as Destination },
   { id:'ming', title:p('明清书房','明清の書斎'), sub:p('制度、海贸与生活','制度・交易・暮らし'), icon:BookOpen, tone:'plum', image:'qingming-detail', view:'ming' as Destination },

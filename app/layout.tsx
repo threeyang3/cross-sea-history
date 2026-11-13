@@ -7,7 +7,7 @@ import "./poetry/poetry.css";
 
 export const metadata: Metadata = {
   title: "跨海的历史｜海をわたる歴史",
-  description: "循着长安、青龙寺与京都，认识唐代中日交流；另设明清中国史书房。中日交流史与中国历史双语时间线、唐代服饰、唐宋明清诗词及日文词注、专题图解、文物图像、互动观察与个人摘记。",
+  description: "循着长安、青龙寺与京都，认识唐代中日交流；另设明清中国史书房。中日交流史与中国历史双语时间线、唐代服饰、唐宋明清诗词、元曲及日文词注、专题图解、文物图像、互动观察与个人摘记。",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

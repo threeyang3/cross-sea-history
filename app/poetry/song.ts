@@ -3,7 +3,7 @@ import { forms, type Poem, verse as v, wikisource as ws } from "./types";
 
 export const song: Poem[] = [
   {
-    id: "huan-xi-sha-yan", period: "song", title: "浣溪沙·一曲新词酒一杯", author: "晏殊", authorJa: "晏殊（あんしゅ）", form: forms.ci, breakAt: 3,
+    id: "huan-xi-sha-yan", theme: "daily", period: "song", title: "浣溪沙·一曲新词酒一杯", author: "晏殊", authorJa: "晏殊（あんしゅ）", form: forms.ci, breakAt: 3,
     lines: [
       v("一曲|新词|酒一杯，", "歌一曲。", "新しく作った歌詞。詞は曲調に合わせて作る文学形式でもある。", "酒一杯。"),
       v("去年|天气|旧亭台。", "昨年。", "天気。昨年と同じような季節の気配を含む。", "以前からある亭や物見台。"),
@@ -16,7 +16,7 @@ export const song: Poem[] = [
     source: ws("浣溪沙_(晏殊)"),
   },
   {
-    id: "ru-meng-ling-rain", period: "song", title: "如梦令·昨夜雨疏风骤", author: "李清照", authorJa: "李清照（りせいしょう）", form: forms.ci,
+    id: "ru-meng-ling-rain", theme: "daily", period: "song", title: "如梦令·昨夜雨疏风骤", author: "李清照", authorJa: "李清照（りせいしょう）", form: forms.ci,
     lines: [
       v("昨夜|雨疏|风骤，", "昨夜。", "雨がまばらに降る。疏は間隔があること。", "風が激しい。骤はここでは勢いが急なこと。"),
       v("浓睡|不消|残酒。", "深い眠り。", "消し去らない。", "残る酒気、酔い。"),
@@ -29,7 +29,7 @@ export const song: Poem[] = [
     source: ws("如夢令_(李清照)/如夢令_(昨夜雨疏風驟)", "《漱玉词》《花庵词选》 / ウィキソース"),
   },
   {
-    id: "ru-meng-ling-stream", period: "song", title: "如梦令·常记溪亭日暮", author: "李清照", authorJa: "李清照（りせいしょう）", form: forms.ci,
+    id: "ru-meng-ling-stream", theme: "daily", period: "song", title: "如梦令·常记溪亭日暮", author: "李清照", authorJa: "李清照（りせいしょう）", form: forms.ci,
     lines: [
       v("常记|溪亭|日暮，", "いつも思い出す。", "小川のほとりのあずまや。", "日暮れ。"),
       v("沉醉|不知|归路。", "すっかり酔う。", "分からない。", "帰り道。"),
@@ -42,7 +42,7 @@ export const song: Poem[] = [
     source: ws("如夢令_(李清照)/如夢令_(常記溪亭日暮)", "《漱玉词》 / ウィキソース"),
   },
   {
-    id: "bu-suan-zi-plum", period: "song", title: "卜算子·咏梅", author: "陆游", authorJa: "陸游（りくゆう）", form: forms.ci, breakAt: 4,
+    id: "bu-suan-zi-plum", theme: "integrity", period: "song", title: "卜算子·咏梅", author: "陆游", authorJa: "陸游（りくゆう）", form: forms.ci, breakAt: 4,
     lines: [
       v("驿外|断桥边，", "宿駅の外。駅は人や馬を継ぎ立てる施設。", "壊れた橋のそば。"),
       v("寂寞|开|无主。", "寂しく、人の訪れもなく。", "花が咲く。", "持ち主や世話をする人がいない。"),
@@ -57,7 +57,7 @@ export const song: Poem[] = [
     source: ws("卜算子_(陸游)"),
   },
   {
-    id: "xi-jiang-yue", period: "song", title: "西江月·夜行黄沙道中", author: "辛弃疾", authorJa: "辛棄疾（しんきしつ）", form: forms.ci, breakAt: 4,
+    id: "xi-jiang-yue", theme: "landscape", period: "song", title: "西江月·夜行黄沙道中", author: "辛弃疾", authorJa: "辛棄疾（しんきしつ）", form: forms.ci, breakAt: 4,
     lines: [
       v("明月|别枝|惊|鹊，", "明るい月。月明かり。", "枝を離れる、または別の枝。「別」の係り方に異なる読みがある。", "驚かす。", "カササギ。"),
       v("清风|半夜|鸣蝉。", "涼やかな風。", "真夜中。", "鳴くセミ、セミが鳴くこと。"),
@@ -73,7 +73,7 @@ export const song: Poem[] = [
     source: ws("西江月_(辛棄疾)/夜行黃沙道中"),
   },
   {
-    id: "ding-feng-bo", period: "song", title: "定风波·莫听穿林打叶声", author: "苏轼", authorJa: "蘇軾（そしょく）", form: forms.ci, breakAt: 5,
+    id: "ding-feng-bo", theme: "integrity", period: "song", title: "定风波·莫听穿林打叶声", author: "苏轼", authorJa: "蘇軾（そしょく）", form: forms.ci, breakAt: 5,
     preface: "三月七日，沙湖道中遇雨。雨具先去，同行皆狼狈，余独不觉。已而遂晴，故作此。",
     lines: [
       v("莫|听|穿林|打叶声，", "〜するな。", "耳を傾ける。", "林を通り抜ける。", "雨が葉を打つ音。"),
