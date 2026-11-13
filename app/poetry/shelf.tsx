@@ -1,0 +1,174 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Search } from "lucide-react";
+import type { Lang } from "../content-types";
+import { Bilingual, choose } from "../learning-ui";
+import { periods, poemById, poems, searchPoems, textOf } from "./data";
+import type { Period, Poem, Token } from "./types";
+
+type ReadableToken = Token & { line: number; index: number; note: string };
+
+function glosses(line: Token[], lineIndex: number) {
+  return line.flatMap((token, index): ReadableToken[] =>
+    token.note ? [{ ...token, note: token.note, line: lineIndex, index }] : [],
+  );
+}
+
+function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
+  const tx = (zh: string, ja: string) => lang === "ja" ? ja : zh;
+  const [selected, setSelected] = useState<ReadableToken>();
+  const activeGloss = useRef<HTMLDivElement>(null);
+  const current = selected ?? glosses(poem.lines[0], 0)[0];
+  const stanzas = poem.breakAt
+    ? [poem.lines.slice(0, poem.breakAt), poem.lines.slice(poem.breakAt)]
+    : [poem.lines];
+  const period = periods.find(group => group.id === poem.period)!;
+  const otherPoems = poems.filter(item => item.period === poem.period);
+  const index = otherPoems.findIndex(item => item.id === poem.id);
+  const previous = otherPoems[index - 1];
+  const next = otherPoems[index + 1];
+
+  useEffect(() => {
+    if (selected && window.matchMedia("(max-width: 760px)").matches) {
+      activeGloss.current?.scrollIntoView({ block: "nearest" });
+    }
+  }, [selected]);
+
+  return <article className="poem-reader" aria-labelledby="poem-title">
+    <header className="poem-title">
+      <p>{choose(period.name, lang)} <span aria-hidden="true">·</span> {choose(poem.form, lang)}</p>
+      <h2 id="poem-title" tabIndex={-1} lang="zh-CN">{poem.title}</h2>
+      <p lang={lang === "ja" ? "ja" : "zh-CN"}>{lang === "ja" ? poem.authorJa : poem.author}</p>
+    </header>
+    <div className="poem-paper">
+      {poem.preface && <details className="poem-preface">
+        <summary>{tx("原文小序", "序文（原文）")}</summary>
+        <p lang="zh-CN">{poem.preface}</p>
+      </details>}
+      <div className="poem-stanzas">
+        {stanzas.map((stanza, stanzaIndex) => <section key={stanzaIndex} className="poem-stanza" lang="zh-CN"
+          aria-label={stanzas.length === 1 ? tx("诗词原文", "詩詞の原文") : stanzaIndex === 0 ? tx("上片", "上片") : tx("下片", "下片")}>
+          {stanzas.length > 1 && <h3 lang={lang === "ja" ? "ja" : "zh-CN"}>{stanzaIndex === 0 ? "上片" : "下片"}</h3>}
+          {stanza.map((line, lineIndex) => {
+            const fullLine = lineIndex + (stanzaIndex === 0 ? 0 : (poem.breakAt ?? 0));
+            return <div className="poem-line" key={fullLine}>
+              {line.map((token, tokenIndex) => token.note
+                ? <button key={tokenIndex} type="button" aria-controls="poem-active-gloss"
+                    aria-pressed={current.line === fullLine && current.index === tokenIndex}
+                    onClick={() => setSelected({ ...token, note: token.note!, line: fullLine, index: tokenIndex })}>{token.text}</button>
+                : <span key={tokenIndex}>{token.text}</span>)}
+            </div>;
+          })}
+        </section>)}
+      </div>
+      <div className="poem-active-gloss" id="poem-active-gloss" ref={activeGloss} role="status">
+        <div className="poem-gloss-key"><span lang="ja">語注</span><strong lang="zh-CN">{current.text}</strong></div>
+        <p lang="ja">{current.note}</p>
+      </div>
+      <details className="poem-all-glosses">
+        <summary>{tx("查看全部日文逐词注", "すべての語注を読む")}</summary>
+        <div className="poem-gloss-lines">
+          {poem.lines.map((line, lineIndex) => <div key={lineIndex} className="poem-gloss-line">
+            <h3 lang="zh-CN">{textOf(line)}</h3>
+            <dl>{glosses(line, lineIndex).map(token =>
+              <div key={token.index}><dt lang="zh-CN">{token.text}</dt><dd lang="ja">{token.note}</dd></div>,
+            )}</dl>
+          </div>)}
+        </div>
+      </details>
+    </div>
+    <section className="poem-commentary" aria-labelledby="poem-commentary-title">
+      <h3 id="poem-commentary-title">{tx("赏析", "鑑賞")}</h3>
+      <p><Bilingual value={poem.commentary} lang={lang}/></p>
+    </section>
+    <section className="poem-references" aria-label={tx("原文出处", "原文の出典")}>
+      {poem.edition && <p><Bilingual value={poem.edition} lang={lang}/></p>}
+      <div>
+        <a href={poem.source.url} target="_blank" rel="noreferrer">{poem.source.name}<ArrowUpRight size={14} aria-hidden="true"/></a>
+        {poem.related && <a href={poem.related.href} {...(poem.related.href.startsWith("https://") ? { target: "_blank", rel: "noreferrer" } : {})}>
+          {choose(poem.related.title, lang)}<ArrowUpRight size={14} aria-hidden="true"/>
+        </a>}
+      </div>
+    </section>
+    <nav className="poem-neighbors" aria-label={tx("同朝代选篇", "同じ時代の作品")}>
+      {previous && <a href={"#poetry/" + previous.id}><ArrowLeft size={16} aria-hidden="true"/><span lang="zh-CN">{previous.title}</span></a>}
+      {next && <a href={"#poetry/" + next.id}><span lang="zh-CN">{next.title}</span><ArrowRight size={16} aria-hidden="true"/></a>}
+    </nav>
+  </article>;
+}
+
+export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
+  const tx = (zh: string, ja: string) => lang === "ja" ? ja : zh;
+  const poem = poemById.get(poemId) ?? poems[0];
+  const [period, setPeriod] = useState<Period | "all">(poemId ? poem.period : "all");
+  const [query, setQuery] = useState("");
+  const reader = useRef<HTMLDivElement>(null);
+  const previousId = useRef(poemId);
+  useEffect(() => {
+    if (poemId && poemId !== previousId.current) {
+      const selectedPoem = poemById.get(poemId);
+      if (selectedPoem) {
+        setPeriod(current => current === "all" || current === selectedPoem.period ? current : selectedPoem.period);
+        setQuery(current => searchPoems(current).some(item => item.id === poemId) ? current : "");
+      }
+      const title = reader.current?.querySelector<HTMLElement>("#poem-title");
+      title?.focus({ preventScroll: true });
+      if (window.matchMedia("(max-width: 760px)").matches) {
+        title?.scrollIntoView({ block: "start" });
+      }
+    }
+    previousId.current = poemId;
+  }, [poemId]);
+  const results = searchPoems(query, period);
+  const visiblePeriods = periods.filter(group => period === "all" || group.id === period);
+
+  return <section className="poetry-shelf content-width">
+    <header className="poetry-heading">
+      <BookOpen size={28} strokeWidth={1.4} aria-hidden="true"/>
+      <h1>{tx("古诗词选读", "中国の詩詞を読む")}</h1>
+      <p>{tx("唐诗、宋词与明清诗词。点选原文中的字词，即可查看日文注释。", "唐詩・宋詞から明清の詩詞まで。原文の語句を選ぶと日本語の注が開きます。")}</p>
+      <button className="poetry-jump" type="button" onClick={() => {
+        const catalog = document.getElementById("poetry-catalog-title");
+        catalog?.focus({ preventScroll: true });
+        catalog?.scrollIntoView({ block: "start" });
+      }}>{tx("浏览选篇", "作品一覧へ")} <ArrowRight size={15} aria-hidden="true"/></button>
+    </header>
+    <div className="poetry-layout">
+      <aside className="poetry-catalog" aria-labelledby="poetry-catalog-title">
+        <div className="poetry-catalog-heading"><h2 id="poetry-catalog-title" tabIndex={-1}>{tx("选篇", "作品一覧")}</h2><small role="status">{results.length}{tx(" 首", " 編")}</small></div>
+        <label className="poetry-search">
+          <Search size={17} aria-hidden="true"/>
+          <input type="search" value={query} onChange={event => setQuery(event.target.value)}
+            aria-label={tx("搜索诗词", "詩詞を検索")}
+            placeholder={tx("搜索篇名、作者或诗句", "題名・作者・詩句で検索")}/>
+        </label>
+        <div className="poetry-filters" aria-label={tx("按朝代筛选", "時代で絞り込む")} role="group">
+          <button type="button" aria-pressed={period === "all"} onClick={() => setPeriod("all")}>{tx("全部", "すべて")}</button>
+          {periods.map(group => <button type="button" key={group.id} aria-pressed={period === group.id}
+            onClick={() => setPeriod(group.id)}>{choose(group.name, lang)}</button>)}
+        </div>
+        {visiblePeriods.map(group => {
+          const matches = results.filter(item => item.period === group.id);
+          return matches.length > 0 && <section className="poetry-catalog-group" key={group.id}>
+            <h3>{choose(group.title, lang)}</h3>
+            <ul>{matches.map(item => <li key={item.id}>
+              <a href={"#poetry/" + item.id} onClick={() => {
+                if (item.id === poemId) {
+                  const title = reader.current?.querySelector<HTMLElement>("#poem-title");
+                  title?.focus({ preventScroll: true });
+                  title?.scrollIntoView({ block: "start" });
+                }
+              }} aria-current={poem.id === item.id ? "page" : undefined}>
+                <span lang="zh-CN">{item.title}</span>
+                <small lang={lang === "ja" ? "ja" : "zh-CN"}>{lang === "ja" ? item.authorJa : item.author}</small>
+              </a>
+            </li>)}</ul>
+          </section>;
+        })}
+        {results.length === 0 && <p className="poetry-empty">{tx("没有找到匹配的作品。", "該当する作品がありません。")}</p>}
+      </aside>
+      <div className="poetry-reader-column" ref={reader}><PoemReader key={poem.id} poem={poem} lang={lang}/></div>
+    </div>
+  </section>;
+}

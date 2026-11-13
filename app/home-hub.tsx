@@ -10,12 +10,12 @@ import { cityAtlasPath } from './city-atlas-path';
 import { categoryInfo, formatYear, historicalEvents } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 
-type Destination = 'tang' | 'places' | 'ming' | 'desk' | 'timeline';
+type Destination = 'tang' | 'places' | 'ming' | 'desk' | 'timeline' | 'poetry';
 type HubProps = { lang:Lang; onNavigate:(view:Destination,id?:string)=>void; onOpenEvent:(id:string)=>void };
 const eventById = new Map(historicalEvents.map(event => [event.id,event]));
 const topics = [
   { id:'attire', title:p('衣冠与日常','装いと日常'), sub:p('读懂一件唐代衣装','唐代の衣装を読む'), icon:Shirt, tone:'cinnabar', image:'tang-attire-figurine', event:'cn-tang-attire' },
-  { id:'poetry', title:p('诗词与意象','詩とイメージ'), sub:p('从四句诗看见远方','四句の詩から遠くへ'), icon:Brush, tone:'ochre', image:'wangbo-manuscript', event:'cn-tang-poetry-farewell' },
+  { id:'poetry', title:p('古诗词选读','中国の詩詞を読む'), sub:p('唐诗、宋词、明清诗词','唐詩・宋詞・明清の詩詞'), icon:Brush, tone:'ochre', image:'wangbo-manuscript', view:'poetry' as Destination },
   { id:'voyages', title:p('渡海与求学','渡海と学び'), sub:p('使节、僧侣与书籍','使節・僧侶・書物'), icon:Ship, tone:'indigo', image:'toshodaiji', event:'cj-first-tang-mission' },
   { id:'cities', title:p('城市与寺院','都市と寺院'), sub:p('长安 · 青龙寺 · 京都','長安・青龍寺・京都'), icon:Landmark, tone:'jade', image:'qinglong', view:'places' as Destination },
   { id:'ming', title:p('明清书房','明清の書斎'), sub:p('制度、海贸与生活','制度・交易・暮らし'), icon:BookOpen, tone:'plum', image:'qingming-detail', view:'ming' as Destination },
