@@ -19,3 +19,20 @@
 @media(max-width:580px){.reading-figure.reading-portrait img{height:370px}}
 
 .home-atlas #home-atlas-title{scroll-margin-top:130px}
+
+.hub-cities{margin-bottom:36px}
+.hub-city-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.hub-city-grid .hub-path{color:inherit;text-decoration:none}
+.hub-city-grid .hub-path .translation{display:block}
+.site-header .city-atlas-nav{display:flex;align-items:center;gap:6px;white-space:nowrap;text-decoration:none;color:#627175;font-size:12px}
+.site-header .city-atlas-nav:hover{color:var(--cinnabar)}
+.site-header .city-atlas-nav>svg{opacity:.75}
+@media(max-width:1100px){.site-header .city-atlas-nav>svg{display:none}}
+@media(max-width:620px){
+  .site-header nav{gap:clamp(7px,2.5vw,18px);justify-content:safe center;overflow-x:auto}
+  .site-header .city-atlas-nav{font-size:11px}
+  .hub-city-grid{gap:10px}
+  .hub-city-grid .hub-path{height:145px}
+  .hub-city-grid .hub-path>div{padding:13px 12px}
+  .hub-city-grid .hub-path>div>svg:last-child{right:10px;bottom:10px;width:15px}
+}

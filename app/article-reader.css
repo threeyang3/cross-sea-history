@@ -86,11 +86,11 @@
 .reading-practice .button{font-size:12px}
 .reading-connections{margin:38px 0 27px}
 .reading-connections h2{font-family:var(--serif);font-size:20px;line-height:1.7;font-weight:500;color:#5e754f;margin-bottom:16px}
-.reading-connections>button{display:flex;align-items:center;gap:15px;width:100%;text-align:left;padding:16px 0;border-top:1px solid #dfe3cf;color:#7e9566}
-.reading-connections>button>span{flex:1}
+.reading-connections>button,.reading-connections>a{display:flex;align-items:center;gap:15px;width:100%;text-align:left;padding:16px 0;border-top:1px solid #dfe3cf;color:#7e9566}
+.reading-connections>button>span,.reading-connections>a>span{flex:1}
 .reading-connections small{display:block;font-size:9px;color:#98a083;line-height:1.8}
 .reading-connections strong{display:block;font-size:13px;font-weight:500;color:#5c744e;line-height:1.8}
-.reading-connections>button:hover strong{color:#9c653d}
+.reading-connections>button:hover strong,.reading-connections>a:hover strong{color:#9c653d}
 .reading-pagination{display:grid;grid-template-columns:1fr 1fr;gap:28px;border-top:1px solid #dce1cd;padding-top:23px;margin-top:25px}
 .reading-pagination>button{text-align:left;min-width:0}
 .reading-pagination>button:last-child{text-align:right}

@@ -1,9 +1,16 @@
 import handler from "vinext/server/fetch-handler";
+import { cityAtlasDocument } from "../app/city-atlas/document";
 import { runWithConnectorBinding } from "../lib/connector-context";
 import type { ConnectorBinding } from "../lib/connector-contract.mjs";
 
 const worker = {
   fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext<{ CONNECTORS?: ConnectorBinding }>) {
+    const pathname = new URL(request.url).pathname;
+    if (pathname === "/city-atlas" || pathname === "/city-atlas/") {
+      if (request.method === "GET") return cityAtlasDocument();
+      if (request.method === "HEAD") return new Response(null, cityAtlasDocument());
+      return new Response(null, { status: 405, headers: { Allow: "GET, HEAD" } });
+    }
     let binding = ctx.props?.CONNECTORS;
     // Local preview emulates the same request-scoped capability. This branch and
     // the auxiliary service binding are absent from production builds.

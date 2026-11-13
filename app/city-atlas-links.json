@@ -1,0 +1,9 @@
+{
+  "cj-kukai-saicho-tang": {"track":"exchange","event":"x-k804","place":"qinglong"},
+  "cj-landmark-qinglong-kukai": {"track":"exchange","event":"x-k805","place":"qinglong"},
+  "cn-forbidden-city": {"track":"china","event":"b-1420","place":"palace"},
+  "cn-may-fourth": {"track":"china","event":"b-1919","place":"red"},
+  "cj-marco-polo-bridge": {"track":"exchange","event":"b-1937","place":"lugou"},
+  "cj-normalization-1972": {"track":"exchange","event":"b-1972","place":"hall"},
+  "cj-peace-treaty-1978": {"track":"exchange","event":"b-1978s","place":"hall"}
+}

@@ -12,6 +12,8 @@ import { articleManifest, articleSources, loadEventArticle } from './article-dat
 import type { EventArticle } from './article-types';
 import { EventLearningVisual, hasLearningVisual } from './learning-visuals';
 import { EventEraContext } from './event-era-context';
+import { cityAtlasPath } from './city-atlas-path';
+import cityAtlasLinks from './city-atlas-links.json';
 
 const sourceIndex = new Map<string, Source>([...sources, ...timelineSources, ...articleSources].map(source => [source.id, source]));
 
@@ -37,6 +39,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   const meta = articleManifest[event.id];
   const asset = getAsset(event.imageId || '');
   const lesson = getLesson(event.lessonId || '');
+  const atlasEntry = cityAtlasLinks[event.id as keyof typeof cityAtlasLinks];
 
   useEffect(() => {
     let active = true;
@@ -148,7 +151,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
             <div className="reading-practice-steps"><span>01 {tx('指出一份材料', '資料を一つ選ぶ')}</span><span>02 {tx('说明它支持什么', '何を示すか考える')}</span><span>03 {tx('写出判断的边界', '判断の限界を書く')}</span></div>
             <button className="button primary" onClick={takeQuestion}><NotebookPen size={16} />{tx('把问题与资料带到摘记', '問いと資料をノートへ')}</button>
           </section>
-          {(lesson || related.length > 0) && <section className="reading-connections"><h2>{tx('把这一篇，放进更大的图景', '学びを広い背景につなぐ')}</h2>{lesson && <button onClick={() => onOpenLesson(lesson.id)}><BookOpen size={18} /><span><small>{tx('相关短课与图像观察', '関連レッスンと画像観察')}</small><strong>{t(lesson.title)}</strong></span><ArrowRight size={17} /></button>}{related.map(item => <button key={item.id} onClick={() => onNavigate(item)}><FileText size={18} /><span><small>{t(item.date)} · {tx('另一条时间线的时代参照', 'もう一つの年表の時代参照')}</small><strong>{t(item.title)}</strong></span><ArrowRight size={17} /></button>)}</section>}
+          {(lesson || related.length > 0 || atlasEntry) && <section className="reading-connections"><h2>{tx('把这一篇，放进更大的图景', '学びを広い背景につなぐ')}</h2>{atlasEntry && <a href={cityAtlasPath(lang,'event/'+atlasEntry.event)}><MapPin size={18} /><span><small>{tx('北京与西安','北京と西安')}</small><strong>{tx('在城市专题中继续阅读','都市特集で続きを読む')}</strong></span><ArrowRight size={17} /></a>}{lesson && <button onClick={() => onOpenLesson(lesson.id)}><BookOpen size={18} /><span><small>{tx('相关短课与图像观察', '関連レッスンと画像観察')}</small><strong>{t(lesson.title)}</strong></span><ArrowRight size={17} /></button>}{related.map(item => <button key={item.id} onClick={() => onNavigate(item)}><FileText size={18} /><span><small>{t(item.date)} · {tx('另一条时间线的时代参照', 'もう一つの年表の時代参照')}</small><strong>{t(item.title)}</strong></span><ArrowRight size={17} /></button>)}</section>}
           <nav className="reading-pagination" aria-label={tx('相邻年代的专题', '近い年代の記事')}>{previous ? <button onClick={() => onNavigate(previous)}><small><ArrowLeft size={13} />{tx('前一个节点', '前の出来事')}</small><strong>{t(previous.date)} · {t(previous.title)}</strong></button> : <span />}{next && <button onClick={() => onNavigate(next)}><small>{tx('后一个节点', '次の出来事')}<ArrowRight size={13} /></small><strong>{t(next.date)} · {t(next.title)}</strong></button>}</nav>
         </>}
       </div>

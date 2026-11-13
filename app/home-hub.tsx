@@ -5,7 +5,8 @@ import { ArrowRight, ArrowUpRight, BookOpen, Brush, Building2, ChevronLeft, Chev
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset } from './content';
-import { choose, Credit } from './learning-ui';
+import { Bilingual, choose, Credit } from './learning-ui';
+import { cityAtlasPath } from './city-atlas-path';
 import { categoryInfo, formatYear, historicalEvents } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 
@@ -111,6 +112,23 @@ export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
    </div>
   </section>
   <section className="hub-topics content-width" aria-labelledby="hub-topics-title"><header className="hub-compact-heading"><h2 id="hub-topics-title">{tx('今天，从哪里开始？','今日は、どこから？')}</h2><span>{tx('选一个入口','入口を選ぶ')}<Compass size={14}/></span></header><div className="hub-topic-grid">{topics.map(topic=>{const asset=getAsset(topic.image);return <button className={'hub-topic tone-'+topic.tone} key={topic.id} onClick={()=>topic.event?onOpenEvent(topic.event):onNavigate(topic.view!)}><div className="hub-topic-visual">{asset&&<img src={asset.src} width={asset.width} height={asset.height} alt="" loading="lazy"/>}<topic.icon size={25}/></div><div className="hub-topic-copy"><h3>{choose(topic.title,lang)}</h3><span>{choose(topic.sub,lang)}</span></div><ArrowUpRight size={15}/></button>;})}</div></section>
+  <section className="hub-cities content-width" aria-labelledby="hub-cities-title">
+   <header className="hub-compact-heading">
+    <h2 id="hub-cities-title">{tx('城市探索','都市をめぐる')}</h2>
+   </header>
+   <div className="hub-city-grid">
+    {[
+      {id:'xian', title:p('西安','西安'), summary:p('长安、青龙寺与求法之路','長安・青龍寺・求法の道'), image:'qinglong', tone:'jade'},
+      {id:'beijing', title:p('北京','北京'), summary:p('古都空间、战争记忆与战后交流','古都の空間・戦争の記憶・戦後交流'), image:'forbidden-city', tone:'cinnabar'}
+    ].map(city=>{
+      const asset=getAsset(city.image)!;
+      return <a key={city.id} className={'hub-path tone-'+city.tone} href={cityAtlasPath(lang,'city/'+city.id)}>
+       <img src={asset.src} alt="" width={asset.width} height={asset.height} loading="lazy"/>
+       <div><MapPin size={21}/><h3>{choose(city.title,lang)}</h3><Bilingual value={city.summary} lang={lang}/><ArrowUpRight size={19}/></div>
+      </a>;
+    })}
+   </div>
+  </section>
   <HomeAtlas lang={lang} onNavigate={onNavigate} onOpenEvent={onOpenEvent}/>
   <section className="hub-paths content-width" aria-labelledby="hub-path-title"><header className="hub-section-heading"><div><span className="hub-section-index"><Compass size={15}/>03 · {tx('学习路线','学びのルート')}</span><h2 id="hub-path-title">{tx('沿着一个线索走。','一つの手がかりをたどる。')}</h2></div></header><div className="hub-path-grid">
    <button className="hub-path tone-jade" onClick={()=>onNavigate('places')}><img src={getAsset('qinglong')!.src} alt="" loading="lazy"/><div><MapPin size={23}/><h3>{tx('城市与寺院','都市と寺院')}</h3><span>{tx('长安 → 青龙寺 → 京都','長安 → 青龍寺 → 京都')}</span><ArrowUpRight size={19}/></div></button>
