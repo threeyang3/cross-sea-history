@@ -6,6 +6,7 @@ import type { Lang, Pair, Source } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset, getLesson, sources } from './content';
 import { Bilingual, choose, Credit } from './learning-ui';
+import { eventMuseumAssets, MuseumFigure } from './museum-images';
 import { categoryInfo, timelineSources } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 import { articleManifest, articleSources, loadEventArticle } from './article-data';
@@ -39,6 +40,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   const root = useRef<HTMLElement>(null);
   const meta = articleManifest[event.id];
   const asset = getAsset(event.imageId || '');
+  const illustrations = eventMuseumAssets(event.id);
   const lesson = getLesson(event.lessonId || '');
   const isFarewellPoem = event.id === 'cn-tang-poetry-farewell';
   const atlasEntry = cityAtlasLinks[event.id as keyof typeof cityAtlasLinks];
@@ -94,10 +96,10 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
     </div>
     <div className="reader-layout">
       <aside className="reader-toc" aria-label={tx('本文目录', '目次')}>
-        <span className="eyebrow">READ · QUESTION · CONNECT</span>
+
         <strong>{tx('在这一篇里', 'この記事の中で')}</strong>
         <nav>{sections.map((section, index) => <button key={section.id} onClick={() => jump(section.id)}><small>{String(index + 1).padStart(2, '0')}</small><span>{t(section.title)}</span></button>)}</nav>
-        <p>{tx('先理解背景，再辨析材料，最后形成自己的判断。', '背景をつかみ、史料を検討して、自分の判断へ。')}</p>
+
       </aside>
       <div className="reader-body" aria-busy={!article && !error}>
         <header className="reading-header" data-reading-section="overview">
@@ -114,14 +116,14 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
             <figcaption><span className="reading-image-type">{tx('相关实物与地点', '関連する資料と場所')}</span><Bilingual value={asset.caption} lang={lang} /><Credit asset={asset} lang={lang} /></figcaption>
           </figure>}
           <EventLearningVisual eventId={event.id} lang={lang}/>
-          {article.sections.map((section, index) => <section className="reading-section" key={section.id} data-reading-section={section.id}>
+          {article.sections.map((section, index) => <section className={'reading-section'+(illustrations[index]?' reading-illustrated-section':'')} key={section.id} data-reading-section={section.id}>
             <div className="reading-section-number">{String(index + 1).padStart(2, '0')}</div>
             <h2 tabIndex={-1}><Bilingual value={section.title} lang={lang} /></h2>
-            {section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}><Bilingual value={paragraph} lang={lang} /></p>)}
+            {illustrations[index]?<div className="reading-section-content"><MuseumFigure key={illustrations[index].id} asset={illustrations[index]} lang={lang} className="reading-inset-artwork"/><div>{section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}><Bilingual value={paragraph} lang={lang} /></p>)}</div></div>:section.paragraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}><Bilingual value={paragraph} lang={lang} /></p>)}
             <div className="reading-section-sources"><span>{tx('依据', '出典')}</span>{citations(section.sourceIds)}</div>
           </section>)}
           <section className="reading-section reading-evidence" data-reading-section="evidence">
-            <span className="eyebrow">HOW DO WE KNOW?</span>
+
             <h2 tabIndex={-1}>{tx('读材料，辨证据', '史料と証拠を読む')}</h2>
             {article.evidence.map((evidence, index) => <div className="evidence-reading" key={index}>
               <h3><Bilingual value={evidence.title} lang={lang} />{citations(evidence.sourceIds)}</h3>
@@ -130,7 +132,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
             </div>)}
           </section>
           <section className="reading-section reading-discussion" data-reading-section="discussion">
-            <span className="eyebrow">INTERPRETATION & LIMITS</span>
+
             <h2 tabIndex={-1}><Bilingual value={article.discussion.title} lang={lang} /></h2>
             <p><Bilingual value={article.discussion.body} lang={lang} /></p>
           </section>
@@ -140,14 +142,14 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
           </section>
           <EventEraContext event={event} lang={lang} onNavigate={onNavigate}/>
           <section className="reading-section reading-bibliography" data-reading-section="references">
-            <span className="eyebrow">FOLLOW THE SOURCES</span>
+
             <h2 tabIndex={-1}>{tx('回到参考资料', '参考資料に戻る')}</h2>
             <p className="reading-source-note">{tx('正文是一份导读。每项资料都标明用途；机构介绍、原始记录与研究文章的证据性质各不相同。引用时请核对原文与版本。', '本文は学習の手引きです。各資料の用途を示しています。機関の解説、原記録、研究論文では証拠の性格が異なります。引用する際は原文と版を確認してください。')}</p>
             <ol>{bibliography.map((source, index) => <li key={source.id} data-reading-section={`source-${index}`}><span className="bibliography-index">{index + 1}</span><div><h3 tabIndex={-1}><a href={source.url} target="_blank" rel="noreferrer"><Bilingual value={source.title} lang={lang} /><ArrowUpRight size={15} /></a></h3><span className="source-type">{t(source.kind)} · {source.language === 'ja' ? tx('日文', '日本語') : source.language === 'zh' ? tx('中文', '中国語') : source.language === 'en' ? tx('英文', '英語') : source.language}</span><p><Bilingual value={source.claim} lang={lang} /></p><small className="source-domain">{new URL(source.url).hostname}</small></div></li>)}</ol>
             {meta && <small className="reading-review-date">{tx('内容校核日期', '内容確認日')}：{meta.reviewedAt}</small>}
           </section>
           <section className="reading-practice" data-reading-section="practice">
-            <span className="eyebrow">TURN READING INTO THINKING</span>
+
             <h2 tabIndex={-1}>{tx('留一个有依据的判断', '根拠のある判断を残す')}</h2>
             <p><Bilingual value={event.question} lang={lang} /></p>
             <div className="reading-practice-steps"><span>01 {tx('指出一份材料', '資料を一つ選ぶ')}</span><span>02 {tx('说明它支持什么', '何を示すか考える')}</span><span>03 {tx('写出判断的边界', '判断の限界を書く')}</span></div>

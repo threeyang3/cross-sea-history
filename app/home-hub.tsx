@@ -6,9 +6,10 @@ import { ArrowRight, ArrowUpRight, Brush, ChevronLeft, ChevronRight, Globe2, His
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset } from './content';
+import { museumAsset, MuseumCredit, MuseumImage } from './museum-images';
 import { Bilingual, choose, Credit } from './learning-ui';
 import { cityAtlasPath } from './city-atlas-path';
-import { categoryInfo, formatYear, historicalEvents } from './timeline-data';
+import { categoryInfo, formatYear, historicalEvents, yearCoordinate } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 
 type Destination = 'tang' | 'places' | 'ming' | 'desk' | 'timeline' | 'poetry' | 'lesson';
@@ -60,6 +61,7 @@ export function HomeAtlas({lang,onNavigate,onOpenEvent}:HubProps){
  });
  const tx=(zh:string,ja:string)=>lang==='ja'?ja:zh;
  const current=atlasPeriods.find(item=>item.id===period)!;
+ const eraWidth=(bin:AtlasPeriod['bins'][number])=>yearCoordinate(bin.to)-yearCoordinate(bin.from)+1;
  const selected=current.ids.length?current.ids.map(id=>eventById.get(id)).filter((event):event is HistoricalEvent=>!!event):current.bins.flatMap(bin=>['china','exchange'].flatMap(track=>{
    const pool=historicalEvents.filter(e=>e.track===track&&e.start>=bin.from&&e.start<=bin.to);
    const starred=pool.filter(e=>e.featured);
@@ -69,14 +71,16 @@ export function HomeAtlas({lang,onNavigate,onOpenEvent}:HubProps){
  function changePeriod(id:string){setPeriod(id);rail.current?.scrollTo({left:0,behavior:'instant'});}
  return <section className="home-atlas content-width" aria-labelledby="home-atlas-title">
    <header className="hub-section-heading"><div><span className="hub-section-index"><History size={15}/>{tx('时间图谱','時代の図譜')}</span><h2 id="home-atlas-title">{tx('中国史与中日交流','中国史と日中交流')}</h2></div><div className="atlas-tabs" aria-label={tx('图谱时期','図譜の時代')}>{atlasPeriods.map(item=><button key={item.id} aria-pressed={period===item.id} onClick={()=>changePeriod(item.id)}>{choose(item.title,lang)}</button>)}</div></header>
-   <div className="atlas-key"><span><i className="atlas-key-china"/>{tx('中国史','中国史')}</span><span><i className="atlas-key-exchange"/>{tx('中日交流','日中交流')}</span><small>{selected.length}{tx(' 个精选节点 · 点选展开','の出来事・押して詳しく')}</small><div className="atlas-scroll-controls"><button onClick={()=>rail.current?.scrollBy({left:-500,behavior:'smooth'})} aria-label={tx('图谱向前浏览','前の範囲へ')}><ChevronLeft size={16}/></button><button onClick={()=>rail.current?.scrollBy({left:500,behavior:'smooth'})} aria-label={tx('图谱向后浏览','次の範囲へ')}><ChevronRight size={16}/></button></div></div>
+   <div className="atlas-key"><span><i className="atlas-key-china"/>{tx('中国史','中国史')}</span><span><i className="atlas-key-exchange"/>{tx('中日交流','日中交流')}</span><small>{selected.length}{tx(' 个节点','件')}</small><div className="atlas-scroll-controls"><button onClick={()=>rail.current?.scrollBy({left:-500,behavior:'smooth'})} aria-label={tx('图谱向前浏览','前の範囲へ')}><ChevronLeft size={16}/></button><button onClick={()=>rail.current?.scrollBy({left:500,behavior:'smooth'})} aria-label={tx('图谱向后浏览','次の範囲へ')}><ChevronRight size={16}/></button></div></div>
+   <div className="atlas-proportion" aria-label={tx('分期年代比例尺','年代の比例尺')}><div className="atlas-proportion-bar">{current.bins.map((bin,i)=><button key={bin.from} style={{flexGrow:eraWidth(bin),background:i%2===0?'var(--jade)':'var(--indigo)'}} aria-label={choose(bin.label,lang)+' '+formatYear(bin.from)+'–'+formatYear(bin.to)} title={choose(bin.label,lang)+' '+formatYear(bin.from)+'–'+formatYear(bin.to)} onClick={()=>{const el=rail.current;const cell=el?.querySelector<HTMLElement>('[data-era="'+bin.from+'"]');if(el&&cell)el.scrollTo({left:cell.offsetLeft,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}}/>)}</div><div className="atlas-proportion-label"><span>{formatYear(current.bins[0].from)}</span><span>{tx('年代比例尺','年代の比例尺')}</span><span>{formatYear(current.bins[current.bins.length-1].to)}</span></div></div>
+   <div className="atlas-index-label">{tx('分期事件索引','時代別の出来事索引')}</div>
    <div className={"atlas-scroll drag-scroll"+(railDrag.isDragging?" is-dragging":"")} {...railDrag.handlers} ref={rail} tabIndex={0} aria-label={tx('历史分期图谱。按住拖动或横向滚动，点选事件可展开。','歴史図譜。ドラッグか横スクロールで移動し、項目を押して開きます。')}>
-    <div className="atlas-grid">{current.bins.map((bin,index)=><div className="atlas-era" key={bin.from}>
+    <div className="atlas-grid">{current.bins.map((bin,index)=><div className="atlas-era" key={bin.from} data-era={bin.from}>
       <div className="atlas-era-heading"><span>{choose(bin.label,lang)}</span><small>{formatYear(bin.from)}—{formatYear(bin.to)}</small></div>
       {(['china','exchange'] as const).map(track=><div key={track} className={'atlas-lane atlas-lane-'+track}>{index===0&&<span className="atlas-lane-label">{track==='china'?tx('中国','中国'):tx('交流','交流')}</span>}{selected.filter(event=>event.track===track&&event.start>=bin.from&&event.start<=bin.to).sort((a,b)=>a.start-b.start).map(event=><button key={event.id} onClick={()=>onOpenEvent(event.id)} title={`${choose(event.date,lang)} · ${choose(event.title,lang)}`} aria-label={`${choose(event.date,lang)} ${choose(event.title,lang)}`}><span className="atlas-event-dot" style={{color:categoryInfo[event.category].dark}}><EventSymbol event={event}/></span><span><small>{formatYear(event.start)}</small><strong>{choose(shortTitles[event.id]||event.title,lang)}</strong></span><ArrowUpRight size={11}/></button>)}</div>)}
     </div>)}</div>
    </div>
-   <footer className="atlas-footer"><p>{tx('分期示意；栏宽不代表年代长度。','時代区分の図。列幅は年数を表しません。')}</p><div><button onClick={()=>onNavigate('timeline','exchange')}>{tx('中日交流全图','日中交流の全図')}<ArrowUpRight size={14}/></button><button onClick={()=>onNavigate('timeline','china')}>{tx('中国历史全图','中国史の全図')}<ArrowUpRight size={14}/></button></div></footer>
+   <footer className="atlas-footer"><div><button onClick={()=>onNavigate('timeline','exchange')}>{tx('中日交流全图','日中交流の全図')}<ArrowUpRight size={14}/></button><button onClick={()=>onNavigate('timeline','china')}>{tx('中国历史全图','中国史の全図')}<ArrowUpRight size={14}/></button></div></footer>
  </section>;
 }
 
@@ -98,15 +102,15 @@ export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
  const hero=getAsset('qinglong')!;
  const eras=[
   {id:'tang',title:p('隋唐','隋唐'),years:'581–907',image:'daming',view:'tang' as const},
-  {id:'song',title:p('宋元与海上交流','宋元と海上交流'),years:'908–1367',image:'qingming-detail',view:'timeline' as const},
-  {id:'ming',title:p('明清','明清'),years:'1368–1912',image:'forbidden-city',view:'ming' as const}
+  {id:'song',title:p('宋元与海上交流','宋元と海上交流'),years:'908–1367',image:'met-longquan-bowl',view:'timeline' as const},
+  {id:'ming',title:p('明清','明清'),years:'1368–1912',image:'met-nagasaki-ships',view:'ming' as const}
  ];
  const cities=[
   {id:'xian',title:p('西安','西安'),image:'wild-goose-pagoda'},
   {id:'beijing',title:p('北京','北京'),image:'forbidden-city'},
   {id:'kyoto',title:p('京都','京都'),image:'kiyomizu'}
  ];
- const imageIds=Array.from(new Set([hero.id,...eras.map(e=>e.image),...cities.map(c=>c.image),'wangbo-manuscript']));
+ const imageIds=Array.from(new Set([hero.id,...eras.map(e=>e.image),...cities.map(c=>c.image),'met-willow-boat']));
  return <div className="home-hub editorial-home">
   <section className="hub-hero content-width">
    <div className="hub-hero-copy">
@@ -118,14 +122,14 @@ export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
   </section>
   <section className="editorial-gallery content-width" aria-labelledby="era-gallery-title">
    <header className="hub-section-heading"><h2 id="era-gallery-title">{tx('时代画廊','時代をめぐる')}</h2><button className="text-button" onClick={()=>onNavigate('timeline')}>{tx('完整时间线','すべての年表')}<ArrowRight size={16}/></button></header>
-   <div className="editorial-grid">{eras.map(era=>{const asset=getAsset(era.image)!;return <button key={era.id} className="editorial-tile" onClick={()=>era.id==='song'?onNavigate('timeline','exchange/period-song-yuan'):onNavigate(era.view)}><img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/><div><small>{era.years}</small><h3><Bilingual value={era.title} lang={lang}/></h3><span className="editorial-caption">{choose(asset.title,lang)}</span><ArrowUpRight size={18}/></div></button>;})}</div>
+   <div className="editorial-grid">{eras.map(era=>{const museum=museumAsset(era.image);const asset=getAsset(era.image);return <button key={era.id} className="editorial-tile" onClick={()=>era.id==='song'?onNavigate('timeline','exchange/period-song-yuan'):onNavigate(era.view)}>{museum?<MuseumImage key={museum.id} asset={museum} lang={lang}/>:asset&&<img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/>}<div><small>{era.years}</small><h3><Bilingual value={era.title} lang={lang}/></h3><span className="editorial-caption">{choose((museum??asset)!.title,lang)}</span><ArrowUpRight size={18}/></div></button>;})}</div>
   </section>
   <section className="editorial-gallery content-width" aria-labelledby="city-gallery-title">
    <header className="hub-section-heading"><h2 id="city-gallery-title">{tx('城市与诗词','都市と詩詞')}</h2><a className="text-button" href={cityAtlasPath(lang)}>{tx('城市探索','都市探索')}<ArrowRight size={16}/></a></header>
    <div className="editorial-grid editorial-city-grid">{cities.map(city=>{const asset=getAsset(city.image)!;const body=<><img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/><div><h3><Bilingual value={city.title} lang={lang}/></h3><ArrowUpRight size={18}/></div></>;return city.id==='kyoto'?<button key={city.id} className="editorial-tile" onClick={()=>onNavigate('places','kyoto')}>{body}</button>:<a key={city.id} className="editorial-tile" href={cityAtlasPath(lang,'city/'+city.id)}>{body}</a>;})}
-   <button className="editorial-tile" onClick={()=>onNavigate('poetry')}><img src={getAsset('wangbo-manuscript')!.src} alt={tx('古籍书影','古い書物')} loading="lazy"/><div><h3>{tx('古诗词','中国の詩詞')}</h3><ArrowUpRight size={18}/></div></button></div>
+   <button className="editorial-tile" onClick={()=>onNavigate('poetry')}><MuseumImage asset={museumAsset('met-willow-boat')!} lang={lang}/><div><h3>{tx('古诗词','中国の詩詞')}</h3><ArrowUpRight size={18}/></div></button></div>
   </section>
   <details className="editorial-atlas content-width"><summary>{tx('历史时间图谱','歴史図譜')}</summary><HomeAtlas lang={lang} onNavigate={onNavigate} onOpenEvent={onOpenEvent}/></details>
-  <div className="hub-bottom content-width"><details className="hub-image-credits"><summary>{tx('图像来源','画像の出典')}</summary><div>{imageIds.map(id=>{const asset=getAsset(id);return asset?<div key={id}><strong>{choose(asset.title,lang)}</strong><Credit asset={asset} lang={lang}/></div>:null;})}</div></details></div>
+  <div className="hub-bottom content-width"><details className="hub-image-credits"><summary>{tx('图像来源','画像の出典')}</summary><div>{imageIds.map(id=>{const asset=getAsset(id);const museum=museumAsset(id);return asset?<div key={id}><strong>{choose(asset.title,lang)}</strong><Credit asset={asset} lang={lang}/></div>:museum?<div key={id}><strong>{choose(museum.title,lang)}</strong><MuseumCredit asset={museum} lang={lang}/></div>:null;})}</div></details></div>
  </div>;
 }

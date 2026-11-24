@@ -88,3 +88,5 @@
 @media(max-width:620px){.compact-atlas-toolbar{gap:6px}.compact-track button{padding:6px 8px}.compact-atlas-toolbar select{max-width:48%;font-size:11px}.compact-atlas-toolbar .atlas-search{flex-basis:120px}.compact-atlas-heading h1{max-width:none}}
 
 @media(max-width:620px){.compact-atlas-filter[open]{position:static}.compact-filter-panel{position:absolute;right:0;top:100%;max-width:100%}}
+
+.event-ribbon .ribbon-artwork{display:block;width:100%;height:100px;object-fit:cover;border-radius:3px;margin-bottom:9px}.event-ribbon .museum-image-unavailable.ribbon-artwork{display:grid;font-size:11px;min-height:0}.chronicle-museum-image{margin-block:8px 12px}.chronicle-museum-image .museum-figure-link img{max-height:180px}.chronicle-museum-image figcaption{padding:8px 10px}.event-inspector .museum-figure-link img{max-height:230px}
