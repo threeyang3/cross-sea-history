@@ -66,3 +66,5 @@ PR 只在添加 `validate-site`（仅验证）或 `validate-site-assets`（额�
 ## 首次实际验证记录
 
 GitHub Actions [首次运行](https://github.com/threeyang3/cross-sea-history/actions/runs/45398646725)：依赖安装、7 个阅读测试、UI 数据检查与 vinext 生产构建均通过。Lint 报告 9 个 React Hooks 错误；Met API 对全部 16 条注册记录未通过严格许可/馆藏号检查，因此没有导入图像，发布总检查失败。已针对 Lint 报告调整阅读器、诗词筛选、时间线路由和弹窗状态更新；外部存储首次客户端恢复保留限定范围的规则例外，不改变已有用户数据。新增 Met API 失败字段诊断，不降低许可要求。后续复测结果以新的运行记录为准。
+
+第二次验证：[运行记录](https://github.com/threeyang3/cross-sea-history/actions/runs/45399114678)。UI 与 7 个测试通过，Lint 0 错误（11 警告），生产构建通过。16 条 Met API 返回 objectID 匹配、isPublicDomain=true，原脚本错误使用 objectNumber。已依 [官方 API 文档](https://metmuseum.github.io/#object) 改为 accessionNumber，保留三项严格匹配；新增 6 个离线许可与身份回归测试。第三次导入结果以实际运行记录为准。

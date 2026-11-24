@@ -68,6 +68,17 @@ def fetch(url, limit):
                 raise
             time.sleep(2 ** (attempt + 1))
 
+def verify_metadata(record, meta):
+    # Met API Object endpoint: https://metmuseum.github.io/#object
+    # The artwork page calls it "Object Number"; the JSON field is accessionNumber.
+    if meta.get("isPublicDomain") is not True or meta.get("objectID") != record["objectId"] or meta.get("accessionNumber") != record["accession"]:
+        raise ValueError(
+            "Public-domain or accession check failed: "
+            f"API objectID={meta.get('objectID')!r} (expected {record['objectId']!r}), "
+            f"accessionNumber={meta.get('accessionNumber')!r} (expected {record['accession']!r}), "
+            f"isPublicDomain={meta.get('isPublicDomain')!r}; no image downloaded"
+        )
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Explicitly allow replacement of existing files")
@@ -110,13 +121,7 @@ def main():
                 raise ValueError("Unexpected source image host")
             meta_url = f'https://collectionapi.metmuseum.org/public/collection/v1/objects/{record["objectId"]}'
             meta = json.loads(fetch(meta_url, 2_000_000))
-            if meta.get("isPublicDomain") is not True or meta.get("objectID") != record["objectId"] or meta.get("objectNumber") != record["accession"]:
-                raise ValueError(
-                    "Public-domain or accession check failed: "
-                    f"API objectID={meta.get('objectID')!r} (expected {record['objectId']!r}), "
-                    f"objectNumber={meta.get('objectNumber')!r} (expected {record['accession']!r}), "
-                    f"isPublicDomain={meta.get('isPublicDomain')!r}; no image downloaded"
-                )
+            verify_metadata(record, meta)
             # Preserve the exact reviewed view, never replace with a different primary image.
             with Image.open(io.BytesIO(fetch(record["originalFileURL"], 30_000_000))) as source:
                 if source.width * source.height > Image.MAX_IMAGE_PIXELS:

@@ -37,6 +37,7 @@ jobs:
       - name: Verify reader and UI
         run: |
           npm run check:reader
+          python scripts/test-museum-metadata.py
           npm run check:ui
       - name: Localize museum images (opt in)
         id: import_images
