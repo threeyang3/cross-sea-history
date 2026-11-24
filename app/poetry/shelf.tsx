@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Search } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Search } from "lucide-react";
 import type { Lang } from "../content-types";
 import { Bilingual, choose } from "../learning-ui";
+import { MuseumFigure, poemMuseumAssets } from "../museum-images";
 import { formGroups, periods, poemById, poems, searchPoems, textOf, themes } from "./data";
 import type { FormGroup, Period, Poem, Theme, Token } from "./types";
 
@@ -25,6 +26,7 @@ function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
     ? [poem.lines.slice(0, poem.breakAt), poem.lines.slice(poem.breakAt)]
     : [poem.lines];
   const period = periods.find(group => group.id === poem.period)!;
+  const illustrations = poemMuseumAssets(poem.id);
   const otherPoems = poems.filter(item => item.period === poem.period);
   const index = otherPoems.findIndex(item => item.id === poem.id);
   const previous = otherPoems[index - 1];
@@ -47,6 +49,8 @@ function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
       <h2 id="poem-title" tabIndex={-1} lang="zh-CN">{poem.title}</h2>
       <p lang={lang === "ja" ? "ja" : "zh-CN"}>{lang === "ja" ? poem.authorJa : poem.author}</p>
     </header>
+    <div className={"poem-visual-spread"+(illustrations.length?" illustrated":"")}>
+    {illustrations[0]&&<MuseumFigure key={illustrations[0].id} asset={illustrations[0]} lang={lang} className="poem-artwork"/>}
     <div className="poem-paper">
       {poem.preface && <details className="poem-preface">
         <summary>{tx("原文小序", "序文（原文）")}</summary>
@@ -85,9 +89,11 @@ function PoemReader({ poem, lang }: { poem: Poem; lang: Lang }) {
         </div>
       </details>
     </div>
+    </div>
     <section className="poem-commentary" aria-labelledby="poem-commentary-title">
       <h3 id="poem-commentary-title">{tx("赏析", "鑑賞")}</h3>
       <p><Bilingual value={poem.commentary} lang={lang}/></p>
+      {illustrations.slice(1).map(asset=><MuseumFigure key={asset.id} asset={asset} lang={lang} className="poem-related-artwork"/> )}
     </section>
     <section className="poem-references" aria-label={tx("原文出处", "原文の出典")}>
       {poem.edition && <p><Bilingual value={poem.edition} lang={lang}/></p>}
@@ -113,16 +119,21 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
   const [form, setForm] = useState<FormGroup | "all">("all");
   const [theme, setTheme] = useState<Theme | "all">("all");
   const reader = useRef<HTMLDivElement>(null);
+  const [filterPoemId,setFilterPoemId]=useState(poemId);
+  // Reconcile filters with a changed deep link before committing a render.
+  if(filterPoemId!==poemId){
+    setFilterPoemId(poemId);
+    const selectedPoem=poemById.get(poemId);
+    if(selectedPoem){
+      if(period!=="all"&&period!==selectedPoem.period)setPeriod(selectedPoem.period);
+      if(!searchPoems(query).some(item=>item.id===poemId))setQuery("");
+      if(form!==selectedPoem.form.group&&form!=="all")setForm("all");
+      if(theme!==selectedPoem.theme&&theme!=="all")setTheme("all");
+    }
+  }
   const previousId = useRef(poemId);
   useEffect(() => {
     if (poemId && poemId !== previousId.current) {
-      const selectedPoem = poemById.get(poemId);
-      if (selectedPoem) {
-        setPeriod(current => current === "all" || current === selectedPoem.period ? current : selectedPoem.period);
-        setQuery(current => searchPoems(current).some(item => item.id === poemId) ? current : "");
-        setForm(current => current === selectedPoem.form.group ? current : "all");
-        setTheme(current => current === selectedPoem.theme ? current : "all");
-      }
       const title = reader.current?.querySelector<HTMLElement>("#poem-title");
       title?.focus({ preventScroll: true });
       if (window.matchMedia("(max-width: 760px)").matches) {
@@ -136,9 +147,9 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
 
   return <section className="poetry-shelf content-width">
     <header className="poetry-heading">
-      <BookOpen size={28} strokeWidth={1.4} aria-hidden="true"/>
+
       <h1>{tx("古诗词选读", "中国の詩詞を読む")}</h1>
-      <p>{tx("点选原文中的字词，即可查看日文注释。", "原文の語句を選ぶと日本語の注が開きます。")}</p>
+
       {poem.id !== "jiang-jin-jiu" && <a className="poetry-feature" href="#poetry/jiang-jin-jiu">
         <span>{tx("本次选读", "今回の選読")}</span><strong lang="zh-CN">将进酒</strong>
         <ArrowRight size={15} aria-hidden="true"/>

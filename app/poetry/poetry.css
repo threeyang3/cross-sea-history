@@ -456,3 +456,5 @@
   margin: 4px 0 9px;
   font: 400 14px/1.55 var(--sans);
 }
+
+.poetry-shelf{padding-top:clamp(24px,4vw,48px)}.poetry-heading h1{font-size:clamp(28px,3.7vw,44px)}.poem-visual-spread{min-width:0}.poem-visual-spread.illustrated{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}.poem-artwork .museum-figure-link img{max-height:300px}.poem-related-artwork{margin-top:18px;max-width:440px}.poem-visual-spread .poem-paper{min-width:0}@media(min-width:1280px){.poem-visual-spread.illustrated{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);align-items:start}.poem-artwork .museum-figure-link img{max-height:420px}.poem-visual-spread.illustrated .poem-paper{padding-inline:18px}}@media(max-width:760px){.poem-artwork .museum-figure-link img{max-height:230px}}

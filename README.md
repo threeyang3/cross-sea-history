@@ -1,6 +1,32 @@
-# vinext-starter
+# 跨海的历史｜海をわたる歴史
 
-A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
+A bilingual Chinese–Japanese digital history learning site. Explore Chinese history and Sino-Japanese exchange through timelines, Tang and Ming–Qing topics, landmarks, classical poetry, and personal notes.
+
+- Editorial homepage: one guided reading entry, chronological image gallery, city and poetry browsing.
+- Timeline: proportional date axis, event clusters, drag/pan/zoom, filters and source-linked articles.
+- Image sources and permissions: `app/data/image-rights.json`; see [CONTENT_GUIDE.md](CONTENT_GUIDE.md) before adding assets.
+
+## Local development
+
+Use Node.js 22.13+:
+
+```sh
+npm run install:ci
+npm run dev
+npm run check:ui
+npm run lint
+npm run build
+```
+
+The original Sites deployment and the GitHub repository are separate; committing here does not establish that the published site has been updated. Keep the existing vinext/Cloudflare configuration and personal-note storage keys intact.
+
+## Visual conventions
+
+Use shared tokens in `app/globals.css`; feature styles should not redefine global root tokens. Prefer real historical images with credits, concise localized controls, keyboard accessibility and responsive layouts. Do not remove historical uncertainty or evidence notes merely to simplify the interface.
+
+## Runtime and deployment details
+
+The site runs on [vinext](https://github.com/cloudflare/vinext), with Cloudflare D1 and Drizzle support.
 
 ## Prerequisites
 
@@ -131,3 +157,23 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
 - [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+
+## Museum artwork library
+
+Sixteen verified public-domain Met collection records are curated in `app/data/museum-images.json`. Their source and licensing links remain visible, and the site distinguishes contextual artwork from direct historical evidence. For self-hosting, install Pillow and run `python scripts/import-museum-images.py` on a network-enabled development machine, then commit the generated WebP files and `app/data/museum-local.json`. Until that import is performed, the site lazy-loads the verified museum image URLs with a text fallback. No download is required at build time.
+
+## Historical teaching diagrams
+
+The existing 19 teaching diagrams are preserved. The second batch adds 16 bilingual diagrams, including geographic reference maps, institutional comparisons, knowledge networks, and process views. Together these cover 40 historical event IDs. Data lives in `app/data/learning-visuals*.json`; all new diagram source IDs are checked against linked readings by `npm run check:ui`. Maps use simplified offline Natural Earth land outlines without modern administrative boundaries and explicitly distinguish approximate reference points from known historical routes.
+
+## Reading navigation
+
+Historical articles now provide a section-aware sidebar, a persistent mobile contents menu, scroll-position indicator, and a return-to-citation control. Jumps are confined to the article dialog; reading position is in memory only, not a new personal-data record. Run `npm run check:reader` for dependency-free geometry tests.
+
+## Release verification
+
+See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) for local image import, a one-command build gate, mobile/desktop browser checks, and the boundary between GitHub and Sites publication. `npm run verify:release -- --require-local` requires every registered museum image to be cached; no deployment or background sync is triggered.
+
+## GitHub Pages (static target)
+
+The same bilingual content and client components can also be built without a Cloudflare Worker: `npm run build:pages` outputs `dist-pages/`. The default base is `/cross-sea-history/`; override `PAGES_BASE_PATH=/` for a root site. The city-atlas HTML is generated from the same template, data, and scripts as Sites. See [GitHub Pages deployment](docs/PAGES_DEPLOYMENT.md). Personal notes are browser-local and are not transferred from the original Sites origin.

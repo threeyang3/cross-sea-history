@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useId, useState, type CSSProperties } from 'react';
+import { useId, useState, type CSSProperties } from 'react';
 import { ArrowUpRight, BookOpen, Building2, Coins, FileCheck2, FileText, GraduationCap, Landmark, Layers3, MapPin, Network, Palette, ScrollText, Search, Ship, Shirt, Stamp, Waves } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
 import visualData from './data/learning-visuals.json';
+import extraVisualData from './data/learning-visuals-extra.json';
+import { GeographicDiagram, ProcessDiagram, ComparisonDiagram } from './historical-diagrams';
+import type { DiagramNode, DiagramEdge, DiagramMatrix } from './historical-diagrams';
 import './learning-visuals.css';
 
-type Node = { id: string; label: Pair; detail: Pair; icon?: string; quote?: string; tag?: Pair; x?: number; y?: number; tone?: number };
-type Visual = { id: string; eventIds: string[]; kind: string; title: Pair; subtitle: Pair; caution: Pair; nodes: Node[]; edges?: { from: number; to: number; dashed?: boolean }[]; sources: { title: Pair; url: string }[] };
-const visuals = visualData as Visual[];
+type Visual = { id: string; eventIds: string[]; kind: string; title: Pair; subtitle: Pair; caution: Pair; nodes: DiagramNode[]; edges?: DiagramEdge[]; matrix?: DiagramMatrix; sources: { title: Pair; url: string }[] };
+const visuals:Visual[] = [...(visualData as Visual[]),...(extraVisualData as unknown as Visual[])];
 const tones = ['#b34f3b', '#3f6484', '#357c70', '#a77b2d'];
 const fills = ['#fae4dc', '#e4edf5', '#e0f0e8', '#f6edcf'];
 const icons = { book: BookOpen, temple: Landmark, place: MapPin, ship: Ship, paper: FileText, stamp: Stamp, study: GraduationCap, coins: Coins, layers: Layers3, search: Search, palette: Palette, scroll: ScrollText, building: Building2, clothes: Shirt, check: FileCheck2, network: Network, wave: Waves };
@@ -16,16 +18,16 @@ const text = (v: Pair, lang: Lang) => lang === 'ja' ? v.ja : v.zh;
 function Dual({ value, lang }: { value: Pair; lang: Lang }) { return <>{lang !== 'ja' && <span lang="zh-Hans">{value.zh}</span>}{lang === 'ja' && <span lang="ja">{value.ja}</span>}{lang === 'bi' && <span className="lv-ja" lang="ja">{value.ja}</span>}</>; }
 function Icon({ name, size = 23 }: { name?: string; size?: number }) { const Component = icons[(name || 'paper') as keyof typeof icons] || FileText; return <Component width={size} height={size} strokeWidth={1.65} />; }
 
-function CityDrawing({ mode, selected, onSelect }: { mode: string; selected: number; onSelect: (i: number) => void }) {
+function CityDrawing({ mode, selected, onSelect, uid }: { mode: string; selected: number; onSelect: (i: number) => void; uid:string }) {
   const heian = mode === 'city-heian';
   return <svg viewBox="0 0 720 270" className="lv-svg lv-city-svg" aria-hidden="true">
-    <defs><pattern id={`lv-grid-${mode}`} width="32" height="30" patternUnits="userSpaceOnUse"><path d="M32 0H0V30" fill="none" stroke="#c6d2cc" strokeWidth="1.5"/></pattern></defs>
+    <defs><pattern id={`lv-grid-${uid}`} width="32" height="30" patternUnits="userSpaceOnUse"><path d="M32 0H0V30" fill="none" stroke="#c6d2cc" strokeWidth="1.5"/></pattern></defs>
     <path d="M682 42V17m-5 8 5-8 5 8" stroke="#71877b" fill="none" strokeWidth="1.5"/><text x="677" y="13" fontSize="10" fill="#71877b">N</text>
     {heian ? <>
       <path d="M100 241C90 171 102 73 129 39C147 11 242 14 271 45" fill="none" stroke="#cbd8be" strokeWidth="15"/>
       <path d="M515 20C569 40 575 90 547 135S549 210 590 249" fill="none" stroke="#c7dce4" strokeWidth="15"/>
       <rect x="178" y="39" width="364" height="192" rx="2" fill="#f6f5ea" stroke="#80988b" strokeWidth="2"/>
-      <rect x="178" y="39" width="364" height="192" fill={`url(#lv-grid-${mode})`}/>
+      <rect x="178" y="39" width="364" height="192" fill={`url(#lv-grid-${uid})`}/>
       <path d="M358 68V232" stroke="#bd6650" strokeWidth="9" opacity=".72"/>
       <g onClick={()=>onSelect(0)} className="lv-svg-action"><rect x="299" y="25" width="122" height="49" rx="4" fill={selected===0?'#b34f3b':'#c98570'}/><path d="M306 35H414M320 28V65M346 28V65M374 28V65M400 28V65" stroke="#fff4e9" opacity=".55"/><circle cx="360" cy="48" r="13" fill="#fffaf0"/><text x="357" y="52" fontSize="12" fill="#a74832">1</text></g>
       <g onClick={()=>onSelect(1)} className="lv-svg-action"><path d="M185 90Q222 77 273 109T331 184V226H184Z" fill={selected===1?'#a9cfdb':'#cbe0e4'} opacity=".85"/><path d="M197 116q18-12 36 0t36 0m-64 30q18-12 36 0t36 0m-49 32q18-12 36 0t36 0" fill="none" stroke="#7daaba" strokeWidth="2"/><circle cx="247" cy="143" r="15" fill="#fffaf0"/><text x="243" y="148" fontSize="12" fill="#416d82">2</text></g>
@@ -34,7 +36,7 @@ function CityDrawing({ mode, selected, onSelect }: { mode: string; selected: num
     </> : <>
       {[0,1,2].map((i)=><g key={i} className="lv-svg-action" onClick={()=>onSelect(i)} transform={`translate(${42+i*230},25)`}>
         <rect x="0" y="0" width="180" height="212" rx="4" fill={selected===i?fills[i]:'#f4f4e9'} stroke={selected===i?tones[i]:'#bdcbbf'} strokeWidth={selected===i?2.5:1.5}/>
-        <rect x="13" y="47" width="154" height="151" fill={`url(#lv-grid-${mode})`}/>
+        <rect x="13" y="47" width="154" height="151" fill={`url(#lv-grid-${uid})`}/>
         <rect x="53" y="12" width="74" height="39" rx="2" fill={tones[i]} opacity=".72"/>
         <path d="M90 51V200" stroke={tones[i]} strokeWidth="6" opacity=".7"/>
         {i===1&&<path d="M181 67H204V158H181" fill="#dae5e9" stroke="#6d94a7" strokeWidth="2"/>}
@@ -72,7 +74,10 @@ function PoemDrawing({ selected, onSelect }: { selected: number; onSelect: (i:nu
 }
 
 function Diagram({ visual, lang, selected, onSelect, uid }: { visual: Visual; lang: Lang; selected: number; onSelect: (i:number)=>void; uid: string }) {
-  if(visual.kind.startsWith('city-')) return <CityDrawing mode={visual.kind} selected={selected} onSelect={onSelect}/>;
+  if(visual.kind.startsWith('city-')) return <CityDrawing mode={visual.kind} selected={selected} onSelect={onSelect} uid={uid}/>;
+  if(visual.kind==='geo-map') return <GeographicDiagram nodes={visual.nodes} edges={visual.edges??[]} lang={lang} selected={selected} onSelect={onSelect}/>;
+  if(visual.kind==='process') return <ProcessDiagram nodes={visual.nodes} lang={lang} selected={selected} onSelect={onSelect}/>;
+  if(visual.kind==='matrix'&&visual.matrix) return <ComparisonDiagram nodes={visual.nodes} matrix={visual.matrix} lang={lang} selected={selected} onSelect={onSelect}/>;
   if(visual.kind==='attire') return <AttireDrawing selected={selected} onSelect={onSelect}/>;
   if(visual.kind==='poem') return <PoemDrawing selected={selected} onSelect={onSelect}/>;
   const positions=visual.nodes.map((node,i)=>({x:node.x??(80+i*(560/Math.max(1,visual.nodes.length-1))),y:node.y??128}));
@@ -96,21 +101,26 @@ function Diagram({ visual, lang, selected, onSelect, uid }: { visual: Visual; la
   </svg>;
 }
 
-export function EventLearningVisual({ eventId, lang }: { eventId: string; lang: Lang }) {
-  const visual=visuals.find(item=>item.eventIds.includes(eventId));
+function LearningFigure({visual,lang,anchor}:{visual:Visual;lang:Lang;anchor:string}){
   const [selected,setSelected]=useState(0);
   const uid=useId().replace(/[^a-zA-Z0-9]/g,'');
-  useEffect(()=>{setSelected(0);},[eventId]);
-  if(!visual)return null;
+  const directControls=visual.kind==='process'||(visual.kind==='matrix'&&!!visual.matrix);
   const index=Math.min(selected,visual.nodes.length-1),active=visual.nodes[index];
-  return <figure className={'learning-visual lv-kind-'+visual.kind} data-reading-section="visual">
-    <header><span className="lv-section-symbol"><Layers3 size={19}/></span><div><span className="lv-kicker">{lang==='ja'?'図で考える':'图解 · 看见关系'}</span><h2 tabIndex={-1}><Dual value={visual.title} lang={lang}/></h2></div></header>
+  return <figure className={'learning-visual lv-kind-'+visual.kind} data-reading-section={anchor} aria-labelledby={'lv-title-'+uid} aria-describedby={'lv-caution-'+uid}>
+    <header><span className="lv-section-symbol" aria-hidden="true"><Layers3 size={19}/></span><div><h2 tabIndex={-1} id={'lv-title-'+uid}><Dual value={visual.title} lang={lang}/></h2></div></header>
     <p className="lv-subtitle"><Dual value={visual.subtitle} lang={lang}/></p>
     <div className="lv-canvas"><Diagram visual={visual} lang={lang} selected={index} onSelect={setSelected} uid={'lv-arrow-'+uid}/></div>
-    <div className="lv-controls" role="group" aria-label={lang==='ja'?'図の要素を選ぶ':'选择图中要素'}>{visual.nodes.map((node,i)=><button key={node.id} type="button" className={index===i?'selected':''} aria-pressed={index===i} onClick={()=>setSelected(i)} style={{'--lv-tone':tones[node.tone??i%4],'--lv-fill':fills[node.tone??i%4]} as CSSProperties}><span className="lv-control-number">{String(i+1).padStart(2,'0')}</span><span>{node.quote&&<span className="lv-poem-verse" lang="zh-Hans">{node.quote}</span>}<Dual value={node.label} lang={lang}/></span></button>)}</div>
+    {!directControls&&<div className="lv-controls" role="group" aria-label={lang==='ja'?'図の要素を選ぶ':'选择图中要素'}>{visual.nodes.map((node,i)=><button key={node.id} type="button" className={index===i?'selected':''} aria-pressed={index===i} onClick={()=>setSelected(i)} style={{'--lv-tone':tones[node.tone??i%4],'--lv-fill':fills[node.tone??i%4]} as CSSProperties}><span className="lv-control-number">{String(i+1).padStart(2,'0')}</span><span>{node.quote&&<span className="lv-poem-verse" lang="zh-Hans">{node.quote}</span>}<Dual value={node.label} lang={lang}/>{visual.kind==='geo-map'&&node.tag&&<small className="lv-map-node-tag"><Dual value={node.tag} lang={lang}/></small>}</span></button>)}</div>}
     <div className="lv-detail" aria-live="polite" style={{'--lv-tone':tones[active.tone??index%4]} as CSSProperties}><span className="lv-detail-icon"><Icon name={active.icon}/></span><div><strong><Dual value={active.label} lang={lang}/></strong><p><Dual value={active.detail} lang={lang}/></p></div></div>
-    <figcaption><p className="lv-caution"><Dual value={visual.caution} lang={lang}/></p><div className="lv-sources"><span>{lang==='ja'?'図の出典':'图解依据'}</span>{visual.sources.map(source=><a href={source.url} target="_blank" rel="noreferrer" key={source.url}>{text(source.title,lang)}<ArrowUpRight size={11}/></a>)}</div></figcaption>
+    <figcaption><p className="lv-caution" id={'lv-caution-'+uid}><Dual value={visual.caution} lang={lang}/></p><div className="lv-sources"><span>{lang==='ja'?'図の出典':'图解依据'}</span>{visual.sources.map(source=><a href={source.url} target="_blank" rel="noreferrer" key={source.url}>{text(source.title,lang)}<ArrowUpRight size={11}/></a>)}</div></figcaption>
   </figure>;
 }
 
-export const hasLearningVisual = (eventId: string) => visuals.some(item=>item.eventIds.includes(eventId));
+const eventVisuals=(eventId:string)=>visuals.filter(item=>item.eventIds.includes(eventId));
+const sectionAnchor=(visual:Visual,index:number)=>index===0?'visual':'visual-'+visual.id;
+export const getLearningVisualSections=(eventId:string)=>eventVisuals(eventId).map((visual,index)=>({id:sectionAnchor(visual,index),title:visual.title}));
+export const hasLearningVisual=(eventId:string)=>eventVisuals(eventId).length>0;
+
+export function EventLearningVisual({eventId,lang}:{eventId:string;lang:Lang}){
+ return <>{eventVisuals(eventId).map((visual,index)=><LearningFigure key={eventId+'-'+visual.id} visual={visual} lang={lang} anchor={sectionAnchor(visual,index)}/>)}</>;
+}

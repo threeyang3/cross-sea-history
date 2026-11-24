@@ -1,0 +1,434 @@
+[
+  {
+    "id": "met-river-hamlet",
+    "objectId": 40197,
+    "accession": "1989.363.27",
+    "date": "12–13世纪 / 12〜13世紀",
+    "title": {
+      "zh": "南宋《江邨图》",
+      "ja": "南宋「江邨図」"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "南宋团扇画中的雪岸、舟与村舍；与诗中的水乡意象对读，不是特定诗句的原始插图。",
+      "ja": "雪の川岸・舟・家屋を描く南宋の団扇画。水辺の詩のイメージとの比較であり、原挿絵ではない。"
+    },
+    "alt": {
+      "zh": "南宋《江邨图》",
+      "ja": "南宋「江邨図」"
+    },
+    "width": 1000,
+    "height": 921,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/40197",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40197/148020/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-river-hamlet.webp"
+  },
+  {
+    "id": "met-willow-boat",
+    "objectId": 40092,
+    "accession": "47.18.137",
+    "date": "13世纪 / 13世紀",
+    "title": {
+      "zh": "南宋《泛舟柳塘图》",
+      "ja": "南宋「泛舟柳塘図」"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "柳岸、莲叶与小舟；与唐宋诗中的江湖意象对读，不是黄鹤楼送别实景。",
+      "ja": "柳の岸、蓮の葉、小舟。唐宋詩の水辺との比較であり、黄鶴楼での別れの実景ではない。"
+    },
+    "alt": {
+      "zh": "南宋《泛舟柳塘图》",
+      "ja": "南宋「泛舟柳塘図」"
+    },
+    "width": 1000,
+    "height": 914,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/40092",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40092/148012/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-willow-boat.webp"
+  },
+  {
+    "id": "met-longquan-bowl",
+    "objectId": 52634,
+    "accession": "50.221.18",
+    "date": "12–13世纪 / 12〜13世紀",
+    "title": {
+      "zh": "南宋龙泉窑青瓷莲瓣碗",
+      "ja": "南宋・龍泉窯青磁蓮弁文碗"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "宋元陶瓷比较材料；并非新安沉船出水器物。馆方图像为黑白。",
+      "ja": "宋元陶磁の比較資料であり、新安沈没船の出水品ではない。館の画像は白黒。"
+    },
+    "alt": {
+      "zh": "南宋龙泉窑青瓷莲瓣碗",
+      "ja": "南宋・龍泉窯青磁蓮弁文碗"
+    },
+    "width": 1000,
+    "height": 704,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/52634",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/52634/81977/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-longquan-bowl.webp"
+  },
+  {
+    "id": "met-moon-landscape",
+    "objectId": 36022,
+    "accession": "13.220.111",
+    "date": "1628",
+    "title": {
+      "zh": "顾懿德《仿王蒙玩月图》",
+      "ja": "顧懿徳「倣王蒙玩月図」"
+    },
+    "author": "顾懿德 / 顧懿徳",
+    "caption": {
+      "zh": "明代山水画；作为后世赏月题材的比较，不是唐宋诗原配画。 馆方提供黑白照片。",
+      "ja": "明代の山水画。後世の観月表現の比較資料で、唐宋詩の原挿絵ではない。 館の写真は白黒。"
+    },
+    "alt": {
+      "zh": "顾懿德《仿王蒙玩月图》",
+      "ja": "顧懿徳「倣王蒙玩月図」"
+    },
+    "width": 318,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/36022",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/36022/72207/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-moon-landscape.webp"
+  },
+  {
+    "id": "met-nagasaki-ships",
+    "objectId": 77014,
+    "accession": "2012.35",
+    "date": "约1840 / 1840年頃",
+    "title": {
+      "zh": "《长崎港图》：清朝商船",
+      "ja": "「長崎港図」：清の商船"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "日本彩色木版画中的清朝商船。较早时期长崎贸易的后世参照，并非当年现场记录。",
+      "ja": "長崎へ向かう清の商船を描く錦絵。より早い時期の長崎貿易の参照で、当時の現場記録ではない。"
+    },
+    "alt": {
+      "zh": "《长崎港图》：清朝商船",
+      "ja": "「長崎港図」：清の商船"
+    },
+    "width": 1000,
+    "height": 430,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/77014",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/77014/2488461/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-nagasaki-ships.webp"
+  },
+  {
+    "id": "met-li-bai-cup",
+    "objectId": 46551,
+    "accession": "14.40.283",
+    "date": "17世纪末至18世纪初 / 17世紀末〜18世紀初頭",
+    "title": {
+      "zh": "清康熙时期李白故事与诗文杯",
+      "ja": "清・康熙期の李白故事詩文杯"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "景德镇瓷杯上的李白故事反映后世接受；不表示《将进酒》的创作现场。 馆方提供黑白照片。",
+      "ja": "景徳鎮の磁杯に描かれた李白故事は後世の受容を示し、「将進酒」の制作現場ではない。 館の写真は白黒。"
+    },
+    "alt": {
+      "zh": "清康熙时期李白故事与诗文杯",
+      "ja": "清・康熙期の李白故事詩文杯"
+    },
+    "width": 1000,
+    "height": 981,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/46551",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/46551/72611/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-li-bai-cup.webp"
+  },
+  {
+    "id": "met-li-bai-flask",
+    "objectId": 46276,
+    "accession": "79.2.460a, b",
+    "date": "19世纪 / 19世紀",
+    "title": {
+      "zh": "清代李白与山水纹盖壶",
+      "ja": "清代・李白山水文蓋壺"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "青花瓷壶上的后世李白形象，并非唐代肖像。馆方图像为黑白。",
+      "ja": "染付の蓋壺に描かれた後世の李白像であり、唐代の肖像ではない。館の画像は白黒。"
+    },
+    "alt": {
+      "zh": "清代李白与山水纹盖壶",
+      "ja": "清代・李白山水文蓋壺"
+    },
+    "width": 773,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/46276",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/46276/66534/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-li-bai-flask.webp"
+  },
+  {
+    "id": "met-nagasaki-1859",
+    "objectId": 73422,
+    "accession": "2007.49.136",
+    "date": "1859",
+    "title": {
+      "zh": "二代歌川广重《肥前长崎唐船之津》",
+      "ja": "二代歌川広重「肥前長崎唐船の津」"
+    },
+    "author": "二代歌川广重 / 二代歌川広重",
+    "caption": {
+      "zh": "表现长崎港船只与港湾的木版画；不可直接用来复原17世纪唐人屋敷。",
+      "ja": "長崎の船と港湾を描く木版画。17世紀の唐人屋敷の復元資料として直接使うことはできない。"
+    },
+    "alt": {
+      "zh": "二代歌川广重《肥前长崎唐船之津》",
+      "ja": "二代歌川広重「肥前長崎唐船の津」"
+    },
+    "width": 687,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/73422",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/73422/146032/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-nagasaki-1859.webp"
+  },
+  {
+    "id": "met-huizong-birds",
+    "objectId": 39936,
+    "accession": "1981.278",
+    "date": "12世纪初 / 12世紀初頭",
+    "title": {
+      "zh": "北宋《翠竹双雀图》",
+      "ja": "北宋「竹禽図」"
+    },
+    "author": "宋徽宗 / 徽宗",
+    "caption": {
+      "zh": "绢本花鸟手卷，表现竹枝与雀鸟。与春日诗中的鸟鸣意象对读，不是具体诗句的原配画。",
+      "ja": "竹と鳥を描いた北宋の絹本花鳥画。春の詩に詠まれる鳥のイメージと比較する資料で、原挿絵ではない。"
+    },
+    "alt": {
+      "zh": "北宋《翠竹双雀图》",
+      "ja": "北宋「竹禽図」"
+    },
+    "width": 1000,
+    "height": 540,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/39936",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/39936/198920/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-huizong-birds.webp"
+  },
+  {
+    "id": "met-yuan-jar",
+    "objectId": 44741,
+    "accession": "1991.253.30",
+    "date": "14世纪 / 14世紀",
+    "title": {
+      "zh": "元代青花镂空瓷罐",
+      "ja": "元代・染付透彫壺"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "十四世纪釉下青花与镂空装饰瓷器；与元代海贸陶瓷比较，并非新安沉船出水品。",
+      "ja": "14世紀の染付・透彫装飾の磁器。元代の海上交易の陶磁器との比較資料で、新安沈没船の出水品ではない。"
+    },
+    "alt": {
+      "zh": "元代青花镂空瓷罐",
+      "ja": "元代・染付透彫壺"
+    },
+    "width": 737,
+    "height": 700,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/44741",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/44741/99800/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-yuan-jar.webp"
+  },
+  {
+    "id": "met-export-plate",
+    "objectId": 6388,
+    "accession": "42.87.4",
+    "date": "1765–1770",
+    "title": {
+      "zh": "清代外销瓷盘",
+      "ja": "清代・輸出磁器皿"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "十八世纪中后期中国外销瓷，曾由欧洲贸易渠道流向北美。用于广州贸易的器物比较，不据此断定该盘的具体离港地点。",
+      "ja": "18世紀後半の中国輸出磁器。欧州経由で北米に渡った貿易の比較資料であり、この皿の出港地を特定するものではない。"
+    },
+    "alt": {
+      "zh": "清代外销瓷盘",
+      "ja": "清代・輸出磁器皿"
+    },
+    "width": 750,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/6388",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/6388/42198/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-export-plate.webp"
+  },
+  {
+    "id": "met-tang-camel",
+    "objectId": 49368,
+    "accession": "67.43.1",
+    "date": "8世纪 / 8世紀",
+    "title": {
+      "zh": "唐三彩陶骆驼俑",
+      "ja": "唐三彩・駱駝俑"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "八世纪三彩陶骆驼俑，用于观察唐代器物与跨地域交流的时代背景；馆方提供黑白照片。",
+      "ja": "8世紀の三彩駱駝俑。唐代の器物と地域間交流の背景を考える資料。館の写真は白黒。"
+    },
+    "alt": {
+      "zh": "唐三彩陶骆驼俑",
+      "ja": "唐三彩・駱駝俑"
+    },
+    "width": 651,
+    "height": 925,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/49368",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/49368/102855/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-tang-camel.webp"
+  },
+  {
+    "id": "met-ma-yuan-plum",
+    "objectId": 44638,
+    "accession": "1986.493.2",
+    "date": "13世纪初 / 13世紀初頭",
+    "title": {
+      "zh": "马远《月下赏梅图》",
+      "ja": "馬遠「月下賞梅図」"
+    },
+    "author": "马远 / 馬遠",
+    "caption": {
+      "zh": "南宋月夜庭园画，梅枝与月色提供咏梅、望月诗词的图像参照，不是某首词的原配画。",
+      "ja": "南宋の月夜の庭を描いた作品。梅と月は詠梅・観月の詩詞との比較資料であり、特定の詞の原挿絵ではない。"
+    },
+    "alt": {
+      "zh": "马远《月下赏梅图》",
+      "ja": "馬遠「月下賞梅図」"
+    },
+    "width": 1000,
+    "height": 934,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/44638",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/44638/153352/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-ma-yuan-plum.webp"
+  },
+  {
+    "id": "met-shiren-sugar",
+    "objectId": 42693,
+    "accession": "2014.719.6",
+    "date": "14世纪 / 14世紀",
+    "title": {
+      "zh": "虎关师炼墨迹《糖》",
+      "ja": "虎関師錬筆 墨跡「糖」"
+    },
+    "author": "虎关师炼 / 虎関師錬",
+    "caption": {
+      "zh": "日本禅僧虎关师炼的汉诗书迹。他曾师从来日中国僧人一山一宁，可作为宋元之后禅宗与汉文学传播的实物参照；并非荣西或兰溪道隆的手迹。",
+      "ja": "日本の禅僧・虎関師錬の漢詩墨跡。来日した中国僧・一山一寧に学んだ。禅と漢文学の伝播を考える資料であり、栄西や蘭渓道隆の筆跡ではない。"
+    },
+    "alt": {
+      "zh": "虎关师炼墨迹《糖》",
+      "ja": "虎関師錬筆 墨跡「糖」"
+    },
+    "width": 1000,
+    "height": 750,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/42693",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/42693/1293185/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-shiren-sugar.webp"
+  },
+  {
+    "id": "met-daruma-reed",
+    "objectId": 73645,
+    "accession": "2007.29",
+    "date": "1641年以前 / 1641年以前",
+    "title": {
+      "zh": "狩野元俊《芦叶达磨图》",
+      "ja": "狩野元俊「芦葉達磨図」"
+    },
+    "author": "狩野元俊 / 狩野元俊",
+    "caption": {
+      "zh": "江户初期水墨画，题赞由玉室宗珀书写。展现日本对中国禅画传统的继承；达磨渡江属于传说，不是历史现场记录。",
+      "ja": "江戸初期の水墨画。玉室宗珀の賛がある。中国禅画の受容を示し、達磨の渡江伝説を当時の実景として示すものではない。"
+    },
+    "alt": {
+      "zh": "狩野元俊《芦叶达磨图》",
+      "ja": "狩野元俊「芦葉達磨図」"
+    },
+    "width": 533,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/73645",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/73645/2195534/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-daruma-reed.webp"
+  },
+  {
+    "id": "met-ming-scholar-tray",
+    "objectId": 40259,
+    "accession": "2015.500.1.57",
+    "date": "15世纪 / 15世紀",
+    "title": {
+      "zh": "明黑漆嵌螺钿学士图八方盘",
+      "ja": "明・黒漆螺鈿学士図八角盆"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "十五世纪漆器上的读书、赏画、交谈场景，可观察文人生活的理想化表现，不等同于全体明代人的日常。",
+      "ja": "15世紀の漆器に表された読書・絵画鑑賞・談話。文人生活の理想化された表現であり、明代のすべての人々の日常ではない。"
+    },
+    "alt": {
+      "zh": "明黑漆嵌螺钿学士图八方盘",
+      "ja": "明・黒漆螺鈿学士図八角盆"
+    },
+    "width": 1000,
+    "height": 750,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/40259",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40259/190136/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-ming-scholar-tray.webp"
+  }
+]
