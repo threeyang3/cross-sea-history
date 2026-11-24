@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Bookmark, Check, CheckCircle2, ChevronRight, Clock3, Compass, Download, Eye, GraduationCap, History, Images, Languages, LibraryBig, MapPin, NotebookPen, RotateCcw, Search, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Bookmark, Check, CheckCircle2, ChevronRight, Clock3, Compass, Download, Eye, GraduationCap, History, Languages, LibraryBig, MapPin, NotebookPen, RotateCcw, Search } from 'lucide-react';
 import type { Lang, Lesson, Pair, StudyState } from './content-types';
 import { pair as p } from './content-types';
 import { assets, getAsset, getLesson, lessons, sources, terms } from './content';
@@ -57,6 +57,9 @@ export default function HistorySite(){
  const attempted=allQuestions.filter(({question:q})=>study.answers[q.id]!==undefined);const wrong=attempted.filter(({question:q})=>study.answers[q.id]!==q.answer);
  const paintings=assets.filter(a=>a.id.startsWith('qingming-scroll'));
 
+ // Browser storage and hash are external client-only sources. Hydrate the existing
+ // local state once after SSR, without moving or resetting any saved data.
+ /* eslint-disable react-hooks/set-state-in-effect -- Initial client storage/hash hydration. */
  useEffect(()=>{
   try{const l=localStorage.getItem('cross-sea-lang');if(l==='zh'||l==='ja'||l==='bi')setLang(l);}catch{}
   try{const n=JSON.parse(localStorage.getItem('cross-sea-notes-v1')||'{}');if(n&&typeof n==='object'){setNote(typeof n.note==='string'?n.note:'');setQuestion(typeof n.question==='string'?n.question:'');}}catch{setNoteError(true);}
@@ -64,6 +67,7 @@ export default function HistorySite(){
   setLoaded(true);
   const route=()=>{const [path,item,eventId]=window.location.hash.replace(/^#/,'').split('/');if(path==='lesson'&&getLesson(item)){setLessonId(item);setView('lesson');}else if(path==='poetry'){setPoemId(item||'');setView('poetry');}else if(path==='timeline'){setView('timeline');setTimelineTrack(item==='china'?'china':'exchange');setTimelineEvent(eventId||'');}else if(['tang','places','ming','desk'].includes(path)){setView(path as View);if(path==='places'&&placeIds.includes(item))setPlace(placeIds.indexOf(item));}else setView('home');};route();window.addEventListener('hashchange',route);return()=>window.removeEventListener('hashchange',route);
  },[]);
+ /* eslint-enable react-hooks/set-state-in-effect */
  useEffect(()=>{document.documentElement.lang=lang==='ja'?'ja':'zh-CN';},[lang]);
  useEffect(()=>{
   function dismiss(e:PointerEvent){for(const node of document.querySelectorAll<HTMLDetailsElement>('.site-header details[open], .compact-atlas-filter[open]'))if(e.target instanceof Node&&!node.contains(e.target))node.open=false;}

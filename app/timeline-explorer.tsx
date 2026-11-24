@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Compass, Expand, Filter, List, MapPin, Minus, MoveHorizontal, NotebookPen, Plus, Search, Star, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Compass, Expand, Filter, List, MapPin, Minus, MoveHorizontal, NotebookPen, Plus, Search, Star, X } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset, getLesson } from './content';
@@ -70,26 +70,35 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  });
  const events=useMemo(()=>historicalEvents.filter(e=>e.track===track),[track]);
 
- useEffect(()=>{
-  const nextBounds:WindowRange=[yearCoordinate(timelinePeriods[track][0].start),yearCoordinate(timelinePeriods[track][0].end)];
-  setRange(nextBounds);setPeriodId('all');setCategory('all');setQuery('');setFeaturedOnly(false);setDetailOpen(false);setClusterChoice([]);
-  setSelectedId(initialEventId||historicalEvents.find(e=>e.track===track&&e.featured)?.id||'');
- },[track]);
- useEffect(()=>{
-  if(!initialEventId){setDetailOpen(false);return;}
-  if(initialEventId.startsWith('period-')){
-   const target=timelinePeriods[track].find(period=>period.id===initialEventId.slice(7));
-   if(target){setPeriodId(target.id);setRange([yearCoordinate(target.start),yearCoordinate(target.end)]);setSelectedId('');setDetailOpen(false);return;}
+ // Route props can change while the timeline stays mounted. Reconcile the
+ // route and the selected period before committing a render; preserve view mode.
+ const [appliedRoute,setAppliedRoute]=useState<{track:TimelineTrack;id:string}|null>(null);
+ if(!appliedRoute||appliedRoute.track!==track||appliedRoute.id!==initialEventId){
+  const trackChanged=!appliedRoute||appliedRoute.track!==track;
+  setAppliedRoute({track,id:initialEventId});
+  let nextRange:WindowRange=trackChanged?bounds:range;
+  let nextPeriod=trackChanged?'all':periodId;
+  if(trackChanged){
+   setCategory('all');setQuery('');setFeaturedOnly(false);setClusterChoice([]);setHelpOpen(false);
+   setSelectedId(historicalEvents.find(e=>e.track===track&&e.featured)?.id||'');
   }
-  const event=historicalEvents.find(e=>e.id===initialEventId&&e.track===track);if(!event)return;
-  setSelectedId(event.id);setDetailOpen(true);
-  setRange(previous=>{
-   if(intersects(event,previous))return previous;
-   const target=timelinePeriods[track].slice(1).find(period=>event.start>=period.start&&event.start<=period.end);
-   if(target){setPeriodId(target.id);return [yearCoordinate(target.start),yearCoordinate(target.end)];}
-   setPeriodId('custom');return fitRange(yearCoordinate(event.start),200,[yearCoordinate(timelinePeriods[track][0].start),yearCoordinate(timelinePeriods[track][0].end)]);
-  });
- },[initialEventId,track]);
+  setDetailOpen(false);
+  const periodTarget=initialEventId.startsWith('period-')?periods.find(item=>item.id===initialEventId.slice(7)):undefined;
+  if(periodTarget){
+   nextPeriod=periodTarget.id;nextRange=[yearCoordinate(periodTarget.start),yearCoordinate(periodTarget.end)];setSelectedId('');
+  }else{
+   const target=events.find(e=>e.id===initialEventId);
+   if(target){
+    setSelectedId(target.id);setDetailOpen(true);
+    if(!intersects(target,nextRange)){
+     const period=periods.slice(1).find(item=>target.start>=item.start&&target.start<=item.end);
+     nextPeriod=period?.id??'custom';
+     nextRange=period?[yearCoordinate(period.start),yearCoordinate(period.end)]:fitRange(yearCoordinate(target.start),200,bounds);
+    }
+   }
+  }
+  setPeriodId(nextPeriod);setRange(nextRange);
+ }
  useEffect(()=>{
   const element=plot.current;if(!element)return;
   const observer=new ResizeObserver(()=>setPlotWidth(element.clientWidth));observer.observe(element);setPlotWidth(element.clientWidth);

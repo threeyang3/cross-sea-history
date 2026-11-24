@@ -111,7 +111,12 @@ def main():
             meta_url = f'https://collectionapi.metmuseum.org/public/collection/v1/objects/{record["objectId"]}'
             meta = json.loads(fetch(meta_url, 2_000_000))
             if meta.get("isPublicDomain") is not True or meta.get("objectID") != record["objectId"] or meta.get("objectNumber") != record["accession"]:
-                raise ValueError("Public-domain or accession check failed")
+                raise ValueError(
+                    "Public-domain or accession check failed: "
+                    f"API objectID={meta.get('objectID')!r} (expected {record['objectId']!r}), "
+                    f"objectNumber={meta.get('objectNumber')!r} (expected {record['accession']!r}), "
+                    f"isPublicDomain={meta.get('isPublicDomain')!r}; no image downloaded"
+                )
             # Preserve the exact reviewed view, never replace with a different primary image.
             with Image.open(io.BytesIO(fetch(record["originalFileURL"], 30_000_000))) as source:
                 if source.width * source.height > Image.MAX_IMAGE_PIXELS:

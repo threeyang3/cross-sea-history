@@ -119,16 +119,21 @@ export function PoetryShelf({ lang, poemId }: { lang: Lang; poemId: string }) {
   const [form, setForm] = useState<FormGroup | "all">("all");
   const [theme, setTheme] = useState<Theme | "all">("all");
   const reader = useRef<HTMLDivElement>(null);
+  const [filterPoemId,setFilterPoemId]=useState(poemId);
+  // Reconcile filters with a changed deep link before committing a render.
+  if(filterPoemId!==poemId){
+    setFilterPoemId(poemId);
+    const selectedPoem=poemById.get(poemId);
+    if(selectedPoem){
+      if(period!=="all"&&period!==selectedPoem.period)setPeriod(selectedPoem.period);
+      if(!searchPoems(query).some(item=>item.id===poemId))setQuery("");
+      if(form!==selectedPoem.form.group&&form!=="all")setForm("all");
+      if(theme!==selectedPoem.theme&&theme!=="all")setTheme("all");
+    }
+  }
   const previousId = useRef(poemId);
   useEffect(() => {
     if (poemId && poemId !== previousId.current) {
-      const selectedPoem = poemById.get(poemId);
-      if (selectedPoem) {
-        setPeriod(current => current === "all" || current === selectedPoem.period ? current : selectedPoem.period);
-        setQuery(current => searchPoems(current).some(item => item.id === poemId) ? current : "");
-        setForm(current => current === selectedPoem.form.group ? current : "all");
-        setTheme(current => current === selectedPoem.theme ? current : "all");
-      }
       const title = reader.current?.querySelector<HTMLElement>("#poem-title");
       title?.focus({ preventScroll: true });
       if (window.matchMedia("(max-width: 760px)").matches) {

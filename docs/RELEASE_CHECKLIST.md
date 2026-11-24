@@ -62,3 +62,7 @@ npm run dev
 ## 6. 按需 GitHub Actions 验证
 
 PR 只在添加 `validate-site`（仅验证）或 `validate-site-assets`（额外导入图片）标签时触发一次检查，不会因每次 push 自动运行。已有标签需移除再添加才会触发新验证；不要为每个小修改反复运行。工作流使用只读权限，不提交或发布站点。若图像导入全部成功，生成 `museum-images-localized` Artifact（有效期 7 天），其中图片和缓存登记须一并人工检验后提交。图像导入和 lint 出错仍会尝试构建，最后检查如实保留失败状态。合并至默认分支后也可从 Actions 界面手动执行。
+
+## 首次实际验证记录
+
+GitHub Actions [首次运行](https://github.com/threeyang3/cross-sea-history/actions/runs/45398646725)：依赖安装、7 个阅读测试、UI 数据检查与 vinext 生产构建均通过。Lint 报告 9 个 React Hooks 错误；Met API 对全部 16 条注册记录未通过严格许可/馆藏号检查，因此没有导入图像，发布总检查失败。已针对 Lint 报告调整阅读器、诗词筛选、时间线路由和弹窗状态更新；外部存储首次客户端恢复保留限定范围的规则例外，不改变已有用户数据。新增 Met API 失败字段诊断，不降低许可要求。后续复测结果以新的运行记录为准。

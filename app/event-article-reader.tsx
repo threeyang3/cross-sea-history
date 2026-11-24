@@ -20,6 +20,10 @@ import { readingPosition, readingTarget } from './reader-geometry.mjs';
 
 const sourceIndex = new Map<string, Source>([...sources, ...timelineSources, ...articleSources].map(source => [source.id, source]));
 
+function ReaderTocEntries({sections,activeId,lang,onJump}:{sections:{id:string;title:Pair}[];activeId:string;lang:Lang;onJump:(id:string)=>void}){
+  return <>{sections.map((section,index)=><button key={section.id} type="button" aria-current={activeId===section.id?'location':undefined} onClick={()=>onJump(section.id)}><small>{String(index+1).padStart(2,'0')}</small><span>{choose(section.title,lang)}</span></button>)}</>;
+}
+
 export function EventArticleReader({ event, lang, related, previous, next, onClose, onLanguageChange, onNavigate, onOpenLesson, onQuestion }: {
   event: HistoricalEvent;
   lang: Lang;
@@ -55,8 +59,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
 
   useEffect(() => {
     let active = true;
-    setArticle(null); setError(false); setImageExpanded(false);
-    setTocOpen(false);setPosition({activeId:'overview',progress:0});setReturnCitation(false);citationOrigin.current=null;
+    // The parent keys this reader by event ID. Retrying resets load state in the button handler.
     root.current?.closest('.dialog')?.scrollTo({ top: 0,behavior:'instant' });
     loadEventArticle(event.id).then(value => { if (active) setArticle(value); }).catch(() => { if (active) setError(true); });
     return () => { active = false; };
@@ -140,7 +143,9 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
     document.addEventListener('pointerdown',dismiss);
     return()=>{wide.removeEventListener('change',closeOnWide);document.removeEventListener('pointerdown',dismiss);};
   },[tocOpen]);
-  const tocEntries=()=>sections.map((section,index)=><button key={section.id} type="button" aria-current={position.activeId===section.id?'location':undefined} onClick={()=>jump(section.id)}><small>{String(index+1).padStart(2,'0')}</small><span>{t(section.title)}</span></button>);
+  function retryArticle(){
+    setArticle(null);setError(false);setAttempt(value=>value+1);
+  }
 
   function takeQuestion() {
     const references = bibliography.slice(0, 3).map((source, index) => `${index + 1}. ${t(source.title)}\n${source.url}`).join('\n');
@@ -158,13 +163,13 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
       <div className="reader-languages" aria-label={tx('阅读语言', '表示言語')}><Languages size={15} />{(['zh', 'ja', 'bi'] as const).map(value => <button key={value} aria-pressed={lang === value} onClick={() => onLanguageChange(value)}>{value === 'zh' ? '中文' : value === 'ja' ? '日本語' : tx('对照','対照')}</button>)}</div>
       {returnCitation&&<button type="button" className="reader-citation-return" onClick={returnFromCitation} title={tx('返回引用处','引用箇所に戻る')} aria-label={tx('返回引用处','引用箇所に戻る')}><ArrowLeft size={15}/><span>{tx('引用','引用')}</span></button>}
       <div className="reader-progress" role="progressbar" aria-label={tx('正文滚动位置','本文のスクロール位置')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={position.progress}><span style={{width:position.progress+'%'}}/></div>
-      <nav id="reader-mobile-toc" ref={mobileToc} hidden={!tocOpen} className="reader-mobile-toc" aria-label={tx('本文目录','目次')}>{tocOpen&&tocEntries()}</nav>
+      <nav id="reader-mobile-toc" ref={mobileToc} hidden={!tocOpen} className="reader-mobile-toc" aria-label={tx('本文目录','目次')}>{tocOpen&&<ReaderTocEntries sections={sections} activeId={position.activeId} lang={lang} onJump={jump}/>}</nav>
     </div>
     <div className="reader-layout">
       <aside className="reader-toc" aria-label={tx('本文目录', '目次')}>
 
         <strong>{tx('在这一篇里', 'この記事の中で')}</strong>
-        <nav aria-label={tx('本文目录','目次')}>{tocEntries()}</nav>
+        <nav aria-label={tx('本文目录','目次')}><ReaderTocEntries sections={sections} activeId={position.activeId} lang={lang} onJump={jump}/></nav>
 
       </aside>
       <div className="reader-body" aria-busy={!article && !error}>
@@ -174,7 +179,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
           <div className="reading-meta"><span><MapPin size={13} />{t(event.location)}</span>{meta && <span><Clock3 size={13} />{tx(`阅读与思考约 ${meta.minutes} 分钟`, `読む・考える目安 ${meta.minutes} 分`)}</span>}<span><FileText size={13} />{bibliography.length}{tx(' 项参考资料', ' 件の参考資料')}</span></div>
           <p className="reading-lead"><Bilingual value={event.summary} lang={lang} /></p>
         </header>
-        {!article && <div className="reading-load" role="status">{error ? <><h2>{tx('正文暂时未能载入', '本文を読み込めませんでした')}</h2><p>{tx('请重试，或通过下面的资料入口继续阅读。', 'もう一度お試しください。出典から読み進めることもできます。')}</p><button className="button primary" onClick={() => setAttempt(value => value + 1)}>{tx('重新载入正文', '本文を再読み込み')}</button>{bibliography.map(source => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{t(source.title)}<ArrowUpRight size={13} /></a>)}</> : <><span className="reading-load-dot" />{tx('正在展开这段历史…', '歴史の背景を開いています…')}</>}</div>}
+        {!article && <div className="reading-load" role="status">{error ? <><h2>{tx('正文暂时未能载入', '本文を読み込めませんでした')}</h2><p>{tx('请重试，或通过下面的资料入口继续阅读。', 'もう一度お試しください。出典から読み進めることもできます。')}</p><button className="button primary" onClick={retryArticle}>{tx('重新载入正文', '本文を再読み込み')}</button>{bibliography.map(source => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{t(source.title)}<ArrowUpRight size={13} /></a>)}</> : <><span className="reading-load-dot" />{tx('正在展开这段历史…', '歴史の背景を開いています…')}</>}</div>}
         {article && <>
           <div className="reading-thesis"><span>{tx('这一篇要理解', 'この記事で考えること')}</span><p><Bilingual value={article.thesis} lang={lang} /></p></div>
           {asset && <figure className={'reading-figure ' + (asset.width < asset.height ? 'reading-portrait ' : '') + (imageExpanded ? 'expanded' : '')}>

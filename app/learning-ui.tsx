@@ -24,7 +24,8 @@ const dialogStack:HTMLElement[]=[];
 let savedBodyOverflow='';
 const focusable=(root:HTMLElement)=>Array.from(root.querySelectorAll<HTMLElement>('button,a[href],input,textarea,select,summary,[tabindex]')).filter(el=>el.tabIndex>=0&&!el.matches(':disabled')&&!el.closest('[inert]')&&el.getClientRects().length>0);
 export function Dialog({ title, children, onClose, className='' }: {title:string; children:React.ReactNode; onClose:()=>void; className?:string}) {
-  const box=useRef<HTMLElement>(null); const close=useRef(onClose); close.current=onClose; const id=useId();
+  const box=useRef<HTMLElement>(null); const close=useRef(onClose); const id=useId();
+  useEffect(()=>{close.current=onClose;},[onClose]);
   useEffect(()=>{
     const root=box.current;if(!root)return;
     const before=document.activeElement instanceof HTMLElement?document.activeElement:null;
@@ -54,10 +55,13 @@ export function Dialog({ title, children, onClose, className='' }: {title:string
   return <div className="modal-backdrop" onClick={onClose}><section ref={box} className={'dialog '+className} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby={id} onClick={e=>e.stopPropagation()}><button className="dialog-close" aria-label="关闭 / 閉じる" onClick={onClose}><X size={21}/></button><h2 id={id}>{title}</h2>{children}</section></div>;
 }
 export function ImageViewer({ images, selected, lang, onChange, onClose }: {images:Asset[];selected:string;lang:Lang;onChange:(id:string)=>void;onClose:()=>void}) {
-  const index=images.findIndex(i=>i.id===selected);const asset=images[index]; const [zoom,setZoom]=useState(false);
-  useEffect(()=>setZoom(false),[selected]);
+  const index=images.findIndex(i=>i.id===selected);const asset=images[index];
+  const [zoomedId,setZoomedId]=useState<string|null>(null);
+  const zoom=zoomedId===selected;
+  function toggleZoom(){setZoomedId(current=>current===selected?null:selected);}
+  function changeImage(id:string){setZoomedId(null);onChange(id);}
   if(!asset)return null;
-  return <Dialog title={choose(asset.title,lang)} onClose={onClose} className="image-dialog"><div className={'image-stage '+(zoom?'is-zoomed':'')}><img src={asset.src} alt={choose(asset.alt,lang)} onClick={()=>setZoom(v=>!v)} width={asset.width} height={asset.height}/></div><div className="image-controls"><button onClick={()=>onChange(images[(index-1+images.length)%images.length].id)} aria-label={lang==='ja'?'前の画像':'上一张'}><ChevronLeft size={20}/></button><span>{index+1} / {images.length}</span><button className="text-button" onClick={()=>setZoom(v=>!v)}>{zoom?(lang==='ja'?'全体を表示':'适合窗口'):(lang==='ja'?'原寸で見る':'查看大图')}</button><button onClick={()=>onChange(images[(index+1)%images.length].id)} aria-label={lang==='ja'?'次の画像':'下一张'}><ChevronRight size={20}/></button></div><p><Bilingual value={asset.caption} lang={lang}/></p><Credit asset={asset} lang={lang} full/><p className="attribution-detail">{asset.attribution}</p><a className="text-button" href={asset.sourcePage} target="_blank" rel="noreferrer">{lang==='ja'?'原資料と利用条件':'查看原图页面与使用许可'}<ArrowUpRight size={15}/></a></Dialog>;
+  return <Dialog title={choose(asset.title,lang)} onClose={onClose} className="image-dialog"><div className={'image-stage '+(zoom?'is-zoomed':'')}><img src={asset.src} alt={choose(asset.alt,lang)} onClick={toggleZoom} width={asset.width} height={asset.height}/></div><div className="image-controls"><button onClick={()=>changeImage(images[(index-1+images.length)%images.length].id)} aria-label={lang==='ja'?'前の画像':'上一张'}><ChevronLeft size={20}/></button><span>{index+1} / {images.length}</span><button className="text-button" onClick={toggleZoom}>{zoom?(lang==='ja'?'全体を表示':'适合窗口'):(lang==='ja'?'原寸で見る':'查看大图')}</button><button onClick={()=>changeImage(images[(index+1)%images.length].id)} aria-label={lang==='ja'?'次の画像':'下一张'}><ChevronRight size={20}/></button></div><p><Bilingual value={asset.caption} lang={lang}/></p><Credit asset={asset} lang={lang} full/><p className="attribution-detail">{asset.attribution}</p><a className="text-button" href={asset.sourcePage} target="_blank" rel="noreferrer">{lang==='ja'?'原資料と利用条件':'查看原图页面与使用许可'}<ArrowUpRight size={15}/></a></Dialog>;
 }
 export function QuestionCard({ question, lang, answer, onAnswer, number }: {question:Question;lang:Lang;answer?:number;onAnswer:(id:string,value:number)=>void;number?:number}) {
   const correct=answer===question.answer;
