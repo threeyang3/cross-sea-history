@@ -69,7 +69,7 @@ for(const visual of newVisuals){
  for(const sourceId of visual.sourceIds)assert(articleSourceIds.has(sourceId),'diagram source is not in linked readings: '+visual.id+'/'+sourceId);
  if(visual.kind==='geo-map'){
   assert(Array.isArray(visual.edges)&&visual.edges.every(edge=>edge.dashed===true),'geographic links must be dashed '+visual.id);
-  assert(visual.nodes.every(n=>n.geo&&Number.isFinite(n.geo.lon)&&n.geo.lon>=116&&n.geo.lon<=143&&Number.isFinite(n.geo.lat)&&n.geo.lat>=23&&n.geo.lat<=40),'invalid map point '+visual.id);
+  assert(visual.nodes.every(n=>n.geo&&(!n.geo.anchor||['start','middle','end'].includes(n.geo.anchor))&&Number.isFinite(n.geo.lon)&&n.geo.lon>=116&&n.geo.lon<=143&&Number.isFinite(n.geo.lat)&&n.geo.lat>=23&&n.geo.lat<=40),'invalid map point '+visual.id);
  }
  if(visual.kind==='matrix'){
   const matrix=visual.matrix;

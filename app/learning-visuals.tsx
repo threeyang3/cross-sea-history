@@ -10,7 +10,7 @@ import type { DiagramNode, DiagramEdge, DiagramMatrix } from './historical-diagr
 import './learning-visuals.css';
 
 type Visual = { id: string; eventIds: string[]; kind: string; title: Pair; subtitle: Pair; caution: Pair; nodes: DiagramNode[]; edges?: DiagramEdge[]; matrix?: DiagramMatrix; sources: { title: Pair; url: string }[] };
-const visuals:Visual[] = [...(visualData as Visual[]),...(extraVisualData as Visual[])];
+const visuals:Visual[] = [...(visualData as Visual[]),...(extraVisualData as unknown as Visual[])];
 const tones = ['#b34f3b', '#3f6484', '#357c70', '#a77b2d'];
 const fills = ['#fae4dc', '#e4edf5', '#e0f0e8', '#f6edcf'];
 const icons = { book: BookOpen, temple: Landmark, place: MapPin, ship: Ship, paper: FileText, stamp: Stamp, study: GraduationCap, coins: Coins, layers: Layers3, search: Search, palette: Palette, scroll: ScrollText, building: Building2, clothes: Shirt, check: FileCheck2, network: Network, wave: Waves };
@@ -110,7 +110,7 @@ function LearningFigure({visual,lang,anchor}:{visual:Visual;lang:Lang;anchor:str
     <header><span className="lv-section-symbol" aria-hidden="true"><Layers3 size={19}/></span><div><h2 tabIndex={-1} id={'lv-title-'+uid}><Dual value={visual.title} lang={lang}/></h2></div></header>
     <p className="lv-subtitle"><Dual value={visual.subtitle} lang={lang}/></p>
     <div className="lv-canvas"><Diagram visual={visual} lang={lang} selected={index} onSelect={setSelected} uid={'lv-arrow-'+uid}/></div>
-    {!directControls&&<div className="lv-controls" role="group" aria-label={lang==='ja'?'図の要素を選ぶ':'选择图中要素'}>{visual.nodes.map((node,i)=><button key={node.id} type="button" className={index===i?'selected':''} aria-pressed={index===i} onClick={()=>setSelected(i)} style={{'--lv-tone':tones[node.tone??i%4],'--lv-fill':fills[node.tone??i%4]} as CSSProperties}><span className="lv-control-number">{String(i+1).padStart(2,'0')}</span><span>{node.quote&&<span className="lv-poem-verse" lang="zh-Hans">{node.quote}</span>}<Dual value={node.label} lang={lang}/></span></button>)}</div>}
+    {!directControls&&<div className="lv-controls" role="group" aria-label={lang==='ja'?'図の要素を選ぶ':'选择图中要素'}>{visual.nodes.map((node,i)=><button key={node.id} type="button" className={index===i?'selected':''} aria-pressed={index===i} onClick={()=>setSelected(i)} style={{'--lv-tone':tones[node.tone??i%4],'--lv-fill':fills[node.tone??i%4]} as CSSProperties}><span className="lv-control-number">{String(i+1).padStart(2,'0')}</span><span>{node.quote&&<span className="lv-poem-verse" lang="zh-Hans">{node.quote}</span>}<Dual value={node.label} lang={lang}/>{visual.kind==='geo-map'&&node.tag&&<small className="lv-map-node-tag"><Dual value={node.tag} lang={lang}/></small>}</span></button>)}</div>}
     <div className="lv-detail" aria-live="polite" style={{'--lv-tone':tones[active.tone??index%4]} as CSSProperties}><span className="lv-detail-icon"><Icon name={active.icon}/></span><div><strong><Dual value={active.label} lang={lang}/></strong><p><Dual value={active.detail} lang={lang}/></p></div></div>
     <figcaption><p className="lv-caution" id={'lv-caution-'+uid}><Dual value={visual.caution} lang={lang}/></p><div className="lv-sources"><span>{lang==='ja'?'図の出典':'图解依据'}</span>{visual.sources.map(source=><a href={source.url} target="_blank" rel="noreferrer" key={source.url}>{text(source.title,lang)}<ArrowUpRight size={11}/></a>)}</div></figcaption>
   </figure>;
