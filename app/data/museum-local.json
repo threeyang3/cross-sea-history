@@ -1,1 +1,98 @@
-{}
+{
+  "met-river-hamlet": {
+    "src": "/images/museum/met-river-hamlet.webp",
+    "width": 1200,
+    "height": 1105,
+    "sha256": "c6877c1b84733d8246f941ce0fe62b8adb3b34d91ec592e86b2a92115c585c13"
+  },
+  "met-willow-boat": {
+    "src": "/images/museum/met-willow-boat.webp",
+    "width": 1200,
+    "height": 1097,
+    "sha256": "39fb8933c7774ecd662045be1a7fb367735e78a91d978476486b7a27b21e5d5e"
+  },
+  "met-longquan-bowl": {
+    "src": "/images/museum/met-longquan-bowl.webp",
+    "width": 1200,
+    "height": 845,
+    "sha256": "532488da25f030f59881f97d7993341089a77e37060010f72fdb3dcb65b352b0"
+  },
+  "met-moon-landscape": {
+    "src": "/images/museum/met-moon-landscape.webp",
+    "width": 381,
+    "height": 1200,
+    "sha256": "1637e30b78e00efcc9a7b958cc65a6ad08d6dbc4c741485576aa1f36aadbc80a"
+  },
+  "met-nagasaki-ships": {
+    "src": "/images/museum/met-nagasaki-ships.webp",
+    "width": 1200,
+    "height": 516,
+    "sha256": "b8cff6c311fe830c8157bd7fe2c6e9de8df468b8b42c2746994d5c3dea87667e"
+  },
+  "met-li-bai-cup": {
+    "src": "/images/museum/met-li-bai-cup.webp",
+    "width": 1200,
+    "height": 1177,
+    "sha256": "b1eeec39e76039ec98a53ed1aa2caf32c3c2a413c06f92fbc277b31be3e9da32"
+  },
+  "met-li-bai-flask": {
+    "src": "/images/museum/met-li-bai-flask.webp",
+    "width": 927,
+    "height": 1200,
+    "sha256": "ed757a844de9ed79ec16a92f89281cc6eb13779301e1741c8008adea8e4187c1"
+  },
+  "met-nagasaki-1859": {
+    "src": "/images/museum/met-nagasaki-1859.webp",
+    "width": 824,
+    "height": 1200,
+    "sha256": "1c86bfb0966a195f754796c07608ef40a09819fca8f24951078b20ad5f7a90d4"
+  },
+  "met-huizong-birds": {
+    "src": "/images/museum/met-huizong-birds.webp",
+    "width": 1200,
+    "height": 648,
+    "sha256": "231b94fd35e63377d46a63c425d5f318a09ee3ea942b85909c65e6c08e45d21d"
+  },
+  "met-yuan-jar": {
+    "src": "/images/museum/met-yuan-jar.webp",
+    "width": 737,
+    "height": 700,
+    "sha256": "810342b7369f7bcdf6f825d3d63d77d3b81c2ac7c71624c97570f957954ac979"
+  },
+  "met-export-plate": {
+    "src": "/images/museum/met-export-plate.webp",
+    "width": 900,
+    "height": 1200,
+    "sha256": "3e9527b4845ffff17f297669be4450c9de256284be861bddab72a5f985d855e7"
+  },
+  "met-tang-camel": {
+    "src": "/images/museum/met-tang-camel.webp",
+    "width": 651,
+    "height": 925,
+    "sha256": "fee11e1c32db851dd56cc0eeecba3a8ebf46bd451e40082f612d3d7e21d542de"
+  },
+  "met-ma-yuan-plum": {
+    "src": "/images/museum/met-ma-yuan-plum.webp",
+    "width": 1200,
+    "height": 1121,
+    "sha256": "f99eca41eb1c13714ebd661552ca35aecfed6639d66d6399c9c3957f778ff681"
+  },
+  "met-shiren-sugar": {
+    "src": "/images/museum/met-shiren-sugar.webp",
+    "width": 1200,
+    "height": 900,
+    "sha256": "dfd57b87de083b06f141a5fc2c0cc8ad9a164a6cc602f7815089ad391075d7af"
+  },
+  "met-daruma-reed": {
+    "src": "/images/museum/met-daruma-reed.webp",
+    "width": 634,
+    "height": 1200,
+    "sha256": "40246f2c6a5f446dc4138fb3415daf6c95fc6bde2352296962dd44c37804d2da"
+  },
+  "met-ming-scholar-tray": {
+    "src": "/images/museum/met-ming-scholar-tray.webp",
+    "width": 1200,
+    "height": 900,
+    "sha256": "c5d0282e4e64fbee78af97731ca4cad5fd2aa70e5d56d42bec0fefbc5c1b703d"
+  }
+}
