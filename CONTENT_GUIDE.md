@@ -55,3 +55,10 @@
 
 - 博物馆资源与作品关联集中在 `app/data/museum-links.json`，分诗词、事件、专题。无合适史料的条目保留文字，不使用无关图片。馆藏信息及图注保持双语；图像库统一展示在摘记的来源页。
 - `npm run check:ui` 检查图像记录、引用、缓存文件校验和以及所有 app TypeScript/TSX 文件的语法；其后运行 `npm run lint`、`npm run build` 并实际检查移动端与键盘操作。检查不需要联网。导图可用 `--id <资产ID>` 逐张执行，避免重复下载。
+
+## 第二批历史教学图
+
+- 原有 `app/data/learning-visuals.json` 保持不变；新增图解在 `app/data/learning-visuals-extra.json`。同一事件可以关联多幅图，正文目录分别提供跳转入口。保留原有教学图和双轨年代参照图。
+- 新图类型：`process`（按阅读/制度流程组织，不自动表示等时长或必然因果）、`matrix`（横向比较）、`geo-map`（地理位置参照）、`network`（关系）、`flow`（明确的流向）。每图需给出双语标题、节点及解释边界。
+- `sourceIds` 对应已登记的资料 ID，且必须出现在关联专题正文或证据部分；`sources` 保留双语标题及链接。使用 `npm run check:ui` 检查图与事件、资料和矩阵节点之间的引用。
+- 地理底图源自本地 Natural Earth 低分辨率全球多边形资料，EPSG:4326，合并现代国界后裁切东亚 116–143°E / 23–40°N，简化至 0.16° 并投影为固定 SVG。Natural Earth 为公版数据（https://www.naturalearthdata.com/about/terms-of-use/）。该图不绘制历史国界，现代地点坐标为近似参照，所有地理连线为虚线；新安沉船只标附近海域，不推断精确地点或古代航迹。

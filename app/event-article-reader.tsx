@@ -11,7 +11,7 @@ import { categoryInfo, timelineSources } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 import { articleManifest, articleSources, loadEventArticle } from './article-data';
 import type { EventArticle } from './article-types';
-import { EventLearningVisual, hasLearningVisual } from './learning-visuals';
+import { EventLearningVisual, getLearningVisualSections } from './learning-visuals';
 import { EventEraContext } from './event-era-context';
 import { cityAtlasPath } from './city-atlas-path';
 import cityAtlasLinks from './city-atlas-links.json';
@@ -70,7 +70,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   })}</span>;
   const sections = article ? [
     { id: 'overview', title: p('问题与背景', '問いと見取り図') },
-    ...(hasLearningVisual(event.id) ? [{ id: 'visual', title: p('看图理解', '図から理解する') }] : []),
+    ...getLearningVisualSections(event.id),
     ...article.sections.map(section => ({ id: section.id, title: section.title })),
     { id: 'evidence', title: p('读材料，辨证据', '史料と証拠を読む') },
     { id: 'discussion', title: p('解释与边界', '解釈とその限界') },

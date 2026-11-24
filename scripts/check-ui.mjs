@@ -39,6 +39,47 @@ for(const [id,entry] of Object.entries(cached)){
 }
 for(const match of read('app/home-hub.tsx').matchAll(/image:\s*'(met-[^']+)'/g))assert(known.has(match[1]),'unknown gallery image '+match[1]);
 for(const file of ['app/home-hub.css','app/timeline.css'])assert(!/\.(?:site-header|header-inner|brand-seal|header-tools|languages|nav-menu|nav-group)\b/.test(read(file)),file+' should not override global navigation');
+const legacyVisuals = json('app/data/learning-visuals.json');
+const newVisuals = json('app/data/learning-visuals-extra.json');
+const sourceCatalog = new Map([...json('app/data/catalog.json').sources,...json('app/data/timeline.json').sources,...json('app/data/article-sources.json')].map(source=>[source.id,source]));
+const visualIds = new Set();
+const paired=(value)=>value && ['zh','ja'].every(lang=>typeof value[lang]==='string'&&value[lang].trim());
+for(const visual of [...legacyVisuals,...newVisuals]){
+ assert(visual.id && !visualIds.has(visual.id),'duplicate diagram '+visual.id);
+ visualIds.add(visual.id);
+ assert(visual.eventIds.length && visual.eventIds.every(id=>events.has(id)),'invalid diagram event '+visual.id);
+ assert(['title','subtitle','caution'].every(field=>paired(visual[field])),'missing bilingual diagram metadata '+visual.id);
+ assert(visual.nodes.length && new Set(visual.nodes.map(n=>n.id)).size===visual.nodes.length,'invalid diagram nodes '+visual.id);
+ for(const node of visual.nodes){
+  assert(paired(node.label)&&paired(node.detail)&&(!node.tag||paired(node.tag)),'missing node translation '+visual.id+'/'+node.id);
+  assert(node.tone===undefined||Number.isInteger(node.tone)&&node.tone>=0&&node.tone<=3,'invalid node tone '+node.id);
+ }
+ for(const edge of visual.edges??[])assert(Number.isInteger(edge.from)&&Number.isInteger(edge.to)&&visual.nodes[edge.from]&&visual.nodes[edge.to]&&edge.from!==edge.to,'invalid diagram edge '+visual.id);
+ assert(visual.sources.length && visual.sources.every(s=>paired(s.title)&&/^https?:\/\//.test(s.url)),'missing diagram sources '+visual.id);
+}
+for(const visual of newVisuals){
+ assert(['network','process','matrix','geo-map','flow'].includes(visual.kind),'unknown new diagram kind '+visual.kind);
+ assert(visual.sourceIds.length===visual.sources.length,'source mapping mismatch '+visual.id);
+ visual.sourceIds.forEach((id,i)=>{assert(sourceCatalog.has(id),'unknown diagram source '+id);assert.equal(visual.sources[i].url,sourceCatalog.get(id).url)});
+ const articleSourceIds = new Set();
+ for(const id of visual.eventIds){
+  const article=json('public/readings/'+id+'.json');
+  for(const sourceId of [...article.sections.flatMap(s=>s.sourceIds),...article.evidence.flatMap(s=>s.sourceIds)])articleSourceIds.add(sourceId);
+ }
+ for(const sourceId of visual.sourceIds)assert(articleSourceIds.has(sourceId),'diagram source is not in linked readings: '+visual.id+'/'+sourceId);
+ if(visual.kind==='geo-map'){
+  assert(Array.isArray(visual.edges)&&visual.edges.every(edge=>edge.dashed===true),'geographic links must be dashed '+visual.id);
+  assert(visual.nodes.every(n=>n.geo&&Number.isFinite(n.geo.lon)&&n.geo.lon>=116&&n.geo.lon<=143&&Number.isFinite(n.geo.lat)&&n.geo.lat>=23&&n.geo.lat<=40),'invalid map point '+visual.id);
+ }
+ if(visual.kind==='matrix'){
+  const matrix=visual.matrix;
+  assert(matrix?.columns.length===2&&matrix.columns.every(paired),'invalid comparison columns '+visual.id);
+  assert(matrix.rows.length&&matrix.rows.every(row=>paired(row.label)&&row.cells.length===matrix.columns.length),'invalid matrix rows '+visual.id);
+  const cells=matrix.rows.flatMap(row=>row.cells);
+  assert(cells.length===visual.nodes.length&&new Set(cells).size===cells.length&&cells.every(index=>Number.isInteger(index)&&visual.nodes[index]),'invalid comparison cells '+visual.id);
+ }
+}
+console.log('Diagram data checked: '+visualIds.size+' unique diagrams, '+new Set([...legacyVisuals,...newVisuals].flatMap(visual=>visual.eventIds)).size+' covered events.');
 const scan=(folder)=>readdirSync(folder,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?scan(path.join(folder,entry.name)):[path.join(folder,entry.name)]);
 let parsed=0;
 for(const file of scan('app').filter(file=>/\.tsx?$/.test(file)&&!file.endsWith('.d.ts'))){

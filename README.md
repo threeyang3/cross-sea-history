@@ -161,3 +161,7 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 ## Museum artwork library
 
 Sixteen verified public-domain Met collection records are curated in `app/data/museum-images.json`. Their source and licensing links remain visible, and the site distinguishes contextual artwork from direct historical evidence. For self-hosting, install Pillow and run `python scripts/import-museum-images.py` on a network-enabled development machine, then commit the generated WebP files and `app/data/museum-local.json`. Until that import is performed, the site lazy-loads the verified museum image URLs with a text fallback. No download is required at build time.
+
+## Historical teaching diagrams
+
+The existing 19 teaching diagrams are preserved. The second batch adds 16 bilingual diagrams, including geographic reference maps, institutional comparisons, knowledge networks, and process views. Together these cover 40 historical event IDs. Data lives in `app/data/learning-visuals*.json`; all new diagram source IDs are checked against linked readings by `npm run check:ui`. Maps use simplified offline Natural Earth land outlines without modern administrative boundaries and explicitly distinguish approximate reference points from known historical routes.
