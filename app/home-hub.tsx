@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from 'react';
+import { useHorizontalDrag } from '../hooks/use-horizontal-drag';
 import { ArrowRight, ArrowUpRight, BookOpen, Brush, Building2, ChevronLeft, ChevronRight, Compass, FileText, Globe2, History, Image as ImageIcon, Landmark, MapPin, NotebookPen, ScrollText, Ship, Shirt, Sparkles } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
@@ -59,6 +60,12 @@ function EventSymbol({event}:{event:HistoricalEvent}){
 export function HomeAtlas({lang,onNavigate,onOpenEvent}:HubProps){
  const [period,setPeriod]=useState('tang');
  const rail=useRef<HTMLDivElement>(null);
+ const railDrag=useHorizontalDrag<HTMLDivElement>(event=>{
+  const element=event.currentTarget;
+  if(event.pointerType==='touch'||element.scrollWidth<=element.clientWidth)return;
+  const start=element.scrollLeft;
+  return distance=>{element.scrollLeft=start-distance;};
+ });
  const tx=(zh:string,ja:string)=>lang==='ja'?ja:zh;
  const current=atlasPeriods.find(item=>item.id===period)!;
  const selected=current.ids.length?current.ids.map(id=>eventById.get(id)).filter((event):event is HistoricalEvent=>!!event):current.bins.flatMap(bin=>['china','exchange'].flatMap(track=>{
@@ -71,7 +78,7 @@ export function HomeAtlas({lang,onNavigate,onOpenEvent}:HubProps){
  return <section className="home-atlas content-width" aria-labelledby="home-atlas-title">
    <header className="hub-section-heading"><div><span className="hub-section-index"><History size={15}/>02 · {tx('时间图谱','時代の図譜')}</span><h2 id="home-atlas-title">{tx('两条历史，一眼相连。','二つの歴史を、ひと目で。')}</h2></div><div className="atlas-tabs" aria-label={tx('图谱时期','図譜の時代')}>{atlasPeriods.map(item=><button key={item.id} aria-pressed={period===item.id} onClick={()=>changePeriod(item.id)}>{choose(item.title,lang)}</button>)}</div></header>
    <div className="atlas-key"><span><i className="atlas-key-china"/>{tx('中国史','中国史')}</span><span><i className="atlas-key-exchange"/>{tx('中日交流','日中交流')}</span><small>{selected.length}{tx(' 个精选节点 · 点选展开','の出来事・押して詳しく')}</small><div className="atlas-scroll-controls"><button onClick={()=>rail.current?.scrollBy({left:-500,behavior:'smooth'})} aria-label={tx('图谱向前浏览','前の範囲へ')}><ChevronLeft size={16}/></button><button onClick={()=>rail.current?.scrollBy({left:500,behavior:'smooth'})} aria-label={tx('图谱向后浏览','次の範囲へ')}><ChevronRight size={16}/></button></div></div>
-   <div className="atlas-scroll" ref={rail} tabIndex={0} aria-label={tx('可横向浏览的历史分期图谱','横にスクロールできる歴史図譜')}>
+   <div className={"atlas-scroll drag-scroll"+(railDrag.isDragging?" is-dragging":"")} {...railDrag.handlers} ref={rail} tabIndex={0} aria-label={tx('历史分期图谱。按住拖动或横向滚动，点选事件可展开。','歴史図譜。ドラッグか横スクロールで移動し、項目を押して開きます。')}>
     <div className="atlas-grid">{current.bins.map((bin,index)=><div className="atlas-era" key={bin.from}>
       <div className="atlas-era-heading"><span>{choose(bin.label,lang)}</span><small>{formatYear(bin.from)}—{formatYear(bin.to)}</small></div>
       {(['china','exchange'] as const).map(track=><div key={track} className={'atlas-lane atlas-lane-'+track}>{index===0&&<span className="atlas-lane-label">{track==='china'?tx('中国','中国'):tx('交流','交流')}</span>}{selected.filter(event=>event.track===track&&event.start>=bin.from&&event.start<=bin.to).sort((a,b)=>a.start-b.start).map(event=><button key={event.id} onClick={()=>onOpenEvent(event.id)} title={`${choose(event.date,lang)} · ${choose(event.title,lang)}`} aria-label={`${choose(event.date,lang)} ${choose(event.title,lang)}`}><span className="atlas-event-dot" style={{color:categoryInfo[event.category].dark}}><EventSymbol event={event}/></span><span><small>{formatYear(event.start)}</small><strong>{choose(shortTitles[event.id]||event.title,lang)}</strong></span><ArrowUpRight size={11}/></button>)}</div>)}

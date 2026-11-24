@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { CSSProperties, PointerEvent } from 'react';
+import type { CSSProperties } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Compass, Expand, Filter, History, Layers3, List, MapPin, Minus, MoveHorizontal, NotebookPen, Plus, Search, Star, X } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
@@ -10,6 +10,7 @@ import { Bilingual, choose, Credit, Dialog, Photo } from './learning-ui';
 import { categoryInfo, categoryOrder, coordinateYear, formatYear, historicalEvents, timelinePeriods, timelineSources, yearCoordinate } from './timeline-data';
 import { EventArticleReader } from './event-article-reader';
 import type { HistoricalEvent, TimelineCategory, TimelineTrack } from './timeline-types';
+import { useHorizontalDrag } from '../hooks/use-horizontal-drag';
 
 type WindowRange = [number,number];
 type EventCluster = { events:HistoricalEvent[]; category:TimelineCategory; x:number };
@@ -59,7 +60,12 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  const [plotWidth,setPlotWidth]=useState(760);
  const plot=useRef<HTMLDivElement>(null);
  const inspector=useRef<HTMLElement>(null);
- const drag=useRef<{x:number;range:WindowRange}|null>(null);
+ const ribbonDrag=useHorizontalDrag<HTMLDivElement>(event=>{
+  const element=event.currentTarget;
+  if(event.pointerType==='touch'||element.scrollWidth<=element.clientWidth)return;
+  const start=element.scrollLeft;
+  return distance=>{element.scrollLeft=start-distance;};
+ });
  const events=useMemo(()=>historicalEvents.filter(e=>e.track===track),[track]);
 
  useEffect(()=>{
@@ -128,16 +134,30 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
   if(last===first||span<=19){setClusterChoice(cluster.events);return;}
   setPeriodId('custom');setRange(fitRange((first+last)/2,Math.max(18,(last-first)*1.65),bounds));setSelectedId(cluster.events.find(e=>e.featured)?.id||cluster.events[0].id);
  }
- function dragStart(event:PointerEvent<HTMLDivElement>){
-  if(event.button!==0||(event.target as HTMLElement).closest('button'))return;
-  drag.current={x:event.clientX,range};event.currentTarget.setPointerCapture(event.pointerId);
- }
- function dragMove(event:PointerEvent<HTMLDivElement>){
-  if(!drag.current)return;
-  const original=drag.current.range,originalSpan=original[1]-original[0];
-  const change=(event.clientX-drag.current.x)/(plotWidth-108)*originalSpan;
-  setPeriodId('custom');setRange(fitRange((original[0]+original[1])/2-change,originalSpan,bounds));
- }
+ const canPan=span<fullSpan-.01;
+ const plotDrag=useHorizontalDrag<HTMLDivElement>(()=>{
+  if(!canPan)return;
+  const startRange:WindowRange=[...range];
+  const startSpan=startRange[1]-startRange[0];
+  const width=Math.max(1,plotWidth-108);
+  return distance=>{
+   const change=distance/width*startSpan;
+   setPeriodId('custom');
+   setRange(fitRange((startRange[0]+startRange[1])/2-change,startSpan,bounds));
+  };
+ });
+ const minimapDrag=useHorizontalDrag<HTMLDivElement>(event=>{
+  if(!canPan)return;
+  const rect=event.currentTarget.getBoundingClientRect();
+  const x=event.clientX-rect.left;
+  const windowLeft=(range[0]-bounds[0])/fullSpan*rect.width;
+  const windowRight=(range[1]-bounds[0])/fullSpan*rect.width;
+  const anchor=x>=windowLeft&&x<=windowRight?center:bounds[0]+x/rect.width*fullSpan;
+  return distance=>{
+   setPeriodId('custom');
+   setRange(fitRange(anchor+distance/rect.width*fullSpan,span,bounds));
+  };
+ });
  function resetFilters(){setQuery('');setCategory('all');setFeaturedOnly(false);}
  const questionWithContext=(event:HistoricalEvent)=>p(`【${event.date.zh} · ${event.title.zh}】\n${event.question.zh}`,`【${event.date.ja}・${event.title.ja}】\n${event.question.ja}`);
 
@@ -175,7 +195,7 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
    <div className="atlas-chart-column">
     <div className="chronology-panel">
      <div className="chronology-topbar"><div><span>{tx('当前年代','表示年代')}</span><strong>{rangeLabel}</strong></div><div className="zoom-controls"><button aria-label={tx('向更早年代移动','前の年代へ')} onClick={()=>pan(-1)} disabled={range[0]<=bounds[0]+.01}><ChevronLeft size={17}/></button><button aria-label={tx('缩小时间线','年表を縮小')} onClick={()=>zoom(1.8)} disabled={span>=fullSpan-.01}><Minus size={17}/></button><button aria-label={tx('放大时间线','年表を拡大')} onClick={()=>zoom(1/1.8)} disabled={span<=12.01}><Plus size={17}/></button><button aria-label={tx('向更晚年代移动','次の年代へ')} onClick={()=>pan(1)} disabled={range[1]>=bounds[1]-.01}><ChevronRight size={17}/></button><button className="zoom-reset" onClick={()=>applyPeriod('all')}><Expand size={14}/>{tx('全景','全体')}</button></div></div>
-     <div className="chronology-scroll"><div className="chronology-grid"><div className="lane-labels"><div className="lane-axis-label">{tx('年代','年代')}</div>{rows.map(row=><div key={row} style={{color:categoryInfo[row].color}}><i style={{background:categoryInfo[row].color}}/>{t(categoryInfo[row].title)}</div>)}</div><div className="atlas-plot" ref={plot} style={{height:rows.length*86+51}} tabIndex={0} role="group" aria-label={tx('历史事件图。左右方向键平移，加减键缩放。','出来事の時間軸。左右キーで移動、プラスとマイナスで拡大縮小。')} onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(e.key==='ArrowLeft'){e.preventDefault();pan(-1);}if(e.key==='ArrowRight'){e.preventDefault();pan(1);}if(e.key==='+')zoom(1/1.8);if(e.key==='-')zoom(1.8);}} onPointerDown={dragStart} onPointerMove={dragMove} onPointerUp={()=>{drag.current=null;}} onPointerCancel={()=>{drag.current=null;}}>
+     <div className="chronology-scroll"><div className="chronology-grid"><div className="lane-labels"><div className="lane-axis-label">{tx('年代','年代')}</div>{rows.map(row=><div key={row} style={{color:categoryInfo[row].color}}><i style={{background:categoryInfo[row].color}}/>{t(categoryInfo[row].title)}</div>)}</div><div className={"atlas-plot"+(canPan?" can-pan":"")+(plotDrag.isDragging?" is-dragging":"")} {...plotDrag.handlers} ref={plot} style={{height:rows.length*86+51}} tabIndex={0} role="group" aria-label={tx('历史事件图。左右方向键平移，加减键缩放。','出来事の時間軸。左右キーで移動、プラスとマイナスで拡大縮小。')} onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(e.key==='ArrowLeft'){e.preventDefault();pan(-1);}if(e.key==='ArrowRight'){e.preventDefault();pan(1);}if(e.key==='+')zoom(1/1.8);if(e.key==='-')zoom(1.8);}}>
       {ticks.map(year=><div className="atlas-tick" key={year} style={{left:xPosition(year)}}><span>{formatYear(year,lang==='ja')}</span></div>)}
       {rows.map((row,index)=><div className="atlas-lane" key={row} style={{top:51+index*86}}/>)}
       {clusters.map(cluster=>{
@@ -183,10 +203,10 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
        return <button key={first.id} className={'atlas-node '+(count>1?'cluster-node ':'')+(isSelected?'node-selected':'')} style={{left:cluster.x,top:row*86+62,'--event-color':info.color} as CSSProperties} onClick={()=>expandCluster(cluster)} aria-label={count>1?tx(`展开${first.date.zh}至${last.date.zh}的${count}个事件`,` ${first.date.ja}から${last.date.ja}の${count}件を展開`):t(first.date)+' '+t(first.title)} title={cluster.events.map(e=>t(e.date)+' · '+t(e.title)).join('\n')}><span className="node-symbol">{count>1?count:first.featured?<Star size={10} fill="currentColor"/>:null}</span><span className="node-year">{count>1?formatYear(first.start)+'–'+formatYear(last.start):t(first.date)}</span><strong>{t(featured.title)}</strong>{count>1&&<small>+{count-1} {tx('个事件','件')}</small>}</button>;
       })}
      </div></div></div>
-     <div className="chronology-hint"><MoveHorizontal size={14}/><span>{tx('拖动空白处平移 · 数字圆点可展开 · ★ 为关键事件','空白部分をドラッグして移動・数字を押して展開・★は重要な出来事')}</span></div>
-     <div className="atlas-minimap"><div className="minimap-label"><span>{tx('全局定位','全体の中の位置')}</span><span>{formatYear(periods[0].start)} — {formatYear(periods[0].end)}</span></div><div className="minimap-strip" onClick={e=>{const rect=e.currentTarget.getBoundingClientRect();setPeriodId('custom');setRange(fitRange(bounds[0]+(e.clientX-rect.left)/rect.width*fullSpan,span,bounds));}}>{events.map(event=><i key={event.id} style={{left:(yearCoordinate(event.start)-bounds[0])/fullSpan*100+'%',background:categoryInfo[event.category].color}}/>)}<span className="minimap-window" style={{left:(range[0]-bounds[0])/fullSpan*100+'%',width:span/fullSpan*100+'%'}}/></div><input type="range" min={bounds[0]+span/2} max={bounds[1]-span/2} step="any" value={center} disabled={span>=fullSpan-.01} onChange={e=>{setPeriodId('custom');setRange(fitRange(Number(e.target.value),span,bounds));}} aria-label={tx('定位时间范围','表示年代の位置')} aria-valuetext={rangeLabel}/></div>
+     <div className="chronology-hint"><MoveHorizontal size={14}/>{canPan?<span>{tx('按住图表或事件拖动浏览，轻点事件展开。','時間軸や項目をドラッグして移動し、項目を押すと開きます。')}</span>:<><span>{tx('当前为全景，放大或选择时代后可拖动浏览。','全体を表示中です。拡大するか時代を選ぶとドラッグで移動できます。')}</span><button onClick={()=>zoom(1/1.8)}>{tx('放大后拖动','拡大する')}</button></>}</div>
+     <div className="atlas-minimap"><div className="minimap-label"><span>{tx('全局定位','全体の中の位置')}</span><span>{formatYear(periods[0].start)} — {formatYear(periods[0].end)}</span></div><div className={"minimap-strip"+(canPan?" can-pan":"")+(minimapDrag.isDragging?" is-dragging":"")} {...minimapDrag.handlers} onClick={e=>{const rect=e.currentTarget.getBoundingClientRect();setPeriodId('custom');setRange(fitRange(bounds[0]+(e.clientX-rect.left)/rect.width*fullSpan,span,bounds));}}>{events.map(event=><i key={event.id} style={{left:(yearCoordinate(event.start)-bounds[0])/fullSpan*100+'%',background:categoryInfo[event.category].color}}/>)}<span className="minimap-window" style={{left:(range[0]-bounds[0])/fullSpan*100+'%',width:span/fullSpan*100+'%'}}/></div><input type="range" min={bounds[0]+span/2} max={bounds[1]-span/2} step="any" value={center} disabled={span>=fullSpan-.01} onChange={e=>{setPeriodId('custom');setRange(fitRange(Number(e.target.value),span,bounds));}} aria-label={tx('定位时间范围','表示年代の位置')} aria-valuetext={rangeLabel}/></div>
     </div>
-    {visible.length===0?<div className="atlas-empty"><Search size={28}/><h3>{tx('这一段还没有匹配的事件','この範囲には該当する出来事がありません')}</h3><p>{tx('试试全景，或清除主题与关键词筛选。','全体表示に戻すか、テーマや検索語を変えてみましょう。')}</p><button className="button secondary" onClick={()=>{resetFilters();applyPeriod('all');}}>{tx('显示全部事件','すべて表示')}</button></div>:<section className="atlas-reading-queue"><div><span className="eyebrow">READ THROUGH THIS PERIOD</span><h2>{tx('沿着这一段，继续读','この時代を、順に読む')}</h2><small>{tx('事件按起始年代排序，横向滑动查看更多。','開始年代順です。横にスクロールして続きを読む。')}</small></div><div className="event-ribbon">{visible.map(event=><button key={event.id} onClick={()=>openEvent(event)} aria-pressed={selected?.id===event.id}><span style={{color:categoryInfo[event.category].dark}}>{t(event.date)}</span><strong>{t(event.title)}</strong><p>{t(event.significance)}</p><small>{t(categoryInfo[event.category].title)}<ArrowUpRight size={14}/></small></button>)}</div></section>}
+    {visible.length===0?<div className="atlas-empty"><Search size={28}/><h3>{tx('这一段还没有匹配的事件','この範囲には該当する出来事がありません')}</h3><p>{tx('试试全景，或清除主题与关键词筛选。','全体表示に戻すか、テーマや検索語を変えてみましょう。')}</p><button className="button secondary" onClick={()=>{resetFilters();applyPeriod('all');}}>{tx('显示全部事件','すべて表示')}</button></div>:<section className="atlas-reading-queue"><div><span className="eyebrow">READ THROUGH THIS PERIOD</span><h2>{tx('沿着这一段，继续读','この時代を、順に読む')}</h2><small>{tx('事件按起始年代排序，横向滑动查看更多。','開始年代順です。横にスクロールして続きを読む。')}</small></div><div className={"event-ribbon drag-scroll"+(ribbonDrag.isDragging?" is-dragging":"")} {...ribbonDrag.handlers}>{visible.map(event=><button key={event.id} onClick={()=>openEvent(event)} aria-pressed={selected?.id===event.id}><span style={{color:categoryInfo[event.category].dark}}>{t(event.date)}</span><strong>{t(event.title)}</strong><p>{t(event.significance)}</p><small>{t(categoryInfo[event.category].title)}<ArrowUpRight size={14}/></small></button>)}</div></section>}
    </div>
    <aside ref={inspector} className="event-inspector" aria-label={tx('选中事件详情','選んだ出来事の詳細')}>{selected?detail(selected):<div className="inspector-empty"><Compass size={28}/><p>{tx('选择一个事件，查看它的故事与出处。','出来事を選ぶと、内容と出典を表示します。')}</p></div>}</aside>
   </div>:<div className="chronicle-card-grid">{visible.length?visible.map(event=>{
