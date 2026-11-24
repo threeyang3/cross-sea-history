@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { useHorizontalDrag } from '../hooks/use-horizontal-drag';
-import { ArrowRight, ArrowUpRight, BookOpen, Brush, Building2, ChevronLeft, ChevronRight, Compass, FileText, Globe2, History, Image as ImageIcon, Landmark, MapPin, NotebookPen, ScrollText, Ship, Shirt, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Brush, ChevronLeft, ChevronRight, Globe2, History, Landmark, ScrollText, Ship, Shirt, Sparkles } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset } from './content';
@@ -11,17 +11,9 @@ import { cityAtlasPath } from './city-atlas-path';
 import { categoryInfo, formatYear, historicalEvents } from './timeline-data';
 import type { HistoricalEvent } from './timeline-types';
 
-type Destination = 'tang' | 'places' | 'ming' | 'desk' | 'timeline' | 'poetry';
+type Destination = 'tang' | 'places' | 'ming' | 'desk' | 'timeline' | 'poetry' | 'lesson';
 type HubProps = { lang:Lang; onNavigate:(view:Destination,id?:string)=>void; onOpenEvent:(id:string)=>void };
 const eventById = new Map(historicalEvents.map(event => [event.id,event]));
-const topics = [
-  { id:'attire', title:p('衣冠与日常','装いと日常'), sub:p('读懂一件唐代衣装','唐代の衣装を読む'), icon:Shirt, tone:'cinnabar', image:'tang-attire-figurine', event:'cn-tang-attire' },
-  { id:'poetry', title:p('古诗词选读','中国の詩詞を読む'), sub:p('唐宋诗词、元曲、明清诗词','唐宋の詩詞・元曲・明清の詩詞'), icon:Brush, tone:'ochre', image:'wangbo-manuscript', view:'poetry' as Destination },
-  { id:'voyages', title:p('渡海与求学','渡海と学び'), sub:p('使节、僧侣与书籍','使節・僧侶・書物'), icon:Ship, tone:'indigo', image:'toshodaiji', event:'cj-first-tang-mission' },
-  { id:'cities', title:p('城市与寺院','都市と寺院'), sub:p('长安 · 青龙寺 · 京都','長安・青龍寺・京都'), icon:Landmark, tone:'jade', image:'qinglong', view:'places' as Destination },
-  { id:'ming', title:p('明清书房','明清の書斎'), sub:p('制度、海贸与生活','制度・交易・暮らし'), icon:BookOpen, tone:'plum', image:'qingming-detail', view:'ming' as Destination },
-  { id:'desk', title:p('史料与摘记','史料とノート'), sub:p('观察 · 查证 · 留下想法','観察・確認・自分の言葉'), icon:NotebookPen, tone:'slate', image:'toban-cargo-ledger', view:'desk' as Destination }
-];
 
 const shortTitles:Record<string,Pair>={
  'cn-sui-unification':p('隋统一南北','隋の統一'),'cn-sui-grand-canal':p('大运河','大運河'),'cj-ono-sui':p('小野妹子赴隋','小野妹子の遣隋'),
@@ -76,7 +68,7 @@ export function HomeAtlas({lang,onNavigate,onOpenEvent}:HubProps){
  }));
  function changePeriod(id:string){setPeriod(id);rail.current?.scrollTo({left:0,behavior:'instant'});}
  return <section className="home-atlas content-width" aria-labelledby="home-atlas-title">
-   <header className="hub-section-heading"><div><span className="hub-section-index"><History size={15}/>02 · {tx('时间图谱','時代の図譜')}</span><h2 id="home-atlas-title">{tx('两条历史，一眼相连。','二つの歴史を、ひと目で。')}</h2></div><div className="atlas-tabs" aria-label={tx('图谱时期','図譜の時代')}>{atlasPeriods.map(item=><button key={item.id} aria-pressed={period===item.id} onClick={()=>changePeriod(item.id)}>{choose(item.title,lang)}</button>)}</div></header>
+   <header className="hub-section-heading"><div><span className="hub-section-index"><History size={15}/>{tx('时间图谱','時代の図譜')}</span><h2 id="home-atlas-title">{tx('中国史与中日交流','中国史と日中交流')}</h2></div><div className="atlas-tabs" aria-label={tx('图谱时期','図譜の時代')}>{atlasPeriods.map(item=><button key={item.id} aria-pressed={period===item.id} onClick={()=>changePeriod(item.id)}>{choose(item.title,lang)}</button>)}</div></header>
    <div className="atlas-key"><span><i className="atlas-key-china"/>{tx('中国史','中国史')}</span><span><i className="atlas-key-exchange"/>{tx('中日交流','日中交流')}</span><small>{selected.length}{tx(' 个精选节点 · 点选展开','の出来事・押して詳しく')}</small><div className="atlas-scroll-controls"><button onClick={()=>rail.current?.scrollBy({left:-500,behavior:'smooth'})} aria-label={tx('图谱向前浏览','前の範囲へ')}><ChevronLeft size={16}/></button><button onClick={()=>rail.current?.scrollBy({left:500,behavior:'smooth'})} aria-label={tx('图谱向后浏览','次の範囲へ')}><ChevronRight size={16}/></button></div></div>
    <div className={"atlas-scroll drag-scroll"+(railDrag.isDragging?" is-dragging":"")} {...railDrag.handlers} ref={rail} tabIndex={0} aria-label={tx('历史分期图谱。按住拖动或横向滚动，点选事件可展开。','歴史図譜。ドラッグか横スクロールで移動し、項目を押して開きます。')}>
     <div className="atlas-grid">{current.bins.map((bin,index)=><div className="atlas-era" key={bin.from}>
@@ -103,45 +95,37 @@ export function TangCultureModules({lang,onOpenEvent}:{lang:Lang;onOpenEvent:(id
 
 export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
  const tx=(zh:string,ja:string)=>lang==='ja'?ja:zh;
- const temple=getAsset('kiyomizu')!;
- const attire=getAsset('tang-attire-figurine');
- const manuscript=getAsset('wangbo-manuscript')!;
- const imageIds=Array.from(new Set(['kiyomizu','tang-attire-figurine',...topics.map(item=>item.image),'daming','qinglong','toji','forbidden-city']));
- return <div className="home-hub">
+ const hero=getAsset('qinglong')!;
+ const eras=[
+  {id:'tang',title:p('隋唐','隋唐'),years:'581–907',image:'daming',view:'tang' as const},
+  {id:'song',title:p('宋元与海上交流','宋元と海上交流'),years:'960–1368',image:'qingming-detail',view:'timeline' as const},
+  {id:'ming',title:p('明清','明清'),years:'1368–1912',image:'forbidden-city',view:'ming' as const}
+ ];
+ const cities=[
+  {id:'xian',title:p('西安','西安'),image:'wild-goose-pagoda'},
+  {id:'beijing',title:p('北京','北京'),image:'forbidden-city'},
+  {id:'kyoto',title:p('京都','京都'),image:'kiyomizu'}
+ ];
+ const imageIds=Array.from(new Set([hero.id,...eras.map(e=>e.image),...cities.map(c=>c.image),'wangbo-manuscript']));
+ return <div className="home-hub editorial-home">
   <section className="hub-hero content-width">
-   <div className="hub-hero-copy"><div className="hub-kicker"><span>中</span><i/><span>日</span><small>{tx('双语历史学习馆','二言語で学ぶ歴史')}</small></div><h1>{tx('从长安，','長安から、')}<br/>{tx('看见更大的世界。','広がる世界へ。')}</h1><p>{tx('选一个主题，让图像、诗句与史料带路。','テーマを選び、画像・詩・史料をたどる。')}</p><div className="hub-hero-actions"><button className="hub-primary" onClick={()=>onNavigate('tang')}>{tx('探索唐代','唐代をめぐる')}<ArrowRight size={17}/></button><button className="hub-secondary" onClick={()=>document.getElementById('home-atlas-title')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'})}><History size={17}/>{tx('打开时间图谱','時代の図譜へ')}</button></div><div className="hub-stats"><span><History size={16}/><b>2</b>{tx('条时间线','つの年表')}</span><span><BookOpen size={16}/><b>{historicalEvents.length}</b>{tx('篇专题','の記事')}</span><span><ImageIcon size={16}/>{tx('图像 × 史料','図像 × 史料')}</span></div></div>
-   <div className="hub-hero-art" aria-label={tx('衣装、寺院与书籍的主题拼贴','衣装・寺院・書物のテーマコラージュ')}>
-    <div className="hub-art-circle"/><svg className="hub-art-route" viewBox="0 0 600 440" fill="none" aria-hidden="true"><path d="M70 350C180 350 155 105 300 150S455 355 540 105" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 7"/><circle cx="70" cy="350" r="5" fill="currentColor"/><circle cx="540" cy="105" r="5" fill="currentColor"/></svg>
-    <figure className="hub-photo-main"><img src={temple.src} width={temple.width} height={temple.height} alt={choose(temple.alt,lang)} fetchPriority="high"/><figcaption><MapPin size={13}/>{tx('京都 · 清水寺','京都・清水寺')}</figcaption></figure>
-    <button className="hub-float-art hub-float-attire" onClick={()=>onOpenEvent('cn-tang-attire')} aria-label={tx('进入唐代服饰专题','唐代衣装のテーマへ')}>{attire?<img src={attire.src} width={attire.width} height={attire.height} alt={choose(attire.alt,lang)}/>:<Shirt size={66}/>}<span><Shirt size={12}/>{tx('衣冠','装い')}<ArrowUpRight size={12}/></span></button>
-    <button className="hub-float-art hub-float-poem" onClick={()=>onOpenEvent('cn-tang-poetry-farewell')} aria-label={tx('进入唐诗意象专题','唐詩のイメージのテーマへ')}><small>唐 詩</small><strong>惟见长江<br/>天际流</strong><span><Brush size={13}/>{tx('读诗，看远方','詩から遠くへ')}<ArrowUpRight size={12}/></span></button>
-    <div className="hub-art-badge"><Ship size={21}/><span>{tx('长安','長安')}<i>↔</i>{tx('京都','京都')}</span></div>
+   <div className="hub-hero-copy">
+    <h1><Bilingual value={p('跨海的历史','海をわたる歴史')} lang={lang}/></h1>
+    <p><Bilingual value={p('从长安到京都，循着人物、寺院、书籍与器物，阅读中日交流的历史。','長安から京都へ。人、寺院、書物、器物を通して日中交流の歴史を読む。')} lang={lang}/></p>
+    <div className="hub-hero-actions"><button className="hub-primary" onClick={()=>onNavigate('lesson','tang-kukai-network')}>{tx('从青龙寺开始','青龍寺から始める')}<ArrowRight size={17}/></button></div>
    </div>
+   <figure className="editorial-hero-image"><img src={hero.src} width={hero.width} height={hero.height} alt={choose(hero.alt,lang)} fetchPriority="high"/><figcaption><Bilingual value={hero.title} lang={lang}/><Credit asset={hero} lang={lang}/></figcaption></figure>
   </section>
-  <section className="hub-topics content-width" aria-labelledby="hub-topics-title"><header className="hub-compact-heading"><h2 id="hub-topics-title">{tx('今天，从哪里开始？','今日は、どこから？')}</h2><span>{tx('选一个入口','入口を選ぶ')}<Compass size={14}/></span></header><div className="hub-topic-grid">{topics.map(topic=>{const asset=getAsset(topic.image);return <button className={'hub-topic tone-'+topic.tone} key={topic.id} onClick={()=>topic.event?onOpenEvent(topic.event):onNavigate(topic.view!)}><div className="hub-topic-visual">{asset&&<img src={asset.src} width={asset.width} height={asset.height} alt="" loading="lazy"/>}<topic.icon size={25}/></div><div className="hub-topic-copy"><h3>{choose(topic.title,lang)}</h3><span>{choose(topic.sub,lang)}</span></div><ArrowUpRight size={15}/></button>;})}</div></section>
-  <section className="hub-cities content-width" aria-labelledby="hub-cities-title">
-   <header className="hub-compact-heading">
-    <h2 id="hub-cities-title">{tx('城市探索','都市をめぐる')}</h2>
-   </header>
-   <div className="hub-city-grid">
-    {[
-      {id:'xian', title:p('西安','西安'), summary:p('长安、青龙寺与求法之路','長安・青龍寺・求法の道'), image:'qinglong', tone:'jade'},
-      {id:'beijing', title:p('北京','北京'), summary:p('古都空间、战争记忆与战后交流','古都の空間・戦争の記憶・戦後交流'), image:'forbidden-city', tone:'cinnabar'}
-    ].map(city=>{
-      const asset=getAsset(city.image)!;
-      return <a key={city.id} className={'hub-path tone-'+city.tone} href={cityAtlasPath(lang,'city/'+city.id)}>
-       <img src={asset.src} alt="" width={asset.width} height={asset.height} loading="lazy"/>
-       <div><MapPin size={21}/><h3>{choose(city.title,lang)}</h3><Bilingual value={city.summary} lang={lang}/><ArrowUpRight size={19}/></div>
-      </a>;
-    })}
-   </div>
+  <section className="editorial-gallery content-width" aria-labelledby="era-gallery-title">
+   <header className="hub-section-heading"><h2 id="era-gallery-title">{tx('时代画廊','時代をめぐる')}</h2><button className="text-button" onClick={()=>onNavigate('timeline')}>{tx('完整时间线','すべての年表')}<ArrowRight size={16}/></button></header>
+   <div className="editorial-grid">{eras.map(era=>{const asset=getAsset(era.image)!;return <button key={era.id} className="editorial-tile" onClick={()=>era.id==='song'?onOpenEvent('cj-bai-manuscript1107'):onNavigate(era.view)}><img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/><div><small>{era.years}</small><h3><Bilingual value={era.title} lang={lang}/></h3><ArrowUpRight size={18}/></div></button>;})}</div>
   </section>
-  <HomeAtlas lang={lang} onNavigate={onNavigate} onOpenEvent={onOpenEvent}/>
-  <section className="hub-paths content-width" aria-labelledby="hub-path-title"><header className="hub-section-heading"><div><span className="hub-section-index"><Compass size={15}/>03 · {tx('学习路线','学びのルート')}</span><h2 id="hub-path-title">{tx('沿着一个线索走。','一つの手がかりをたどる。')}</h2></div></header><div className="hub-path-grid">
-   <button className="hub-path tone-jade" onClick={()=>onNavigate('places')}><img src={getAsset('qinglong')!.src} alt="" loading="lazy"/><div><MapPin size={23}/><h3>{tx('城市与寺院','都市と寺院')}</h3><span>{tx('长安 → 青龙寺 → 京都','長安 → 青龍寺 → 京都')}</span><ArrowUpRight size={19}/></div></button>
-   <button className="hub-path tone-ochre" onClick={()=>onOpenEvent('cj-bai-manuscript1107')}><img src={manuscript.src} alt="" loading="lazy"/><div><ScrollText size={23}/><h3>{tx('书籍的跨海旅行','書物の海を越える旅')}</h3><span>{tx('写作 → 抄写 → 阅读','執筆 → 書写 → 読解')}</span><ArrowUpRight size={19}/></div></button>
-   <button className="hub-path tone-plum" onClick={()=>onNavigate('ming')}><img src={getAsset('forbidden-city')!.src} alt="" loading="lazy"/><div><BookOpen size={23}/><h3>{tx('明清，另一扇窗','明清への、もう一つの窓')}</h3><span>{tx('制度 → 城市 → 海贸','制度 → 都市 → 海上交易')}</span><ArrowUpRight size={19}/></div></button>
-  </div></section>
-  <div className="hub-bottom content-width"><span><NotebookPen size={16}/>{tx('看见 → 查证 → 写下理解','見る → 確かめる → 言葉にする')}</span><button onClick={()=>onNavigate('desk')}>{tx('去我的学习桌','学習ノートへ')}<ArrowRight size={15}/></button><details className="hub-image-credits"><summary>{tx('图像来源','画像の出典')}</summary><div>{imageIds.map(id=>{const asset=getAsset(id);return asset?<div key={id}><strong>{choose(asset.title,lang)}</strong><Credit asset={asset} lang={lang}/></div>:null;})}</div></details></div>
+  <section className="editorial-gallery content-width" aria-labelledby="city-gallery-title">
+   <header className="hub-section-heading"><h2 id="city-gallery-title">{tx('城市与诗词','都市と詩詞')}</h2><a className="text-button" href={cityAtlasPath(lang)}>{tx('城市探索','都市探索')}<ArrowRight size={16}/></a></header>
+   <div className="editorial-grid editorial-city-grid">{cities.map(city=>{const asset=getAsset(city.image)!;const body=<><img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/><div><h3><Bilingual value={city.title} lang={lang}/></h3><ArrowUpRight size={18}/></div></>;return city.id==='kyoto'?<button key={city.id} className="editorial-tile" onClick={()=>onNavigate('places','kyoto')}>{body}</button>:<a key={city.id} className="editorial-tile" href={cityAtlasPath(lang,'city/'+city.id)}>{body}</a>;})}
+   <button className="editorial-tile" onClick={()=>onNavigate('poetry')}><img src={getAsset('wangbo-manuscript')!.src} alt={tx('古籍书影','古い書物')} loading="lazy"/><div><h3>{tx('古诗词','中国の詩詞')}</h3><ArrowUpRight size={18}/></div></button></div>
+  </section>
+  <details className="editorial-atlas content-width"><summary>{tx('历史时间图谱','歴史図譜')}</summary><HomeAtlas lang={lang} onNavigate={onNavigate} onOpenEvent={onOpenEvent}/></details>
+  <div className="hub-bottom content-width"><details className="hub-image-credits"><summary>{tx('图像来源','画像の出典')}</summary><div>{imageIds.map(id=>{const asset=getAsset(id);return asset?<div key={id}><strong>{choose(asset.title,lang)}</strong><Credit asset={asset} lang={lang}/></div>:null;})}</div></details></div>
  </div>;
 }

@@ -62,3 +62,27 @@
 .minimap-strip.is-dragging {
   cursor: grabbing;
 }
+
+/* A compact toolbar replaces the eight stacked pre-chart controls. */
+.timeline-page{padding-top:22px}
+.compact-atlas-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}
+.compact-atlas-heading h1{font-size:clamp(24px,3vw,34px);margin:0}
+.compact-atlas-heading>span{font-size:12px;color:var(--muted)}
+.compact-atlas-toolbar{display:flex;align-items:center;gap:10px;min-height:52px;padding:6px 0;margin-bottom:15px;position:sticky;top:var(--header-height);background:var(--paper);z-index:20;border-bottom:1px solid var(--line)}
+.compact-track{display:flex;gap:4px;flex-shrink:0}
+.compact-track button,.compact-atlas-toolbar select,.compact-atlas-filter summary{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:7px 10px;min-height:38px;font-size:12px;white-space:nowrap}
+.compact-track button[aria-pressed=true]{background:var(--soft);border-color:var(--ink);color:var(--ink)}
+.track-dot,.filter-active{width:7px;height:7px;border-radius:50%;display:inline-block;background:var(--red)}
+.track-dot.china{background:var(--indigo)}
+.compact-atlas-toolbar select{max-width:230px;min-width:0;color:var(--ink)}
+.compact-atlas-toolbar .atlas-search{flex:1;min-width:80px;max-width:none;margin:0}
+.compact-atlas-filter{position:relative;flex-shrink:0}
+.compact-atlas-filter summary{cursor:pointer;list-style:none}
+.compact-atlas-filter summary::-webkit-details-marker{display:none}
+.compact-filter-panel{position:absolute;top:calc(100% + 6px);right:0;z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:0 12px 30px #233f4b20;padding:14px;width:min(340px,85vw);display:grid;gap:10px}
+.compact-filter-panel .atlas-categories{margin:0}
+.compact-filter-panel .atlas-mode{display:flex}
+.compact-filter-panel .famous-filter{justify-self:start}
+.atlas-plot.can-pan::after{content:'';position:absolute;inset:0 0 0 auto;width:18px;background:linear-gradient(90deg,transparent,#24443888);pointer-events:none;z-index:2}
+@media(max-width:900px){.compact-atlas-toolbar{position:relative;top:auto;flex-wrap:wrap}.compact-atlas-toolbar select{flex:1;max-width:none}.compact-atlas-toolbar .atlas-search{flex:1 1 200px}}
+@media(max-width:620px){.compact-atlas-toolbar{gap:6px}.compact-track button{padding:6px 8px}.compact-atlas-toolbar select{max-width:48%;font-size:11px}.compact-atlas-toolbar .atlas-search{flex-basis:120px}.compact-atlas-heading h1{max-width:none}}

@@ -1,6 +1,31 @@
-# vinext-starter
+# 跨海的历史｜海をわたる歴史
 
-A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
+A bilingual Chinese–Japanese digital history learning site. Explore Chinese history and Sino-Japanese exchange through timelines, Tang and Ming–Qing topics, landmarks, classical poetry, and personal notes.
+
+- Editorial homepage: one guided reading entry, chronological image gallery, city and poetry browsing.
+- Timeline: proportional date axis, event clusters, drag/pan/zoom, filters and source-linked articles.
+- Image sources and permissions: `app/data/image-rights.json`; see [CONTENT_GUIDE.md](CONTENT_GUIDE.md) before adding assets.
+
+## Local development
+
+Use Node.js 22.13+:
+
+```sh
+npm run install:ci
+npm run dev
+npm run lint
+npm run build
+```
+
+The original Sites deployment and the GitHub repository are separate; committing here does not establish that the published site has been updated. Keep the existing vinext/Cloudflare configuration and personal-note storage keys intact.
+
+## Visual conventions
+
+Use shared tokens in `app/globals.css`; feature styles should not redefine global root tokens. Prefer real historical images with credits, concise localized controls, keyboard accessibility and responsive layouts. Do not remove historical uncertainty or evidence notes merely to simplify the interface.
+
+## Runtime and deployment details
+
+The site runs on [vinext](https://github.com/cloudflare/vinext), with Cloudflare D1 and Drizzle support.
 
 ## Prerequisites
 
