@@ -1,0 +1,218 @@
+[
+  {
+    "id": "met-river-hamlet",
+    "objectId": 40197,
+    "accession": "1989.363.27",
+    "date": "12–13世纪 / 12〜13世紀",
+    "title": {
+      "zh": "南宋《江邨图》",
+      "ja": "南宋「江邨図」"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "南宋团扇画中的雪岸、舟与村舍；与诗中的水乡意象对读，不是特定诗句的原始插图。",
+      "ja": "雪の川岸・舟・家屋を描く南宋の団扇画。水辺の詩のイメージとの比較であり、原挿絵ではない。"
+    },
+    "alt": {
+      "zh": "南宋《江邨图》",
+      "ja": "南宋「江邨図」"
+    },
+    "width": 1000,
+    "height": 921,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/40197",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40197/148020/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-river-hamlet.webp"
+  },
+  {
+    "id": "met-willow-boat",
+    "objectId": 40092,
+    "accession": "47.18.137",
+    "date": "13世纪 / 13世紀",
+    "title": {
+      "zh": "南宋《泛舟柳塘图》",
+      "ja": "南宋「泛舟柳塘図」"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "柳岸、莲叶与小舟；与唐宋诗中的江湖意象对读，不是黄鹤楼送别实景。",
+      "ja": "柳の岸、蓮の葉、小舟。唐宋詩の水辺との比較であり、黄鶴楼での別れの実景ではない。"
+    },
+    "alt": {
+      "zh": "南宋《泛舟柳塘图》",
+      "ja": "南宋「泛舟柳塘図」"
+    },
+    "width": 1000,
+    "height": 914,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/40092",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40092/148012/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-willow-boat.webp"
+  },
+  {
+    "id": "met-longquan-bowl",
+    "objectId": 52634,
+    "accession": "50.221.18",
+    "date": "12–13世纪 / 12〜13世紀",
+    "title": {
+      "zh": "南宋龙泉窑青瓷莲瓣碗",
+      "ja": "南宋・龍泉窯青磁蓮弁文碗"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "宋元陶瓷比较材料；并非新安沉船出水器物。馆方图像为黑白。",
+      "ja": "宋元陶磁の比較資料であり、新安沈没船の出水品ではない。館の画像は白黒。"
+    },
+    "alt": {
+      "zh": "南宋龙泉窑青瓷莲瓣碗",
+      "ja": "南宋・龍泉窯青磁蓮弁文碗"
+    },
+    "width": 1000,
+    "height": 704,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/52634",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/52634/81977/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-longquan-bowl.webp"
+  },
+  {
+    "id": "met-moon-landscape",
+    "objectId": 36022,
+    "accession": "13.220.111",
+    "date": "1628",
+    "title": {
+      "zh": "顾懿德《仿王蒙玩月图》",
+      "ja": "顧懿徳「倣王蒙玩月図」"
+    },
+    "author": "顾懿德 / 顧懿徳",
+    "caption": {
+      "zh": "明代山水画；作为后世赏月题材的比较，不是唐宋诗原配画。",
+      "ja": "明代の山水画。後世の観月表現の比較資料で、唐宋詩の原挿絵ではない。"
+    },
+    "alt": {
+      "zh": "顾懿德《仿王蒙玩月图》",
+      "ja": "顧懿徳「倣王蒙玩月図」"
+    },
+    "width": 318,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/36022",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/36022/72207/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-moon-landscape.webp"
+  },
+  {
+    "id": "met-nagasaki-ships",
+    "objectId": 77014,
+    "accession": "2012.35",
+    "date": "约1840 / 1840年頃",
+    "title": {
+      "zh": "《长崎港图》：清朝商船",
+      "ja": "「長崎港図」：清の商船"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "日本彩色木版画中的清朝商船。较早时期长崎贸易的后世参照，并非当年现场记录。",
+      "ja": "長崎へ向かう清の商船を描く錦絵。より早い時期の長崎貿易の参照で、当時の現場記録ではない。"
+    },
+    "alt": {
+      "zh": "《长崎港图》：清朝商船",
+      "ja": "「長崎港図」：清の商船"
+    },
+    "width": 1000,
+    "height": 430,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/77014",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/77014/2488461/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-nagasaki-ships.webp"
+  },
+  {
+    "id": "met-li-bai-cup",
+    "objectId": 46551,
+    "accession": "14.40.283",
+    "date": "17世纪末至18世纪初 / 17世紀末〜18世紀初頭",
+    "title": {
+      "zh": "清康熙时期李白故事与诗文杯",
+      "ja": "清・康熙期の李白故事詩文杯"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "景德镇瓷杯上的李白故事反映后世接受；不表示《将进酒》的创作现场。",
+      "ja": "景徳鎮の磁杯に描かれた李白故事は後世の受容を示し、「将進酒」の制作現場ではない。"
+    },
+    "alt": {
+      "zh": "清康熙时期李白故事与诗文杯",
+      "ja": "清・康熙期の李白故事詩文杯"
+    },
+    "width": 1000,
+    "height": 981,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/46551",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/46551/72611/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-li-bai-cup.webp"
+  },
+  {
+    "id": "met-li-bai-flask",
+    "objectId": 46276,
+    "accession": "79.2.460a, b",
+    "date": "19世纪 / 19世紀",
+    "title": {
+      "zh": "清代李白与山水纹盖壶",
+      "ja": "清代・李白山水文蓋壺"
+    },
+    "author": "佚名",
+    "caption": {
+      "zh": "青花瓷壶上的后世李白形象，并非唐代肖像。馆方图像为黑白。",
+      "ja": "染付の蓋壺に描かれた後世の李白像であり、唐代の肖像ではない。館の画像は白黒。"
+    },
+    "alt": {
+      "zh": "清代李白与山水纹盖壶",
+      "ja": "清代・李白山水文蓋壺"
+    },
+    "width": 773,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/46276",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/46276/66534/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-li-bai-flask.webp"
+  },
+  {
+    "id": "met-nagasaki-1859",
+    "objectId": 73422,
+    "accession": "2007.49.136",
+    "date": "1859",
+    "title": {
+      "zh": "二代歌川广重《肥前长崎唐船之津》",
+      "ja": "二代歌川広重「肥前長崎唐船の津」"
+    },
+    "author": "二代歌川广重 / 二代歌川広重",
+    "caption": {
+      "zh": "表现长崎港船只与港湾的木版画；不可直接用来复原17世纪唐人屋敷。",
+      "ja": "長崎の船と港湾を描く木版画。17世紀の唐人屋敷の復元資料として直接使うことはできない。"
+    },
+    "alt": {
+      "zh": "二代歌川广重《肥前长崎唐船之津》",
+      "ja": "二代歌川広重「肥前長崎唐船の津」"
+    },
+    "width": 687,
+    "height": 1000,
+    "sourcePage": "https://www.metmuseum.org/art/collection/search/73422",
+    "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/73422/146032/main-image",
+    "license": "CC0 / Public Domain",
+    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "verifiedAt": "2026-11-24",
+    "localFile": "/images/museum/met-nagasaki-1859.webp"
+  }
+]
