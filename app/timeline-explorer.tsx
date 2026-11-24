@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { ArrowRight, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Compass, Expand, Filter, List, MapPin, Minus, MoveHorizontal, NotebookPen, Plus, Search, Star, X } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
@@ -8,7 +8,7 @@ import { pair as p } from './content-types';
 import { getAsset, getLesson } from './content';
 import { Bilingual, choose, Credit, Dialog, Photo } from './learning-ui';
 import { categoryInfo, categoryOrder, coordinateYear, formatYear, historicalEvents, timelinePeriods, timelineSources, yearCoordinate } from './timeline-data';
-import { EventArticleReader } from './event-article-reader';
+const EventArticleReader=lazy(()=>import('./event-article-reader').then(module=>({default:module.EventArticleReader})));
 import { eventMuseumAssets, MuseumFigure, MuseumImage } from './museum-images';
 import type { HistoricalEvent, TimelineCategory, TimelineTrack } from './timeline-types';
 import { useHorizontalDrag } from '../hooks/use-horizontal-drag';
@@ -225,6 +225,6 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
   }):<div className="atlas-empty"><h3>{tx('没有匹配的事件','該当する出来事がありません')}</h3><button className="button secondary" onClick={()=>{resetFilters();applyPeriod('all');}}>{tx('显示全部事件','すべて表示')}</button></div>}</div>}
   {helpOpen&&<Dialog title={tx('如何阅读时间线','年表の読み方')} onClose={()=>setHelpOpen(false)}><section className="timeline-reading-guide"><div><h2>{tx('年代，是理解的起点。','年代は、理解の出発点。')}</h2></div><div><p>{tx('本版收录精选节点，最晚至2008年。它提供继续学习的线索；可以按主题或关键词寻找事件。','この版は2008年までの出来事を選んで収録しています。学びを広げる手がかりとして、テーマや言葉から探してみましょう。')}</p><p>{tx('朝代与时期是导航分段，存在重叠，也不等于固定疆域。图上事件按年份比例定位；相近节点会合并，放大即可展开。','時代区分は移動のための目安です。重なりがあり、固定した領域を示しません。時間軸は年数に比例し、近い項目はまとめて表示します。')}</p><p>{tx('“约”和时间范围保留材料的精度。条目之间的先后、接近，不直接代表因果。每一项都可以回到资料继续核对。','「頃」や期間の表示は資料の精度を保つためです。前後関係や時間的な近さだけで因果は決まりません。各項目の出典で確かめられます。')}</p><a href="https://www.allhistory.com/" target="_blank" rel="noreferrer">{tx('界面参考：全历史的时代导航与事件卡片','表示の参考：全歴史の時代ナビゲーションと出来事カード')}<ArrowUpRight size={13}/></a></div></section></Dialog>}
   {clusterChoice.length>0&&<Dialog title={tx('同一时段的事件','同じ時期の出来事')} onClose={()=>setClusterChoice([])} className="timeline-cluster-dialog"><p>{tx('选择一件事，读它的背景、影响与出处。','出来事を選んで、背景・意味・出典を読みましょう。')}</p><div className="cluster-choices">{clusterChoice.map(event=><button key={event.id} onClick={()=>{setClusterChoice([]);openEvent(event);}}><span>{t(event.date)}</span><strong>{t(event.title)}</strong><ArrowRight size={17}/></button>)}</div></Dialog>}
-  {detailOpen&&readingEvent&&<Dialog title={t(readingEvent.title)} onClose={()=>setDetailOpen(false)} className="history-reader-dialog"><EventArticleReader key={readingEvent.id} event={readingEvent} lang={lang} related={related} previous={events[readingIndex-1]} next={events[readingIndex+1]} onClose={()=>setDetailOpen(false)} onLanguageChange={onLanguageChange} onNavigate={event=>event.track===track?openEvent(event):onTrackChange(event.track,event.id)} onOpenLesson={onOpenLesson} onQuestion={onQuestion}/></Dialog>}
+  {detailOpen&&readingEvent&&<Dialog title={t(readingEvent.title)} onClose={()=>setDetailOpen(false)} className="history-reader-dialog"><Suspense fallback={<p className="route-loading" role="status">{tx('正在打开专题…','記事を読み込み中…')}</p>}><EventArticleReader key={readingEvent.id} event={readingEvent} lang={lang} related={related} previous={events[readingIndex-1]} next={events[readingIndex+1]} onClose={()=>setDetailOpen(false)} onLanguageChange={onLanguageChange} onNavigate={event=>event.track===track?openEvent(event):onTrackChange(event.track,event.id)} onOpenLesson={onOpenLesson} onQuestion={onQuestion}/></Suspense></Dialog>}
  </section>;
 }

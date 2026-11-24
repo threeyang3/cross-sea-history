@@ -53,3 +53,5 @@
 @media(max-width:1100px){.site-header nav{gap:15px}.site-header nav>button>svg{display:none}}
 @media(max-width:900px){.site-header nav>button.active:after{bottom:0}}
 @media(max-width:620px){.site-header nav{gap:clamp(8px,3vw,20px)!important}.site-header nav>button,.nav-group summary{font-size:11px}.nav-group summary>svg:first-child{display:none}.site-header .nav-menu button{padding:10px 12px}.header-tools .icon-button{padding:4px}}
+
+.route-loading{padding:32px 24px;text-align:center;color:var(--muted)}

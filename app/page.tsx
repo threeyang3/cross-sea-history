@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Bookmark, Check, CheckCircle2, ChevronRight, Clock3, Compass, Download, Eye, GraduationCap, History, Languages, LibraryBig, MapPin, NotebookPen, RotateCcw, Search } from 'lucide-react';
 import type { Lang, Lesson, Pair, StudyState } from './content-types';
 import { pair as p } from './content-types';
@@ -14,11 +14,11 @@ import { HomeHub, TangCultureModules } from './home-hub';
 import { MuseumFigure, museumAssets, topicMuseumAssets } from './museum-images';
 import { cityAtlasPath } from './city-atlas-path';
 import { articleSources } from './article-data';
-import { TimelineExplorer } from './timeline-explorer';
+const TimelineExplorer=lazy(()=>import('./timeline-explorer').then(module=>({default:module.TimelineExplorer})));
 import { historicalEvents, timelineSources } from './timeline-data';
 import type { TimelineTrack } from './timeline-types';
 import { farewellPoem, searchPoems } from './poetry/data';
-import { PoetryShelf } from './poetry/shelf';
+const PoetryShelf=lazy(()=>import('./poetry/shelf').then(module=>({default:module.PoetryShelf})));
 
 type View='home'|'tang'|'places'|'ming'|'desk'|'lesson'|'timeline'|'poetry';
 type DeskTab='notes'|'review'|'glossary'|'sources';
@@ -97,9 +97,9 @@ export default function HistorySite(){
   <main id="main-content" tabIndex={-1}>
   {view==='home'&&<HomeHub lang={lang} onNavigate={navigate} onOpenEvent={id=>{const item=historicalEvents.find(e=>e.id===id);if(item)navigate('timeline',item.track+'/'+id);}}/>}
 
-  {view==='poetry'&&<PoetryShelf lang={lang} poemId={poemId}/>}
+  {view==='poetry'&&<Suspense fallback={<p className="route-loading content-width" role="status">{tx('正在打开…','読み込み中…')}</p>}><PoetryShelf lang={lang} poemId={poemId}/></Suspense>}
 
-  {view==='timeline'&&<TimelineExplorer onLanguageChange={changeLang} lang={lang} track={timelineTrack} initialEventId={timelineEvent} onTrackChange={(track,eventId)=>navigate('timeline',track+(eventId?'/'+eventId:''),false)} onSelectEvent={eventId=>navigate('timeline',timelineTrack+'/'+eventId,false)} onOpenLesson={openLesson} onQuestion={carryQuestion} onImageOpen={setImageId}/>}
+  {view==='timeline'&&<Suspense fallback={<p className="route-loading content-width" role="status">{tx('正在打开…','読み込み中…')}</p>}><TimelineExplorer onLanguageChange={changeLang} lang={lang} track={timelineTrack} initialEventId={timelineEvent} onTrackChange={(track,eventId)=>navigate('timeline',track+(eventId?'/'+eventId:''),false)} onSelectEvent={eventId=>navigate('timeline',timelineTrack+'/'+eventId,false)} onOpenLesson={openLesson} onQuestion={carryQuestion} onImageOpen={setImageId}/></Suspense>}
 
   {view==='tang'&&<section className="page-section content-width">{heading('02','TANG CONNECTIONS',p('走进唐代的生活与交流。','唐代の暮らしと交流へ。'),p('衣装、诗词、城市与跨海求学。选一个主题，从图像进入史料。','装い・詩・都市・海を越える学び。画像から史料へ進む。'))}<TangCultureModules lang={lang} onOpenEvent={id=>{const item=historicalEvents.find(e=>e.id===id);if(item)navigate('timeline',item.track+'/'+id);}}/><div className="timeline-entry-link"><BookOpen size={24}/><div><strong>{tx('古诗词选读','中国の詩詞を読む')}</strong><p>{tx('从《黄鹤楼送孟浩然之广陵》开始点读日文词注。','「黄鶴楼送孟浩然之広陵」から、原文を語注で読む。')}</p></div><button onClick={()=>navigate('poetry',farewellPoem)}>{tx('打开唐诗','唐詩を読む')}<ArrowRight size={15}/></button></div><div className="timeline-entry-link"><History size={24}/><div><strong>{tx('把唐代交流，放进更长的历史。','唐代の交流を、長い歴史の中へ。')}</strong><p>{tx('从早期往来到战后外交，沿着事件继续探索。','初期の往来から戦後外交まで、出来事をたどる。')}</p></div><button onClick={()=>navigate('timeline','exchange')}>{tx('打开中日交流时间线','日中交流年表へ')}<ArrowRight size={15}/></button></div><div className="chapter-intro"><GraduationCap size={25}/><p>{bi(p('学习目标：把人物放回年代与地点；区分文化借鉴与具体变化；用材料支持判断。','学習目標：人物を年代と場所に位置づける。文化の受容と変化を区別する。資料に基づいて判断する。'))}</p></div><ReadingShelf lang={lang} ids={['cj-landmark-heiankyo','cj-landmark-qinglong-kukai','cj-todaiji-ordination','cj-894-suspension']} title={p('把熟悉的故事，再往深处读。','よく知る物語を、もう一歩深く。')} description={p('从城市规划、传法和制度，追问交流发生的具体机制。','都市計画・伝法・制度から、交流の具体的な仕組みを考える。')} onOpen={event=>navigate('timeline',event.track+'/'+event.id)}/>{cards(tangLessons)}<section className="timeline-section"><div className="section-heading"><div><h2>{tx('把空海的经历，放回年代','空海の歩みを、年代の中へ')}</h2></div></div><div className="timeline" aria-label={tx('选择年代','年代を選ぶ')}>{timeline.map((v,i)=><button key={v.year} aria-pressed={event===i} className={event===i?'active':''} onClick={()=>setEvent(i)}><strong>{v.year}</strong><span className="timeline-dot"/><span>{t(v.title)}</span></button>)}</div><div className="timeline-detail"><div className="big-year">{timeline[event].year}<small>CE</small></div><div><h3>{bi(timeline[event].title)}</h3><p>{bi(timeline[event].body)}</p><SourceLinks ids={timeline[event].source} lang={lang}/></div></div><p className="quiet-note">{bi(p('先后关系很重要：794年平安京建立，早于804年空海赴唐。都城规划与个人求学，是相关但不同的历史线索。','順序を確かめよう。794年の平安京造営は、804年の空海の入唐より前です。都市計画と個人の学びは、関連しながらも異なる手がかりです。'))}</p></section><CityLab lang={lang} onQuestion={carryQuestion}/></section>}
 
