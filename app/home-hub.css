@@ -66,3 +66,5 @@
 
 /* A linear date ruler is separate from the readable event index. */
 .atlas-proportion{margin:8px 0 13px}.atlas-proportion-bar{display:flex;gap:0;height:20px;border-radius:3px;overflow:hidden}.atlas-proportion-bar button{flex-basis:0;min-width:0;padding:0;border:0;border-radius:0}.atlas-proportion-bar button:hover,.atlas-proportion-bar button:focus-visible{box-shadow:inset 0 0 0 2px var(--surface);filter:brightness(1.18)}.atlas-proportion-label{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px}.atlas-index-label{font-size:11px;color:var(--muted);margin-bottom:5px}.atlas-footer{justify-content:flex-end}.editorial-tile>.museum-image-unavailable{width:100%;aspect-ratio:16/10;min-height:0}.editorial-tile>img{object-position:center 50%}
+
+.atlas-proportion-bar button{position:relative;text-align:left;color:white}.atlas-proportion-bar button span{font-size:10px;padding-left:5px;white-space:nowrap;overflow:hidden;display:block}.atlas-proportion-bar button:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}

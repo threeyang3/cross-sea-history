@@ -22,7 +22,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/40197",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40197/148020/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-river-hamlet.webp"
   },
@@ -49,7 +49,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/40092",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/40092/148012/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-willow-boat.webp"
   },
@@ -76,7 +76,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/52634",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/52634/81977/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-longquan-bowl.webp"
   },
@@ -103,7 +103,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/36022",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/36022/72207/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-moon-landscape.webp"
   },
@@ -130,7 +130,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/77014",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/77014/2488461/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-nagasaki-ships.webp"
   },
@@ -157,7 +157,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/46551",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/46551/72611/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-li-bai-cup.webp"
   },
@@ -184,7 +184,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/46276",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/46276/66534/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-li-bai-flask.webp"
   },
@@ -211,7 +211,7 @@
     "sourcePage": "https://www.metmuseum.org/art/collection/search/73422",
     "originalFileURL": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/73422/146032/main-image",
     "license": "CC0 / Public Domain",
-    "licenseURL": "https://www.metmuseum.org/about-the-met/policies-and-documents/open-access",
+    "licenseURL": "https://www.metmuseum.org/hubs/open-access",
     "verifiedAt": "2026-11-24",
     "localFile": "/images/museum/met-nagasaki-1859.webp"
   }
