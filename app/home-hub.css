@@ -60,3 +60,6 @@
 .editorial-atlas .home-atlas{width:100%;margin:12px 0}
 @media(max-width:850px){.editorial-home .hub-hero{grid-template-columns:1fr;gap:24px;padding-block:30px}.editorial-city-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.editorial-gallery .hub-section-heading{align-items:center;flex-direction:row}.editorial-tile>div{padding:10px 28px 12px 10px}.editorial-tile>div>svg{right:8px;width:14px}}
+
+.editorial-caption{display:block;margin-top:5px;color:var(--muted);font-size:11px;line-height:1.5;font-weight:400}.editorial-hero-image .editorial-caption{max-width:65ch}.site-header nav{overflow:visible!important}.site-header .nav-menu button{height:auto}.editorial-tile .editorial-caption{min-height:1.5em}
+@media(max-width:620px){.site-header nav{gap:clamp(8px,3vw,20px)!important}.nav-group summary>svg:first-child{display:none}.nav-group summary{font-size:11px}.site-header .nav-menu button{padding:10px 12px}.header-tools .icon-button{padding:4px}}

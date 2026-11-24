@@ -98,7 +98,7 @@ export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
  const hero=getAsset('qinglong')!;
  const eras=[
   {id:'tang',title:p('隋唐','隋唐'),years:'581–907',image:'daming',view:'tang' as const},
-  {id:'song',title:p('宋元与海上交流','宋元と海上交流'),years:'960–1368',image:'qingming-detail',view:'timeline' as const},
+  {id:'song',title:p('宋元与海上交流','宋元と海上交流'),years:'908–1367',image:'qingming-detail',view:'timeline' as const},
   {id:'ming',title:p('明清','明清'),years:'1368–1912',image:'forbidden-city',view:'ming' as const}
  ];
  const cities=[
@@ -114,11 +114,11 @@ export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
     <p><Bilingual value={p('从长安到京都，循着人物、寺院、书籍与器物，阅读中日交流的历史。','長安から京都へ。人、寺院、書物、器物を通して日中交流の歴史を読む。')} lang={lang}/></p>
     <div className="hub-hero-actions"><button className="hub-primary" onClick={()=>onNavigate('lesson','tang-kukai-network')}>{tx('从青龙寺开始','青龍寺から始める')}<ArrowRight size={17}/></button></div>
    </div>
-   <figure className="editorial-hero-image"><img src={hero.src} width={hero.width} height={hero.height} alt={choose(hero.alt,lang)} fetchPriority="high"/><figcaption><Bilingual value={hero.title} lang={lang}/><Credit asset={hero} lang={lang}/></figcaption></figure>
+   <figure className="editorial-hero-image"><img src={hero.src} width={hero.width} height={hero.height} alt={choose(hero.alt,lang)} fetchPriority="high"/><figcaption><Bilingual value={hero.title} lang={lang}/><span className="editorial-caption"><Bilingual value={hero.caption} lang={lang}/></span><Credit asset={hero} lang={lang}/></figcaption></figure>
   </section>
   <section className="editorial-gallery content-width" aria-labelledby="era-gallery-title">
    <header className="hub-section-heading"><h2 id="era-gallery-title">{tx('时代画廊','時代をめぐる')}</h2><button className="text-button" onClick={()=>onNavigate('timeline')}>{tx('完整时间线','すべての年表')}<ArrowRight size={16}/></button></header>
-   <div className="editorial-grid">{eras.map(era=>{const asset=getAsset(era.image)!;return <button key={era.id} className="editorial-tile" onClick={()=>era.id==='song'?onOpenEvent('cj-bai-manuscript1107'):onNavigate(era.view)}><img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/><div><small>{era.years}</small><h3><Bilingual value={era.title} lang={lang}/></h3><ArrowUpRight size={18}/></div></button>;})}</div>
+   <div className="editorial-grid">{eras.map(era=>{const asset=getAsset(era.image)!;return <button key={era.id} className="editorial-tile" onClick={()=>era.id==='song'?onNavigate('timeline','exchange/period-song-yuan'):onNavigate(era.view)}><img src={asset.src} width={asset.width} height={asset.height} alt={choose(asset.alt,lang)} loading="lazy"/><div><small>{era.years}</small><h3><Bilingual value={era.title} lang={lang}/></h3><span className="editorial-caption">{choose(asset.title,lang)}</span><ArrowUpRight size={18}/></div></button>;})}</div>
   </section>
   <section className="editorial-gallery content-width" aria-labelledby="city-gallery-title">
    <header className="hub-section-heading"><h2 id="city-gallery-title">{tx('城市与诗词','都市と詩詞')}</h2><a className="text-button" href={cityAtlasPath(lang)}>{tx('城市探索','都市探索')}<ArrowRight size={16}/></a></header>

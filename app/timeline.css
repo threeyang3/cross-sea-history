@@ -86,3 +86,5 @@
 .atlas-plot.can-pan::after{content:'';position:absolute;inset:0 0 0 auto;width:18px;background:linear-gradient(90deg,transparent,#24443888);pointer-events:none;z-index:2}
 @media(max-width:900px){.compact-atlas-toolbar{position:relative;top:auto;flex-wrap:wrap}.compact-atlas-toolbar select{flex:1;max-width:none}.compact-atlas-toolbar .atlas-search{flex:1 1 200px}}
 @media(max-width:620px){.compact-atlas-toolbar{gap:6px}.compact-track button{padding:6px 8px}.compact-atlas-toolbar select{max-width:48%;font-size:11px}.compact-atlas-toolbar .atlas-search{flex-basis:120px}.compact-atlas-heading h1{max-width:none}}
+
+@media(max-width:620px){.compact-atlas-filter[open]{position:static}.compact-filter-panel{position:absolute;right:0;top:100%;max-width:100%}}

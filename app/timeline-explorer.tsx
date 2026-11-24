@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Compass, Expand, Filter, History, List, MapPin, Minus, MoveHorizontal, NotebookPen, Plus, Search, Star, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, ChevronLeft, ChevronRight, Compass, Expand, Filter, List, MapPin, Minus, MoveHorizontal, NotebookPen, Plus, Search, Star, X } from 'lucide-react';
 import type { Lang, Pair } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset, getLesson } from './content';
@@ -54,6 +54,7 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  const [category,setCategory]=useState<'all'|TimelineCategory>('all');
  const [query,setQuery]=useState('');const [featuredOnly,setFeaturedOnly]=useState(false);
  const [mode,setMode]=useState<'axis'|'cards'>('axis');
+ const [helpOpen,setHelpOpen]=useState(false);
  const [selectedId,setSelectedId]=useState(initialEventId);
  const [detailOpen,setDetailOpen]=useState(false);
  const [clusterChoice,setClusterChoice]=useState<HistoricalEvent[]>([]);
@@ -75,6 +76,10 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  },[track]);
  useEffect(()=>{
   if(!initialEventId){setDetailOpen(false);return;}
+  if(initialEventId.startsWith('period-')){
+   const target=timelinePeriods[track].find(period=>period.id===initialEventId.slice(7));
+   if(target){setPeriodId(target.id);setRange([yearCoordinate(target.start),yearCoordinate(target.end)]);setSelectedId('');setDetailOpen(false);return;}
+  }
   const event=historicalEvents.find(e=>e.id===initialEventId&&e.track===track);if(!event)return;
   setSelectedId(event.id);setDetailOpen(true);
   setRange(previous=>{
@@ -101,7 +106,6 @@ export function TimelineExplorer({lang,track,initialEventId='',onTrackChange,onS
  const xPosition=(year:number)=>54+(yearCoordinate(year)-range[0])/span*(plotWidth-108);
  const ticks=tickYears(range,plotWidth);
  const rangeLabel=`${formatYear(coordinateYear(range[0]),lang==='ja')} — ${formatYear(coordinateYear(range[1]),lang==='ja')}`;
- const [helpOpen,setHelpOpen]=useState(false);
  const otherTrack:TimelineTrack=track==='china'?'exchange':'china';
  const contextEvent=detailOpen?readingEvent:selected;
  const related=contextEvent?historicalEvents.filter(e=>e.track===otherTrack&&Math.abs(e.start-contextEvent.start)<=(contextEvent.start>=1840?15:60)).sort((a,b)=>Math.abs(a.start-contextEvent.start)-Math.abs(b.start-contextEvent.start)).slice(0,3):[];
