@@ -182,7 +182,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
         {!article && <div className="reading-load" role="status">{error ? <><h2>{tx('正文暂时未能载入', '本文を読み込めませんでした')}</h2><p>{tx('请重试，或通过下面的资料入口继续阅读。', 'もう一度お試しください。出典から読み進めることもできます。')}</p><button className="button primary" onClick={retryArticle}>{tx('重新载入正文', '本文を再読み込み')}</button>{bibliography.map(source => <a key={source.id} href={source.url} target="_blank" rel="noreferrer">{t(source.title)}<ArrowUpRight size={13} /></a>)}</> : <><span className="reading-load-dot" />{tx('正在展开这段历史…', '歴史の背景を開いています…')}</>}</div>}
         {article && <>
           <div className="reading-thesis"><span>{tx('这一篇要理解', 'この記事で考えること')}</span><p><Bilingual value={article.thesis} lang={lang} /></p></div>
-          {asset && <figure className={'reading-figure ' + (asset.width < asset.height ? 'reading-portrait ' : '') + (imageExpanded ? 'expanded' : '')}>
+          {asset && <figure className={'reading-figure' + (imageExpanded ? ' expanded' : '')}>
             <button className="reading-image" onClick={() => setImageExpanded(value => !value)} aria-expanded={imageExpanded} aria-label={tx('切换图片观察尺寸', '画像の表示サイズを切り替える')}><img src={asset.src} width={asset.width} height={asset.height} alt={t(asset.alt)} /><span>{imageExpanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}{imageExpanded ? tx('收起图像', '小さく表示') : tx('展开观察', '大きく見る')}</span></button>
             <figcaption><span className="reading-image-type">{tx('相关实物与地点', '関連する資料と場所')}</span><Bilingual value={asset.caption} lang={lang} /><Credit asset={asset} lang={lang} /></figcaption>
           </figure>}

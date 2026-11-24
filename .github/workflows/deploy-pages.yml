@@ -6,7 +6,7 @@ on:
       - 'app/**'
       - 'hooks/**'
       - 'public/**'
-      - 'pages/**'
+      - 'github-pages/**'
       - 'package.json'
       - 'package-lock.json'
       - 'vite.pages.config.ts'
