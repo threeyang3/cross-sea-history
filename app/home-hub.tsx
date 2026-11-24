@@ -101,7 +101,7 @@ export function HomeHub({lang,onNavigate,onOpenEvent}:HubProps){
  const tx=(zh:string,ja:string)=>lang==='ja'?ja:zh;
  const hero=getAsset('qinglong')!;
  const eras=[
-  {id:'tang',title:p('隋唐','隋唐'),years:'581–907',image:'daming',view:'tang' as const},
+  {id:'tang',title:p('隋唐','隋唐'),years:'581–907',image:'met-tang-camel',view:'tang' as const},
   {id:'song',title:p('宋元与海上交流','宋元と海上交流'),years:'908–1367',image:'met-longquan-bowl',view:'timeline' as const},
   {id:'ming',title:p('明清','明清'),years:'1368–1912',image:'met-nagasaki-ships',view:'ming' as const}
  ];

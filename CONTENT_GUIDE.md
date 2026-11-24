@@ -50,3 +50,8 @@
 - `app/data/museum-images.json` 登记 Met Open Access 已核实公版藏品（馆藏号、作者、年代、双语图注、原图与许可），与旧图像登记表分开，避免把远程资源误记为已下载文件。图像不等于事件实证；后世比较、实物及诗意参照必须明确区分。
 - `app/museum-images.tsx` 维护显式的诗词和事件关联，禁止按关键词给历史条目随机配图。新增资源需确认馆藏页的 Public Domain 标记。
 - 当前允许浏览器懒加载馆方已核验图像，加载失败显示作品名和馆藏链接。推荐在可联网的开发机执行 `python -m pip install Pillow` 和 `python scripts/import-museum-images.py`，核对公开许可及馆藏号，等比转换 WebP，不裁剪；生成的 `public/images/museum/` 和 `app/data/museum-local.json` 一起提交。导入后优先读取本地图像；不要求构建环境联网。缓存记录含尺寸和 SHA-256。
+
+### 图像关联与回归检查
+
+- 博物馆资源与作品关联集中在 `app/data/museum-links.json`，分诗词、事件、专题。无合适史料的条目保留文字，不使用无关图片。馆藏信息及图注保持双语；图像库统一展示在摘记的来源页。
+- `npm run check:ui` 检查图像记录、引用、缓存文件校验和以及所有 app TypeScript/TSX 文件的语法；其后运行 `npm run lint`、`npm run build` 并实际检查移动端与键盘操作。检查不需要联网。导图可用 `--id <资产ID>` 逐张执行，避免重复下载。

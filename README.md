@@ -13,6 +13,7 @@ Use Node.js 22.13+:
 ```sh
 npm run install:ci
 npm run dev
+npm run check:ui
 npm run lint
 npm run build
 ```
@@ -159,4 +160,4 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 ## Museum artwork library
 
-Eight verified public-domain Met collection records are curated in `app/data/museum-images.json`. Their source and licensing links remain visible, and the site distinguishes contextual artwork from direct historical evidence. For self-hosting, install Pillow and run `python scripts/import-museum-images.py` on a network-enabled development machine, then commit the generated WebP files and `app/data/museum-local.json`. Until that import is performed, the site lazy-loads the verified museum image URLs with a text fallback. No download is required at build time.
+Sixteen verified public-domain Met collection records are curated in `app/data/museum-images.json`. Their source and licensing links remain visible, and the site distinguishes contextual artwork from direct historical evidence. For self-hosting, install Pillow and run `python scripts/import-museum-images.py` on a network-enabled development machine, then commit the generated WebP files and `app/data/museum-local.json`. Until that import is performed, the site lazy-loads the verified museum image URLs with a text fallback. No download is required at build time.

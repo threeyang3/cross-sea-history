@@ -18,8 +18,12 @@ cache_path = root / "app/data/museum-local.json"
 cache = json.loads(cache_path.read_text())
 parser = argparse.ArgumentParser()
 parser.add_argument("--refresh", action="store_true")
+parser.add_argument("--id", action="append", help="Import only selected registered asset IDs; repeat as needed.")
 args = parser.parse_args()
 errors = []
+known = {r['id'] for r in records}
+if args.id and set(args.id) - known:
+    parser.error('Unknown image IDs: ' + ', '.join(set(args.id) - known))
 def fetch(url, limit):
     req = Request(url, headers={"User-Agent": "cross-sea-history educational asset import/1.0"})
     with urlopen(req, timeout=30) as response:
@@ -32,6 +36,8 @@ def fetch(url, limit):
 
 for record in records:
     rid = record["id"]
+    if args.id and rid not in args.id:
+        continue
     dest = root / "public" / record["localFile"].lstrip("/")
     try:
         if not args.refresh and rid in cache and dest.is_file():
@@ -42,7 +48,9 @@ for record in records:
         meta = json.loads(fetch(f'https://collectionapi.metmuseum.org/public/collection/v1/objects/{record["objectId"]}', 2_000_000))
         if meta.get("isPublicDomain") is not True or meta.get("objectID") != record["objectId"] or meta.get("objectNumber") != record["accession"]:
             raise ValueError("public-domain or accession check failed")
-        image = ImageOps.exif_transpose(Image.open(io.BytesIO(fetch(record["originalFileURL"], 30_000_000)))).convert("RGB")
+        # Use the exact inspected view; do not silently substitute the object API primary image.
+        with Image.open(io.BytesIO(fetch(record["originalFileURL"], 30_000_000))) as source:
+            image = ImageOps.exif_transpose(source).convert("RGB")
         image.thumbnail((1800, 1800), Image.Resampling.LANCZOS)
         out = io.BytesIO()
         image.save(out, "WEBP", quality=85, method=6)

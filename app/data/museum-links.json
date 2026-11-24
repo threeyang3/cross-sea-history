@@ -1,0 +1,75 @@
+{
+  "poems": {
+    "jiang-jin-jiu": [
+      "met-li-bai-cup",
+      "met-li-bai-flask"
+    ],
+    "jing-ye-si": [
+      "met-moon-landscape"
+    ],
+    "jiang-xue": [
+      "met-river-hamlet"
+    ],
+    "huang-he-lou": [
+      "met-willow-boat"
+    ],
+    "feng-qiao-ye-bo": [
+      "met-river-hamlet"
+    ],
+    "ru-meng-ling-stream": [
+      "met-willow-boat"
+    ],
+    "shui-diao-ge-tou": [
+      "met-ma-yuan-plum",
+      "met-moon-landscape"
+    ],
+    "chun-xiao": [
+      "met-huizong-birds"
+    ],
+    "bu-suan-zi-plum": [
+      "met-ma-yuan-plum"
+    ]
+  },
+  "events": {
+    "cn-tang-poetry-farewell": [
+      "met-willow-boat"
+    ],
+    "cj-sinan-shipwreck": [
+      "met-longquan-bowl",
+      "met-yuan-jar"
+    ],
+    "cj-nagasaki-restrictions": [
+      "met-nagasaki-ships",
+      "met-nagasaki-1859"
+    ],
+    "cj-tojin-yashiki": [
+      "met-nagasaki-1859"
+    ],
+    "cj-eisai-return": [
+      "met-shiren-sugar"
+    ],
+    "cj-lanxi-arrival": [
+      "met-shiren-sugar",
+      "met-daruma-reed"
+    ],
+    "cj-mugaku-arrival": [
+      "met-shiren-sugar"
+    ],
+    "cj-yinyuan-arrival": [
+      "met-daruma-reed"
+    ],
+    "cn-canton-trade1757": [
+      "met-export-plate"
+    ]
+  },
+  "topics": {
+    "ming": [
+      "met-ming-scholar-tray",
+      "met-export-plate",
+      "met-nagasaki-ships"
+    ],
+    "tang": [
+      "met-tang-camel"
+    ]
+  }
+}
