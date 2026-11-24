@@ -23,3 +23,7 @@ npm run build:pages
 ## 个人数据
 
 原 Sites 与 GitHub Pages 不同源，浏览器 localStorage 不会自动迁移。发布前从原站导出个人摘记；本站的源代码与构建均不包含个人本地记录。部署新的静态站不会修改原 Sites。
+
+## PR 首次验证
+
+添加 `prepare-pages` 标签触发本分支的一次真实静态构建、Chromium 交互回归和图像入库。只有验证成功，独立写权限任务才会把已核验的图像及 SHA-256 登记提交至原 PR 分支；不会强制推送、自动合并或发布 PR。正式部署只从 main 发布。
