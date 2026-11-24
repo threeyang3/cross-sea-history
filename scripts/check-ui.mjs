@@ -87,4 +87,8 @@ for(const file of scan('app').filter(file=>/\.tsx?$/.test(file)&&!file.endsWith(
  assert.equal(tree.parseDiagnostics.length,0, file+': '+tree.parseDiagnostics.map(d=>ts.flattenDiagnosticMessageText(d.messageText,'\n')).join('; ')); parsed++;
 }
 console.log(`UI checks passed: ${records.length} museum records, ${Object.keys(links.poems).length} poems, ${Object.keys(links.events).length} events, ${Object.keys(cached).length} local museum assets, ${parsed} TypeScript files parsed.`);
-if(Object.keys(cached).length < records.length)console.warn('Some museum artwork is still remote-only; localize with scripts/import-museum-images.py before offline deployment.');
+const missingLocal=records.filter(record=>!cached[record.id]).map(record=>record.id);
+if(missingLocal.length){
+ console.warn('Remote-only museum artwork: '+missingLocal.join(', '));
+ if(process.argv.includes('--require-local'))throw new Error('Release requires all registered museum images locally imported.');
+}

@@ -169,3 +169,7 @@ The existing 19 teaching diagrams are preserved. The second batch adds 16 biling
 ## Reading navigation
 
 Historical articles now provide a section-aware sidebar, a persistent mobile contents menu, scroll-position indicator, and a return-to-citation control. Jumps are confined to the article dialog; reading position is in memory only, not a new personal-data record. Run `npm run check:reader` for dependency-free geometry tests.
+
+## Release verification
+
+See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) for local image import, a one-command build gate, mobile/desktop browser checks, and the boundary between GitHub and Sites publication. `npm run verify:release -- --require-local` requires every registered museum image to be cached; no deployment or background sync is triggered.

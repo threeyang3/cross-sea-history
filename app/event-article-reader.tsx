@@ -124,12 +124,21 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   },[article,event.id,lang]);
 
   useEffect(()=>{
-    if(tocOpen){
-      (mobileToc.current?.querySelector<HTMLElement>('[aria-current="location"]')??mobileToc.current?.querySelector<HTMLElement>('button'))?.focus({preventScroll:true});
+    if(!tocOpen)return;
+    const active=mobileToc.current?.querySelector<HTMLElement>('[aria-current="location"]')??mobileToc.current?.querySelector<HTMLElement>('button');
+    active?.focus({preventScroll:true});
+    if(active&&mobileToc.current){
+      const menu=mobileToc.current;
+      menu.scrollTop=Math.max(0,active.offsetTop-menu.clientHeight/2+active.offsetHeight/2);
     }
     const wide=window.matchMedia('(min-width:901px)');
     const closeOnWide=()=>{if(wide.matches)setTocOpen(false);};
-    wide.addEventListener('change',closeOnWide);return()=>wide.removeEventListener('change',closeOnWide);
+    const dismiss=(e:PointerEvent)=>{
+      if(e.target instanceof Node&&!mobileToc.current?.contains(e.target)&&!tocToggle.current?.contains(e.target))setTocOpen(false);
+    };
+    wide.addEventListener('change',closeOnWide);
+    document.addEventListener('pointerdown',dismiss);
+    return()=>{wide.removeEventListener('change',closeOnWide);document.removeEventListener('pointerdown',dismiss);};
   },[tocOpen]);
   const tocEntries=()=>sections.map((section,index)=><button key={section.id} type="button" aria-current={position.activeId===section.id?'location':undefined} onClick={()=>jump(section.id)}><small>{String(index+1).padStart(2,'0')}</small><span>{t(section.title)}</span></button>);
 
@@ -142,14 +151,14 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   }
 
   return <article ref={root} className={'history-reader ' + (lang === 'bi' ? 'reading-bilingual' : '')}>
-    <div className="reader-toolbar" ref={toolbar}>
+    <div className="reader-toolbar" ref={toolbar} onKeyDown={e=>{if(tocOpen&&e.key==='Escape'){e.preventDefault();e.stopPropagation();setTocOpen(false);tocToggle.current?.focus();}}}>
       <button className="reader-back" onClick={onClose}><ArrowLeft size={16} />{tx('返回时间线', '年表に戻る')}</button>
       <span className="reader-mode"><BookOpen size={14} />{tx('专题阅读', 'テーマを読む')}</span>
       <button className="reader-toc-toggle" type="button" ref={tocToggle} aria-controls="reader-mobile-toc" aria-expanded={tocOpen} disabled={!sections.length} onClick={()=>setTocOpen(open=>!open)}><List size={17}/>{tx('目录','目次')}</button>
       <div className="reader-languages" aria-label={tx('阅读语言', '表示言語')}><Languages size={15} />{(['zh', 'ja', 'bi'] as const).map(value => <button key={value} aria-pressed={lang === value} onClick={() => onLanguageChange(value)}>{value === 'zh' ? '中文' : value === 'ja' ? '日本語' : tx('对照','対照')}</button>)}</div>
       {returnCitation&&<button type="button" className="reader-citation-return" onClick={returnFromCitation} title={tx('返回引用处','引用箇所に戻る')} aria-label={tx('返回引用处','引用箇所に戻る')}><ArrowLeft size={15}/><span>{tx('引用','引用')}</span></button>}
       <div className="reader-progress" role="progressbar" aria-label={tx('正文滚动位置','本文のスクロール位置')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={position.progress}><span style={{width:position.progress+'%'}}/></div>
-      {tocOpen&&<nav id="reader-mobile-toc" ref={mobileToc} className="reader-mobile-toc" aria-label={tx('本文目录','目次')} onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();setTocOpen(false);tocToggle.current?.focus();}}}>{tocEntries()}</nav>}
+      <nav id="reader-mobile-toc" ref={mobileToc} hidden={!tocOpen} className="reader-mobile-toc" aria-label={tx('本文目录','目次')}>{tocOpen&&tocEntries()}</nav>
     </div>
     <div className="reader-layout">
       <aside className="reader-toc" aria-label={tx('本文目录', '目次')}>

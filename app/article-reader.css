@@ -177,3 +177,5 @@
  .reading-pagination{padding-bottom:10px}
 }
 @media(max-width:360px){.reader-back{font-size:0}.reader-back svg{width:19px;height:19px}.reader-languages button{padding-inline:4px}.reader-toolbar{gap:4px}}
+
+.reader-mobile-toc[hidden]{display:none!important}
