@@ -38,6 +38,7 @@ for(const [id,entry] of Object.entries(cached)){
  assert(createHash('sha256').update(readFileSync(file)).digest('hex')===entry.sha256,'checksum mismatch '+id);
 }
 for(const match of read('app/home-hub.tsx').matchAll(/image:\s*'(met-[^']+)'/g))assert(known.has(match[1]),'unknown gallery image '+match[1]);
+for(const file of ['app/home-hub.css','app/timeline.css'])assert(!/\.(?:site-header|header-inner|brand-seal|header-tools|languages|nav-menu|nav-group)\b/.test(read(file)),file+' should not override global navigation');
 const scan=(folder)=>readdirSync(folder,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?scan(path.join(folder,entry.name)):[path.join(folder,entry.name)]);
 let parsed=0;
 for(const file of scan('app').filter(file=>/\.tsx?$/.test(file)&&!file.endsWith('.d.ts'))){
