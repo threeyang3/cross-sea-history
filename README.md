@@ -165,3 +165,7 @@ Sixteen verified public-domain Met collection records are curated in `app/data/m
 ## Historical teaching diagrams
 
 The existing 19 teaching diagrams are preserved. The second batch adds 16 bilingual diagrams, including geographic reference maps, institutional comparisons, knowledge networks, and process views. Together these cover 40 historical event IDs. Data lives in `app/data/learning-visuals*.json`; all new diagram source IDs are checked against linked readings by `npm run check:ui`. Maps use simplified offline Natural Earth land outlines without modern administrative boundaries and explicitly distinguish approximate reference points from known historical routes.
+
+## Reading navigation
+
+Historical articles now provide a section-aware sidebar, a persistent mobile contents menu, scroll-position indicator, and a return-to-citation control. Jumps are confined to the article dialog; reading position is in memory only, not a new personal-data record. Run `npm run check:reader` for dependency-free geometry tests.

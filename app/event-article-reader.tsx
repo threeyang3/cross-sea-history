@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Clock3, FileText, Languages, MapPin, Maximize2, Minimize2, NotebookPen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Clock3, FileText, Languages, List, MapPin, Maximize2, Minimize2, NotebookPen } from 'lucide-react';
 import type { Lang, Pair, Source } from './content-types';
 import { pair as p } from './content-types';
 import { getAsset, getLesson, sources } from './content';
@@ -16,6 +16,7 @@ import { EventEraContext } from './event-era-context';
 import { cityAtlasPath } from './city-atlas-path';
 import cityAtlasLinks from './city-atlas-links.json';
 import { farewellPoem } from './poetry/data';
+import { readingPosition, readingTarget } from './reader-geometry.mjs';
 
 const sourceIndex = new Map<string, Source>([...sources, ...timelineSources, ...articleSources].map(source => [source.id, source]));
 
@@ -38,6 +39,13 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   const [attempt, setAttempt] = useState(0);
   const [imageExpanded, setImageExpanded] = useState(false);
   const root = useRef<HTMLElement>(null);
+  const toolbar = useRef<HTMLDivElement>(null);
+  const tocToggle = useRef<HTMLButtonElement>(null);
+  const mobileToc = useRef<HTMLElement>(null);
+  const citationOrigin = useRef<HTMLElement|null>(null);
+  const [tocOpen,setTocOpen]=useState(false);
+  const [position,setPosition]=useState({activeId:'overview',progress:0});
+  const [returnCitation,setReturnCitation]=useState(false);
   const meta = articleManifest[event.id];
   const asset = getAsset(event.imageId || '');
   const illustrations = eventMuseumAssets(event.id);
@@ -48,7 +56,8 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   useEffect(() => {
     let active = true;
     setArticle(null); setError(false); setImageExpanded(false);
-    root.current?.closest('.dialog')?.scrollTo({ top: 0 });
+    setTocOpen(false);setPosition({activeId:'overview',progress:0});setReturnCitation(false);citationOrigin.current=null;
+    root.current?.closest('.dialog')?.scrollTo({ top: 0,behavior:'instant' });
     loadEventArticle(event.id).then(value => { if (active) setArticle(value); }).catch(() => { if (active) setError(true); });
     return () => { active = false; };
   }, [event.id, attempt]);
@@ -59,14 +68,28 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
     ...(article?.evidence.flatMap(evidence => evidence.sourceIds) || [])
   ])).filter(id => sourceIndex.has(id));
   const bibliography = usedIds.map(id => sourceIndex.get(id)!);
-  const jump = (id: string) => {
-    const target = root.current?.querySelector<HTMLElement>(`[data-reading-section="${id}"]`);
-    target?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
-    target?.querySelector<HTMLElement>('h2, h3')?.focus({ preventScroll: true });
-  };
+  // Work in the dialog's own coordinate system. A jump must not scroll the page behind it.
+  function scrollToTarget(target:HTMLElement,focus?:HTMLElement){
+    const scroller=root.current?.closest<HTMLElement>('.dialog');
+    if(!scroller)return;
+    const top=readingTarget({scrollTop:scroller.scrollTop,targetTop:target.getBoundingClientRect().top,scrollerTop:scroller.getBoundingClientRect().top,toolbarHeight:toolbar.current?.offsetHeight??70,scrollHeight:scroller.scrollHeight,clientHeight:scroller.clientHeight});
+    scroller.scrollTo({top,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+    focus?.focus({preventScroll:true});
+  }
+  function jump(id:string){
+    const target=Array.from(root.current?.querySelectorAll<HTMLElement>('[data-reading-section]')??[]).find(node=>node.dataset.readingSection===id);
+    if(!target)return;
+    setTocOpen(false);
+    scrollToTarget(target,target.querySelector<HTMLElement>('h1,h2,h3')??undefined);
+  }
+  function returnFromCitation(){
+    const origin=citationOrigin.current;
+    setReturnCitation(false);citationOrigin.current=null;
+    if(origin?.isConnected)scrollToTarget(origin,origin);
+  }
   const citations = (ids: string[]) => <span className="reading-citations" aria-label={tx('本节参考资料', 'この節の出典')}>{Array.from(new Set(ids)).map(id => {
     const index = usedIds.indexOf(id); const source = sourceIndex.get(id);
-    return index < 0 || !source ? null : <button key={id} onClick={() => jump(`source-${index}`)} title={t(source.title)} aria-label={`${tx('参考资料', '出典')} ${index + 1}: ${t(source.title)}`}>[{index + 1}]</button>;
+    return index < 0 || !source ? null : <button key={id} onClick={e=>{citationOrigin.current=e.currentTarget;setReturnCitation(true);jump(`source-${index}`);}} title={t(source.title)} aria-label={`${tx('参考资料', '出典')} ${index + 1}: ${t(source.title)}`}>[{index + 1}]</button>;
   })}</span>;
   const sections = article ? [
     { id: 'overview', title: p('问题与背景', '問いと見取り図') },
@@ -80,6 +103,36 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
     { id: 'practice', title: p('带着问题继续', '問いを次の学びへ') }
   ] : [];
 
+  useEffect(()=>{
+    const scroller=root.current?.closest<HTMLElement>('.dialog');
+    const body=root.current?.querySelector<HTMLElement>('.reader-body');
+    if(!scroller||!body)return;
+    const headings=Array.from(body.children).filter((child):child is HTMLElement=>child instanceof HTMLElement&&!!child.dataset.readingSection);
+    let frame=0;
+    const update=()=>{
+      frame=0;
+      const marker=scroller.getBoundingClientRect().top+(toolbar.current?.offsetHeight??70)+24;
+      const next=readingPosition({scrollTop:scroller.scrollTop,scrollHeight:scroller.scrollHeight,clientHeight:scroller.clientHeight,marker,sections:headings.map(node=>({id:node.dataset.readingSection!,top:node.getBoundingClientRect().top}))});
+      setPosition(old=>old.activeId===next.activeId&&old.progress===next.progress?old:next);
+    };
+    const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
+    const observer=new ResizeObserver(schedule);
+    observer.observe(body);observer.observe(scroller);
+    if(toolbar.current)observer.observe(toolbar.current);
+    scroller.addEventListener('scroll',schedule,{passive:true});schedule();
+    return()=>{observer.disconnect();scroller.removeEventListener('scroll',schedule);cancelAnimationFrame(frame);};
+  },[article,event.id,lang]);
+
+  useEffect(()=>{
+    if(tocOpen){
+      (mobileToc.current?.querySelector<HTMLElement>('[aria-current="location"]')??mobileToc.current?.querySelector<HTMLElement>('button'))?.focus({preventScroll:true});
+    }
+    const wide=window.matchMedia('(min-width:901px)');
+    const closeOnWide=()=>{if(wide.matches)setTocOpen(false);};
+    wide.addEventListener('change',closeOnWide);return()=>wide.removeEventListener('change',closeOnWide);
+  },[tocOpen]);
+  const tocEntries=()=>sections.map((section,index)=><button key={section.id} type="button" aria-current={position.activeId===section.id?'location':undefined} onClick={()=>jump(section.id)}><small>{String(index+1).padStart(2,'0')}</small><span>{t(section.title)}</span></button>);
+
   function takeQuestion() {
     const references = bibliography.slice(0, 3).map((source, index) => `${index + 1}. ${t(source.title)}\n${source.url}`).join('\n');
     onQuestion(p(
@@ -89,16 +142,20 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
   }
 
   return <article ref={root} className={'history-reader ' + (lang === 'bi' ? 'reading-bilingual' : '')}>
-    <div className="reader-toolbar">
+    <div className="reader-toolbar" ref={toolbar}>
       <button className="reader-back" onClick={onClose}><ArrowLeft size={16} />{tx('返回时间线', '年表に戻る')}</button>
       <span className="reader-mode"><BookOpen size={14} />{tx('专题阅读', 'テーマを読む')}</span>
-      <div className="reader-languages" aria-label={tx('阅读语言', '表示言語')}><Languages size={15} />{(['zh', 'ja', 'bi'] as const).map(value => <button key={value} aria-pressed={lang === value} onClick={() => onLanguageChange(value)}>{value === 'zh' ? '中文' : value === 'ja' ? '日本語' : '对照'}</button>)}</div>
+      <button className="reader-toc-toggle" type="button" ref={tocToggle} aria-controls="reader-mobile-toc" aria-expanded={tocOpen} disabled={!sections.length} onClick={()=>setTocOpen(open=>!open)}><List size={17}/>{tx('目录','目次')}</button>
+      <div className="reader-languages" aria-label={tx('阅读语言', '表示言語')}><Languages size={15} />{(['zh', 'ja', 'bi'] as const).map(value => <button key={value} aria-pressed={lang === value} onClick={() => onLanguageChange(value)}>{value === 'zh' ? '中文' : value === 'ja' ? '日本語' : tx('对照','対照')}</button>)}</div>
+      {returnCitation&&<button type="button" className="reader-citation-return" onClick={returnFromCitation} title={tx('返回引用处','引用箇所に戻る')} aria-label={tx('返回引用处','引用箇所に戻る')}><ArrowLeft size={15}/><span>{tx('引用','引用')}</span></button>}
+      <div className="reader-progress" role="progressbar" aria-label={tx('正文滚动位置','本文のスクロール位置')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={position.progress}><span style={{width:position.progress+'%'}}/></div>
+      {tocOpen&&<nav id="reader-mobile-toc" ref={mobileToc} className="reader-mobile-toc" aria-label={tx('本文目录','目次')} onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();setTocOpen(false);tocToggle.current?.focus();}}}>{tocEntries()}</nav>}
     </div>
     <div className="reader-layout">
       <aside className="reader-toc" aria-label={tx('本文目录', '目次')}>
 
         <strong>{tx('在这一篇里', 'この記事の中で')}</strong>
-        <nav>{sections.map((section, index) => <button key={section.id} onClick={() => jump(section.id)}><small>{String(index + 1).padStart(2, '0')}</small><span>{t(section.title)}</span></button>)}</nav>
+        <nav aria-label={tx('本文目录','目次')}>{tocEntries()}</nav>
 
       </aside>
       <div className="reader-body" aria-busy={!article && !error}>
@@ -144,6 +201,7 @@ export function EventArticleReader({ event, lang, related, previous, next, onClo
           <section className="reading-section reading-bibliography" data-reading-section="references">
 
             <h2 tabIndex={-1}>{tx('回到参考资料', '参考資料に戻る')}</h2>
+            
             <p className="reading-source-note">{tx('正文是一份导读。每项资料都标明用途；机构介绍、原始记录与研究文章的证据性质各不相同。引用时请核对原文与版本。', '本文は学習の手引きです。各資料の用途を示しています。機関の解説、原記録、研究論文では証拠の性格が異なります。引用する際は原文と版を確認してください。')}</p>
             <ol>{bibliography.map((source, index) => <li key={source.id} data-reading-section={`source-${index}`}><span className="bibliography-index">{index + 1}</span><div><h3 tabIndex={-1}><a href={source.url} target="_blank" rel="noreferrer"><Bilingual value={source.title} lang={lang} /><ArrowUpRight size={15} /></a></h3><span className="source-type">{t(source.kind)} · {source.language === 'ja' ? tx('日文', '日本語') : source.language === 'zh' ? tx('中文', '中国語') : source.language === 'en' ? tx('英文', '英語') : source.language}</span><p><Bilingual value={source.claim} lang={lang} /></p><small className="source-domain">{new URL(source.url).hostname}</small></div></li>)}</ol>
             {meta && <small className="reading-review-date">{tx('内容校核日期', '内容確認日')}：{meta.reviewedAt}</small>}

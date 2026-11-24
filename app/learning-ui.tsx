@@ -18,10 +18,40 @@ export function Photo({ asset, lang, onOpen, priority = false, className = '', c
   if (!asset) return null;
   return <figure className={'photo '+className}><button className="photo-open" onClick={()=>onOpen(asset.id)} aria-label={(lang==='ja'?'画像を拡大：':'放大图片：')+choose(asset.title,lang)}><img src={asset.src} alt={choose(asset.alt,lang)} width={asset.width} height={asset.height} loading={priority?'eager':'lazy'} decoding="async"/><span className="zoom-hint"><Maximize2 size={15}/>{lang==='ja'?'拡大':'放大观察'}</span></button>{caption && <figcaption><Bilingual value={asset.caption} lang={lang}/><Credit asset={asset} lang={lang}/></figcaption>}</figure>;
 }
+// Keep the document locked until the last modal closes. Only the top modal
+// handles Escape and Tab; a nested overlay must not unlock its parent.
+const dialogStack:HTMLElement[]=[];
+let savedBodyOverflow='';
+const focusable=(root:HTMLElement)=>Array.from(root.querySelectorAll<HTMLElement>('button,a[href],input,textarea,select,summary,[tabindex]')).filter(el=>el.tabIndex>=0&&!el.matches(':disabled')&&!el.closest('[inert]')&&el.getClientRects().length>0);
 export function Dialog({ title, children, onClose, className='' }: {title:string; children:React.ReactNode; onClose:()=>void; className?:string}) {
   const box=useRef<HTMLElement>(null); const close=useRef(onClose); close.current=onClose; const id=useId();
-  useEffect(()=>{ const before=document.activeElement as HTMLElement|null; const previousOverflow=document.body.style.overflow; document.body.style.overflow='hidden'; const root=box.current; (root?.querySelector('input, button') as HTMLElement)?.focus(); const key=(e:KeyboardEvent)=>{ if(e.key==='Escape'){e.preventDefault();close.current();} if(e.key==='Tab'&&root){const targets=Array.from(root.querySelectorAll<HTMLElement>('button, a[href], input, textarea, select, [tabindex="0"]')).filter(el=>!el.hasAttribute('disabled')&&el.getClientRects().length);if(!targets.length)return;const first=targets[0], last=targets[targets.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}} }; document.addEventListener('keydown',key);return()=>{document.body.style.overflow=previousOverflow;document.removeEventListener('keydown',key);before?.focus();}; },[]);
-  return <div className="modal-backdrop" onClick={onClose}><section ref={box} className={'dialog '+className} role="dialog" aria-modal="true" aria-labelledby={id} onClick={e=>e.stopPropagation()}><button className="dialog-close" aria-label="关闭 / 閉じる" onClick={onClose}><X size={21}/></button><h2 id={id}>{title}</h2>{children}</section></div>;
+  useEffect(()=>{
+    const root=box.current;if(!root)return;
+    const before=document.activeElement instanceof HTMLElement?document.activeElement:null;
+    if(!dialogStack.length){savedBodyOverflow=document.body.style.overflow;document.body.style.overflow='hidden';}
+    dialogStack.push(root);
+    (focusable(root)[0]??root).focus({preventScroll:true});
+    const key=(e:KeyboardEvent)=>{
+      if(e.defaultPrevented||dialogStack[dialogStack.length-1]!==root)return;
+      if(e.key==='Escape'){e.preventDefault();close.current();return;}
+      if(e.key!=='Tab')return;
+      const targets=focusable(root);
+      if(!targets.length){e.preventDefault();root.focus({preventScroll:true});return;}
+      const first=targets[0],last=targets[targets.length-1],active=document.activeElement;
+      if(!root.contains(active)){e.preventDefault();(e.shiftKey?last:first).focus();}
+      else if(e.shiftKey&&(active===first||active===root)){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&active===last){e.preventDefault();first.focus();}
+    };
+    document.addEventListener('keydown',key);
+    return()=>{
+      document.removeEventListener('keydown',key);
+      const wasTop=dialogStack[dialogStack.length-1]===root;
+      const index=dialogStack.indexOf(root);if(index>=0)dialogStack.splice(index,1);
+      if(!dialogStack.length)document.body.style.overflow=savedBodyOverflow;
+      if(wasTop&&before?.isConnected)before.focus({preventScroll:true});
+    };
+  },[]);
+  return <div className="modal-backdrop" onClick={onClose}><section ref={box} className={'dialog '+className} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby={id} onClick={e=>e.stopPropagation()}><button className="dialog-close" aria-label="关闭 / 閉じる" onClick={onClose}><X size={21}/></button><h2 id={id}>{title}</h2>{children}</section></div>;
 }
 export function ImageViewer({ images, selected, lang, onChange, onClose }: {images:Asset[];selected:string;lang:Lang;onChange:(id:string)=>void;onClose:()=>void}) {
   const index=images.findIndex(i=>i.id===selected);const asset=images[index]; const [zoom,setZoom]=useState(false);
