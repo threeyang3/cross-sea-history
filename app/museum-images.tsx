@@ -6,6 +6,7 @@ import { Bilingual, choose } from './learning-ui';
 import records from './data/museum-images.json';
 import local from './data/museum-local.json';
 import links from './data/museum-links.json';
+import { sitePath } from './site-path';
 
 export type MuseumAsset = {id:string;objectId:number;accession:string;date:string;title:Pair;author:string;caption:Pair;alt:Pair;width:number;height:number;sourcePage:string;originalFileURL:string;license:string;licenseURL:string;verifiedAt:string;localFile:string};
 export const museumAssets = records as MuseumAsset[];
@@ -22,9 +23,10 @@ export const topicMuseumAssets=(id:string)=>resolve(topicLinks[id]);
 export function MuseumImage({asset,lang,className=''}:{asset:MuseumAsset;lang:Lang;className?:string}){
  const [failedSource,setFailedSource]=useState<string>();
  const cached=localFiles[asset.id];
- const src=cached&&failedSource!==cached.src?cached.src:asset.originalFileURL;
+ const localSrc=cached?sitePath(cached.src):undefined;
+ const src=localSrc&&failedSource!==localSrc?localSrc:asset.originalFileURL;
  if(failedSource===asset.originalFileURL)return <span className={'museum-image-unavailable '+className} role="img" aria-label={choose(asset.alt,lang)}>{choose(asset.title,lang)}</span>;
- const size=src===cached?.src?cached:asset;
+ const size=cached&&src===localSrc?cached:asset;
  return <img key={src} className={className} src={src} width={size.width} height={size.height} alt={choose(asset.alt,lang)} loading="lazy" decoding="async" referrerPolicy="no-referrer" onError={()=>setFailedSource(src)}/>;
 }
 export function MuseumCredit({asset,lang}:{asset:MuseumAsset;lang:Lang}){

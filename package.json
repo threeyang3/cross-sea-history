@@ -14,7 +14,8 @@
     "db:generate": "drizzle-kit generate",
     "check:ui": "node scripts/check-ui.mjs",
     "check:reader": "node --test scripts/test-reader-geometry.mjs",
-    "verify:release": "node scripts/verify-release.mjs"
+    "verify:release": "node scripts/verify-release.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

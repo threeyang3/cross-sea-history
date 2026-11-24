@@ -173,3 +173,7 @@ Historical articles now provide a section-aware sidebar, a persistent mobile con
 ## Release verification
 
 See [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) for local image import, a one-command build gate, mobile/desktop browser checks, and the boundary between GitHub and Sites publication. `npm run verify:release -- --require-local` requires every registered museum image to be cached; no deployment or background sync is triggered.
+
+## GitHub Pages (static target)
+
+The same bilingual content and client components can also be built without a Cloudflare Worker: `npm run build:pages` outputs `dist-pages/`. The default base is `/cross-sea-history/`; override `PAGES_BASE_PATH=/` for a root site. The city-atlas HTML is generated from the same template, data, and scripts as Sites. See [GitHub Pages deployment](docs/PAGES_DEPLOYMENT.md). Personal notes are browser-local and are not transferred from the original Sites origin.
