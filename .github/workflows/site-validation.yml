@@ -1,0 +1,61 @@
+name: Site release validation (on demand)
+
+on:
+  pull_request:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      localize_images:
+        description: Import registered Met images into a temporary validation workspace
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' || github.event.label.name == 'validate-site' || github.event.label.name == 'validate-site-assets'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      LOCALIZE_IMAGES: ${{ (github.event_name == 'workflow_dispatch' && inputs.localize_images) || github.event.label.name == 'validate-site-assets' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm run install:ci
+      - name: Verify reader and UI
+        run: |
+          npm run check:reader
+          npm run check:ui
+      - name: Localize museum images (opt in)
+        if: env.LOCALIZE_IMAGES == 'true'
+        run: |
+          python -m pip install Pillow
+          python scripts/import-museum-images.py
+          python scripts/import-museum-images.py --check
+          npm run check:ui -- --require-local
+      - name: Lint and build
+        run: |
+          npm run lint
+          npm run build
+      - name: Preserve verified imported images for manual review
+        if: env.LOCALIZE_IMAGES == 'true' && success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: museum-images-localized
+          path: |
+            public/images/museum/
+            app/data/museum-local.json
+          if-no-files-found: error
+          retention-days: 7
